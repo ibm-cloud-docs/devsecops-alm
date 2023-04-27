@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-04-20"
+lastupdated: "2023-04-27"
 
 keywords: devsecops-alm, deployment guide, deployable architecture
 
@@ -283,7 +283,7 @@ Set these parameters to `true` to use a {{site.data.keyword.keymanagementservice
 | `ci_pipeline_config_repo_existing_url`  | Specify a repository that contains a custom `pipeline-config.yaml` file. | `string` | `""` |
 | `ci_pipeline_config_repo_git_token_secret_name` | Name of the Git token secret in the secret provider. | `string` | `"git-token"` |
 | `ci_pipeline_debug` | `0` by default. Set to `1` to enable debug logging. | `string` | `"0"` |
-| `ci_pipeline_dockerconfigjson_secret_name` | Name of the pipeline docker config json secret in the secret provider.| `string` | `"pipeline_dockerconfigjson_secret_name"` |
+| `ci_pipeline_dockerconfigjson_secret_name` | Name of the pipeline docker config JSON secret in the secret provider.| `string` | `"pipeline_dockerconfigjson_secret_name"` |
 | `ci_pipeline_ibmcloud_api_key_secret_name` | Name of the Cloud API key secret in the secret provider. | `string` | `"ibmcloud-api-key"` |
 | `ci_registry_namespace` | A unique namespace within the {{site.data.keyword.cloud}} Container Registry region where the application image is stored. | `string` | `""` |
 | `ci_registry_region` | The {{site.data.keyword.cloud}} Region where the {{site.data.keyword.cloud}} Container Registry namespace is to be created. | `string` | `"ibm:yp:us-south"` |
@@ -408,7 +408,7 @@ Set these parameters to `true` to use a {{site.data.keyword.keymanagementservice
 | `cc_app_group` | Specify user or group for app repo. | `string` | `""` |
 | `cc_app_repo_auth_type` | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `oauth` |
 | `cc_app_repo_branch` | The default branch of the app repo. | `string` | `"master"` |
-| `cc_app_repo_git_id` | The Git ID of the repository. | `string` | `""` |
+| `cc_app_repo_git_id` | By default absent, otherwise use the custom server GUID, or other options for `git_id` field in the browser UI.  | `string` | `""` |
 | `cc_app_repo_git_provider` | The type of the Git provider. | `string` | `"hostedgit"` |
 | `cc_app_repo_git_token_secret_name` | Name of the Git token secret in the secret provider. | `string` | `"git-token"` |
 | `cc_app_repo_url` | The Git URL for the application repository. | `string` | `""` |
@@ -447,7 +447,7 @@ Set these parameters to `true` to use a {{site.data.keyword.keymanagementservice
 | `cc_pipeline_config_repo_existing_url` | Specify a repository that contains a custom `pipeline-config.yaml` file. | `string` | `""` |
 | `cc_pipeline_config_repo_git_token_secret_name` | Name of the Git token secret in the secret provider. | `string` | `"git-token"` |
 | `cc_pipeline_debug` | `0` by default. Set to `1` to enable debug logging. | `string` | `"0"` |
-| `cc_pipeline_dockerconfigjson_secret_name` | Name of the pipeline docker config json secret in the secret provider.| `string` | `"pipeline_dockerconfigjson_secret_name"` |
+| `cc_pipeline_dockerconfigjson_secret_name` | Name of the pipeline docker config JSON secret in the secret provider.| `string` | `"pipeline_dockerconfigjson_secret_name"` |
 | `cc_pipeline_ibmcloud_api_key_secret_name` | Name of the Cloud API key secret in the secret provider. | `string` | `"ibmcloud-api-key"` |
 | `cc_repositories_prefix` | The prefix for the compliance repositories. | `string` | `"compliance"` |
 | `cc_scc_enable_scc` | Enable the SCC integration. | `bool` | `true` |
