@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-04-20"
+lastupdated: "2023-04-28"
 
 keywords:
 
@@ -30,8 +30,8 @@ To deploy, follow these steps:
     1.  Name your project, enter a description, and specify a configuration name. Click **Create**.
 1.  Edit and validate the configuration:
     1.  Select your authentication method. You can use an existing secret in {{site.data.keyword.secrets-manager_short}} or add your API key directly. For more information, see [Using an API key or secret to authorize a project to deploy an architecture](/docs/secure-enterprise?topic=secure-enterprise-authorize-project).
-    1.  Enter values for other required fields from the **Required** tab. For more information on required fields, see [Required input parameters](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars#devsecops-alm-min).
-    1.  Optional: Specify other values from the **Optional** tab. For more information on optional values, see [Optional input parameters](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars#devsecops-alm-opt). 
+    1.  Enter values for other required fields from the **Required** tab. For more information about required fields, see [Required input variables](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars#devsecops-alm-min).
+    1.  Optional: Specify other values from the **Optional** tab. For more information about optional values, see [Optional input variables](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars#devsecops-alm-opt). 
     1.  Save the configuration.
     1.  Click **Validate**. Validation takes a few minutes
 

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-04-27"
+lastupdated: "2023-04-28"
 
 keywords: devsecops-alm, deployment guide, deployable architecture
 
@@ -18,14 +18,14 @@ subcollection: devsecops-alm
 Use the required variables to create toolchains for the out of the box experience. If required, use the optional variables to make other adjustments to your toolchains. 
 {: shortdesc}
 
-## Required input parameters
+## Required input variables
 {: #devsecops-alm-min}
 
-The required setup parameters to create toolchains for the out of the box experience are included in the following table. Change the default values to reflect the details of your own account. 
+The required setup variables to create toolchains for the out of the box experience are included in the following table. Change the default values to reflect the details of your own account. 
 
-You must specify all the CI, CD, and CC parameters. However, if you do not want to create a toolchain you can turn off the flag that creates the toolchain by using the parameters in Table 2.
+You must specify all the CI, CD, and CC variables. However, if you do not want to create a toolchain you can turn off the flag that creates the toolchain by using the variables in Table 2.
 
-The parameters prefixed with `ci`, `cd` and `cc` apply to the CI, CD, and CC toolchains respectively. Nonprefixed parameters apply to all the toolchains. Also, modifying the default values for the prefixed parameter inputs causes the prefixed parameters inputs to take precedence over nonprefixed parameter inputs. 
+The variables prefixed with `ci`, `cd` and `cc` apply to the CI, CD, and CC toolchains. Nonprefixed variables apply to all the toolchains. Also, modifying the default values for the prefixed variable inputs causes the prefixed variables inputs to take precedence over nonprefixed variable inputs. 
 {: note}
 
 | Parameter | Description |  Default | Values |
@@ -38,7 +38,7 @@ The parameters prefixed with `ci`, `cd` and `cc` apply to the CI, CD, and CC too
 |`toolchain_region`|{{site.data.keyword.cloud}} region where your toolchain is created.|`us-south`| `au-syd`, `eu-de`, `eu-fr2`, `eu-gb`, `jp-tok`, `jp-osa`, `ca-tor`, `br-sao`, `us-east`, or `us-south`. |
 |`toolchain_resource_group`|The resource group within which the toolchain is created.|`Default`|  |
 {: caption="Table 1. API key, secrets, and toolchain" caption-side="top"}
-{: #alm-other-parameters}
+{: #alm-other-variables}
 {: tab-title="API key, secrets, and toolchain"}
 {: tab-group="mandatory"}
 {: class="simple-tab-table"}
@@ -53,7 +53,7 @@ The parameters prefixed with `ci`, `cd` and `cc` apply to the CI, CD, and CC too
 |`ci_registry_region`|The {{site.data.keyword.cloud}} Region where the {{site.data.keyword.cloud}} Container Registry namespace is to be created.|`ibm:yp:us-south`|  |
 |`ci_toolchain_name`|The name of the CI toolchain. |`DevSecOps CI Toolchain - Terraform`|  |
 {: caption="Table 1. Continuous integration" caption-side="bottom"}
-{: #alm-ci-parameters}
+{: #alm-ci-variables}
 {: tab-title="Continuous integration"}
 {: tab-group="mandatory"}
 {: class="simple-tab-table"}
@@ -66,7 +66,7 @@ The parameters prefixed with `ci`, `cd` and `cc` apply to the CI, CD, and CC too
 |`cd_cluster_region`|Region of the Kubernetes cluster where the application is deployed.|`ibm:yp:us-south`|  |
 |`cd_toolchain_name`|The name of the CD toolchain. |`DevSecOps CD toolchain - Terraform`|  |
 {: caption="Table 1. Continuous deployment" caption-side="bottom"}
-{: #alm-cd-parameters}
+{: #alm-cd-variables}
 {: tab-title="Continuous deployment"}
 {: tab-group="mandatory"}
 {: class="simple-tab-table"}
@@ -75,24 +75,24 @@ The parameters prefixed with `ci`, `cd` and `cc` apply to the CI, CD, and CC too
 |------|-------------|------|--------|
 |`cc_toolchain_name`|The name of the CC toolchain. |`DevSecOps CC Toolchain - Terraform`|  |
 {: caption="Table 1. Continuous compliance" caption-side="bottom"}
-{: #alm-cc-parameters}
+{: #alm-cc-variables}
 {: tab-title="Continuous compliance"}
 {: tab-group="mandatory"}
 {: class="simple-tab-table"}
 
-## Optional input parameters
+## Optional input variables
 {: #devsecops-alm-opt}
 
-Use the optional setup parameters in Tables 5 to 19 to extend the out of the box experience. For example, if you want to integrate Slack notifications to your toolchains. 
+Use the optional setup variables in Tables 5 to 19 to extend the out of the box experience. For example, if you want to integrate Slack notifications to your toolchains. 
 
-### Toolchain creation parameters
+### Toolchain creation variables
 {: #devsecops-alm-tccreate}
 
-The following parameters determine which toolchains are created. By default all three are set to `true`, which creates the DevSecOps CI, CD and CC toolchains. Any combination of the three toolchains can be created. 
+The following variables determine which toolchains are created. By default all three are set to `true`, which creates the DevSecOps CI, CD and CC toolchains. Any combination of the three toolchains can be created. 
 
 | Name | Description | Type | Default |
 |------|-------------|------|---------|
-| `create_ci_toolchain` | Determines whether the DevSecOps CI toolchain is created. If this toolchain is not created, then values must be set for the following parameters: `evidence_repo_url`, `issues_repo_url`, and `inventory_repo_url`. | `bool` | `true` |
+| `create_ci_toolchain` | Determines whether the DevSecOps CI toolchain is created. If this toolchain is not created, then values must be set for the following variables: `evidence_repo_url`, `issues_repo_url`, and `inventory_repo_url`. | `bool` | `true` |
 | `create_cd_toolchain` | Boolean flag that determines whether the DevSecOps CD toolchain is created. | `bool` | `true` |
 | `create_cc_toolchain` | Boolean flag that determines whether the DevSecOps CC toolchain is created. | `bool` | `true` |
 {: caption="Table 2. toolchain creation" caption-side="top"}
@@ -100,7 +100,7 @@ The following parameters determine which toolchains are created. By default all 
 ### Compliance repositories
 {: #devsecops-alm-compl}
 
-If the CI toolchain is not created, you must set the following parameters.
+If the CI toolchain is not created, you must set the following variables.
 
 | Name | Description | Type | Default |
 |------|-------------|------|---------|
@@ -112,15 +112,15 @@ If the CI toolchain is not created, you must set the following parameters.
 ### Bring your own code
 {: #devsecops-alm-byoc}
 
-The default experience for the DevSecOps toolchains is to use a sample app. This default can be updated to create an integration for your own application repository, which can be set to either clone an existing repository or use an existing repository. Set the following parameters to clone or use an existing repository:
+The default experience for the DevSecOps toolchains is to use a sample app. This default can be updated to create an integration for your own application repository, which can be set to either clone an existing repository or use an existing repository. Set the following variables to clone or use an existing repository:
 
 | Name | Description | Type | Default |
 |------|-------------|------|---------|
-| `ci_app_repo_clone_from_branch` | Used when `app_repo_clone_from_url` is provided, the default branch that is used by the CI build, usually either main or master. | `string` | `""` |
+| `ci_app_repo_clone_from_branch` | Used when `app_repo_clone_from_url` is provided, the default branch that is used by the CI build, usually either `main` or `master`. | `string` | `""` |
 | `ci_app_repo_clone_from_url`| Override the default sample app by providing your own sample app URL, which is cloned into the app repo. If the app repo exists, use `clone_if_not_exists` to leave the repo contents unchanged. | `string` | `""` |
 | `ci_app_repo_clone_to_git_id` | By default absent, otherwise use custom server GUID, or other options for `git_id` field in the browser UI. | `string` | `""` |
 | `ci_app_repo_clone_to_git_provider` | By default `hostedgit`, otherwise use `githubconsolidated` or `gitlab`. | `string` | `""` |
-| `ci_app_repo_existing_branch` | Used when `app_repo_existing_url` is provided, the default branch that is used by the CI build, usually either main or master. | `string` | `""` |
+| `ci_app_repo_existing_branch` | Used when `app_repo_existing_url` is provided, the default branch that is used by the CI build, usually either `main` or `master`. | `string` | `""` |
 | `ci_app_repo_existing_git_id`  | By default absent, otherwise use custom server GUID, or other options for `git_id` field in the browser UI. | `string` | `""` |
 | `ci_app_repo_existing_git_provider`  | By default `hostedgit`, otherwise use `githubconsolidated` or `gitlab`. | `string` | `""` |
 | `ci_app_repo_existing_url`  | Override to bring your own existing application repository URL, which is used directly instead of cloning the default sample. | `string` | `""` |
@@ -158,12 +158,12 @@ To create an API key for the DevSecOps toolchains, see [{{site.data.keyword.clou
 |`ci_signing_key_secret_name`|Name of the signing key secret in the secret provider.|`"signing_key"`|
 {: caption="Table 6. Secret names" caption-side="top"}
 
-For more secret names, search for "secret_name" in the parameter list.
+For more secret names, search for "secret_name" in the variable list.
 
 ### {{site.data.keyword.keymanagementservicelong}}
 {: #devsecops-alm-keyprotect}
 
-Secrets Manager is the default secrets provider for the DevSecOps toolchains. However, you can use {{site.data.keyword.keymanagementserviceshort}} instead. Set the following parameters for {{site.data.keyword.keymanagementserviceshort}}. These parameters apply to the {{site.data.keyword.keymanagementserviceshort}} integration in all the DevSecOps toolchains that are created.
+Secrets Manager is the default secrets provider for the DevSecOps toolchains. However, you can use {{site.data.keyword.keymanagementserviceshort}} instead. Set the following variables for {{site.data.keyword.keymanagementserviceshort}}. These variables apply to the {{site.data.keyword.keymanagementserviceshort}} integration in all the DevSecOps toolchains that are created.
 
 | Name | Description | Type | Default |
 |------|-------------|------|---------|
@@ -172,7 +172,7 @@ Secrets Manager is the default secrets provider for the DevSecOps toolchains. Ho
 | `kp_resource_group` | The resource group that contains the {{site.data.keyword.keymanagementserviceshort}} instance for your secrets. | `string` | `"Default"` |
 {: caption="Table 7. {{site.data.keyword.keymanagementserviceshort}}" caption-side="top"}
 
-Alternatively, you can set the {{site.data.keyword.keymanagementserviceshort}} integration settings in individual toolchains by using the prefixed form of the parameters:
+Alternatively, you can set the {{site.data.keyword.keymanagementserviceshort}} integration settings in individual toolchains by using the prefixed form of the variables:
 
 | Name | Description | Type | Default |
 |------|-------------|------|---------|
@@ -190,7 +190,7 @@ Alternatively, you can set the {{site.data.keyword.keymanagementserviceshort}} i
 ### Switching between secrets providers
 {: #devsecops-alm-switchsecret}
 
-Secrets Manager is the default provider for the toolchains. Use the following parameters to switch between {{site.data.keyword.keymanagementserviceshort}} and Secrets Manager for each toolchain.
+Secrets Manager is the default provider for the toolchains. Use the following variables to switch between {{site.data.keyword.keymanagementserviceshort}} and Secrets Manager for each toolchain.
 
 Secrets providers can be switched across all the toolchains.
 
@@ -200,7 +200,7 @@ Secrets providers can be switched across all the toolchains.
 | `enable_secrets_manager` | Enable the Secrets Manager integrations. | `bool` | `true` |
 {: caption="Table 9. Secrets providers" caption-side="top"}
 
-Alternatively, you can switch secrets providers seperately for the different toolchains. The toolchain specific parameter defaults for the secrets providers, as outlined in the Table 10, are set to `false` by default. The parameters are grouped under Key Protect and Secrets Manager. All the parameters in a group take precendence if any parameter in that group is changed from the default value.
+Alternatively, you can switch secrets providers seperately for the different toolchains. The toolchain-specific variable defaults for the secrets providers, as outlined in the Table 10, are set to `false` by default. The variables are grouped under Key Protect and Secrets Manager. All the variables in a group take precendence if any variable in that group is changed from the default value.
 
 | Name | Description | Type | Default |
 |------|-------------|------|---------|
@@ -212,9 +212,9 @@ Alternatively, you can switch secrets providers seperately for the different too
 | `cc_enable_secrets_manager` | Enables Secrets Manager integration. | `bool` | `false` |
 {: caption="Table 10. Switch secrets provider" caption-side="top"}
 
-Set these parameters to `true` to use a {{site.data.keyword.keymanagementserviceshort}} integration instead of Secrets Manager. Also, set the Secrets Manager values to `false` in this case so that an unnecessary integration is not created in the toolchain.
+Set these variables to `true` to use a {{site.data.keyword.keymanagementserviceshort}} integration instead of Secrets Manager. Also, set the Secrets Manager values to `false` in this case so that an unnecessary integration is not created in the toolchain.
 
-## Optional CI, CD, and CC parameters
+## Optional CI, CD, and CC variables
 {: #devsecops-alm-optional}
 
 | Name | Description | Type | Default |
@@ -222,7 +222,7 @@ Set these parameters to `true` to use a {{site.data.keyword.keymanagementservice
 | `deployment_repo_url` | The repository to clone deployment for DevSecOps toolchain template. | `string` | `""` |
 | `ibmcloud_api` | {{site.data.keyword.cloud}} API Endpoint. | `string` | `"https://cloud.ibm.com"` |
 {: caption="Table 11. Optional API key, secrets, and toolchain" caption-side="bottom"}
-{: #alm-opt-other-parameters}
+{: #alm-opt-other-variables}
 {: tab-title="API key, secrets, and toolchain"}
 {: tab-group="optional"}
 {: class="simple-tab-table"}
@@ -308,7 +308,7 @@ Set these parameters to `true` to use a {{site.data.keyword.keymanagementservice
 | `ci_toolchain_region` | The region that contains the CI toolchain. | `string` | `""` |
 | `ci_toolchain_resource_group` | The resource group within which the toolchain is created. | `string` | `""` |
 {: caption="Table 11. Continuous integration" caption-side="bottom"}
-{: #alm-opt-ci-parameters}
+{: #alm-opt-ci-variables}
 {: tab-title="Continuous integration"}
 {: tab-group="optional"}
 {: class="simple-tab-table"}
@@ -322,7 +322,7 @@ Set these parameters to `true` to use a {{site.data.keyword.keymanagementservice
 | `cd_change_management_repo_auth_type` | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `"oauth"` |
 | `cd_change_management_repo_git_token_secret_name` | Name of the Git token secret in the secret provider. | `string` | `"git-token"` |
 | `cd_change_repo_clone_from_url` | Override the default management repo, which is cloned into the app repo. If the app repo exists, use `clone_if_not_exists` to leave the repo contents unchanged. | `string` | `""` |
-| `cd_change_request_id` | The ID of an open change request. If this parameter is set to `notAvailable`, a change request is automatically created by the continuous deployment pipeline. | `string` | `"notAvailable"` |
+| `cd_change_request_id` | The ID of an open change request. If this variable is set to `notAvailable`, a change request is automatically created by the continuous deployment pipeline. | `string` | `"notAvailable"` |
 | `cd_cluster_name`| Name of the Kubernetes cluster where the application is deployed. | `string` | `"mycluster-free"` |
 | `cd_cluster_namespace` | Name of the Kubernetes cluster namespace where the application is deployed. | `string` | `"prod"` |
 | `cd_cluster_region` | Region of the Kubernetes cluster where the application is deployed. | `string` | `"ibm:yp:us-south"` |
@@ -337,11 +337,11 @@ Set these parameters to `true` to use a {{site.data.keyword.keymanagementservice
 | `cd_customer_impact` | Custom impact of the change request. | `string` | `"no_impact"` |
 | `cd_deployment_group` | Specify group for deployment. | `string` | `""` |
 | `cd_deployment_repo_auth_type`  | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `"oauth"` |
-| `cd_deployment_repo_clone_from_branch` | Used when `deployment_repo_clone_from_url` is provided, the default branch that is used by the CD build, usually either main or master. | `string` | `""` |
+| `cd_deployment_repo_clone_from_branch` | Used when `deployment_repo_clone_from_url` is provided, the default branch that is used by the CD build, usually either `main` or `master`. | `string` | `""` |
 | `cd_deployment_repo_clone_from_url` | Override the default sample app by providing your own sample deployment URL, which is cloned into the app repo. If the app repo exists, use `clone_if_not_exists` to leave the repo contents unchanged. | `string` | `""` |
 | `cd_deployment_repo_clone_to_git_id` | By default absent, otherwise use custom server GUID, or other options for `git_id` field in the browser UI. | `string` | `""` |
 | `cd_deployment_repo_clone_to_git_provider` | By default `hostedgit`, otherwise use `githubconsolidated` or `gitlab`. | `string` | `""` |
-| `cd_deployment_repo_existing_branch`  | Used when `deployment_repo_existing_url` is provided, the default branch that is by the CD build, usually either main or master. | `string` | `""` |
+| `cd_deployment_repo_existing_branch`  | Used when `deployment_repo_existing_url` is provided, the default branch that is by the CD build, usually either `main` or `master`. | `string` | `""` |
 | `cd_deployment_repo_existing_git_id`  | By default absent, otherwise use custom server GUID, or other options for `git_id` field in the browser UI. | `string` | `""` |
 | `cd_deployment_repo_existing_git_provider` | By default `hostedgit`, otherwise use `githubconsolidated` or `gitlab`. | `string` | `"hostedgit"` |
 | `cd_deployment_repo_existing_url` | Override to bring your own existing deployment repository URL, which is used directly instead of cloning the default deployment sample. | `string` | `""` |
@@ -398,7 +398,7 @@ Set these parameters to `true` to use a {{site.data.keyword.keymanagementservice
 | `cd_toolchain_region`  | The region that contains the CI toolchain. | `string` | `""` |
 | `cd_toolchain_resource_group`  | Resource group within which toolchain is created. | `string` | `""` |
 {: caption="Table 11. Continuous deployment" caption-side="bottom"}
-{: #alm-opt-cd-parameters}
+{: #alm-opt-cd-variables}
 {: tab-title="Continuous deployment"}
 {: tab-group="optional"}
 {: class="simple-tab-table"}
@@ -471,12 +471,12 @@ Set these parameters to `true` to use a {{site.data.keyword.keymanagementservice
 | `cc_toolchain_region` | The region that contains the CI toolchain. | `string` | `""` |
 | `cc_toolchain_resource_group`  | Resource group within which the toolchain is created. | `string` | `""` |
 {: caption="Table 11. Continuous compliance" caption-side="bottom"}
-{: #alm-opt-cc-parameters}
+{: #alm-opt-cc-variables}
 {: tab-title="Continuous compliance"}
 {: tab-group="optional"}
 {: class="simple-tab-table"}
 
-## Output parameters
+## Output variables
 {: #devsecops-alm-output}
 
 | Name | Description |

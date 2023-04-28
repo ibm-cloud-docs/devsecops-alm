@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-04-19"
+lastupdated: "2023-04-28"
 
 keywords: devsecops-alm, deployment guide, deployable architecture
 
@@ -35,7 +35,7 @@ Ensure that all of the secret values that you need are stored in a secrets manag
 
 [Comparison between {{site.data.keyword.secrets-manager_short}} and related {{site.data.keyword.cloud_notm}} services](/docs/secrets-manager?topic=secrets-manager-manage-secrets-ibm-cloud) can help you to choose from various secrets management and data protection offerings. 
 
-If you don't already have an instance of the secrets management vault provider of your choice, create one. For information about {{site.data.keyword.secrets-manager_full}} see [Getting started with {{site.data.keyword.secrets-manager_short}}](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-getting-started).
+If you don't already have an instance of the secrets management vault provider of your choice, create one. For more information about {{site.data.keyword.secrets-manager_full}} see [Getting started with {{site.data.keyword.secrets-manager_short}}](https://cloud.ibm.com/docs/secrets-manager?topic=secrets-manager-getting-started).
 
 ## Create a resource group
 {: #devsecops-alm-resgrp}

@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-04-19"
+lastupdated: "2023-04-28"
 
 keywords: devsecops-alm, deployment guide, deployable architecture
 
@@ -28,7 +28,7 @@ You can evaluate the continuous delivery service for 30 days by using the lite p
 ## Create a Kubernetes cluster
 {: #devsecops-alm-k8}
 
-Create either a [Kubernetes cluster](https://cloud.ibm.com/kubernetes/catalog/cluster/create){: external}, or an [OpenShift cluster](/docs/openshift?topic=openshift-openshift_tutorial). 
+Create either a [Kubernetes cluster](https://cloud.ibm.com/kubernetes/catalog/cluster/create){: external}, or a [Red Hat OpenShift cluster](https://cloud.ibm.com/kubernetes/catalog/create?platformType=openshift){: external}. 
 
 While you are evaluating the service, you can use the free pricing plan. The cluster might take some time to provision. As the cluster is created, it progresses through the following stages: Deploying, Pending, and Ready. For more information, see [Getting started with Container Registry](/docs/Registry?topic=Registry-getting-started).
 

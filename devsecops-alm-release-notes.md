@@ -25,4 +25,4 @@ Use these release notes to learn about the latest updates to the DevSecOps Appli
 {: release-note}
 
 Introducing DevSecOps Application Lifecycle Management
-:   The DevSecOps Application Lifecycle Management is [released](/devsecops-alm-overview.md). You can use the Deployable Architecture to create a set of DevOps toolchains and pipelines. The [deployable architecture](#x10293733){: term} is based on the {{site.data.keyword.cloud_notm}} for Financial Services reference architecture.
+:   The DevSecOps Application Lifecycle Management is [released](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-overview). You can use the Deployable Architecture to create a set of DevOps toolchains and pipelines. The [deployable architecture](#x10293733){: term} is based on the {{site.data.keyword.cloud_notm}} for Financial Services reference architecture.

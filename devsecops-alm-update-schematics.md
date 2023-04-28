@@ -18,7 +18,7 @@ subcollection: devsecops-alm
 After the toolchains are deployed, you can update them by using Schematics. 
 {: shortdesc}
 
-Updates can include, for example, adding or removing integrations, or updating pipeline parameters. 
+Updates can include, for example, adding or removing integrations, or updating pipeline variables. 
 
 To update schematics, take the following steps:
 
@@ -29,7 +29,7 @@ To update schematics, take the following steps:
 
 1. Click `Settings` and then search for the inputs that you want to update.
 
-   The parameters prefixed with `ci`, `cd` and `cc` apply to the CI, CD, and CC toolchains respectively. Nonprefixed parameters apply to all the toolchains. Also, modifying the default values for the prefixed parameter inputs causes the prefixed parameters inputs to take precedence over nonprefixed parameter inputs. 
+   The variables prefixed with `ci`, `cd` and `cc` apply to the CI, CD, and CC toolchains respectively. Nonprefixed variables apply to all the toolchains. Also, modifying the default values for the prefixed variable inputs causes the prefixed variables inputs to take precedence over nonprefixed variable inputs. 
    {: note}
 
 1. For each input that you want to update, take the following steps:
