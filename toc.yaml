@@ -52,7 +52,7 @@ toc:
       id: reference
       topics:
       - topic: devsecops-alm-vars.md
-        navtitle: Input and output variables
+        navtitle: Mandatory and optional variables
       - topic: devsecops-alm-responsibilities.md
         navtitle: Responsibilities
   - navgroup:
