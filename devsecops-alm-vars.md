@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-04-28"
+lastupdated: "2023-06-06"
 
 keywords: devsecops-alm, deployment guide, deployable architecture
 
@@ -221,10 +221,10 @@ Set these variables to `true` to use a {{site.data.keyword.keymanagementservices
 |------|-------------|------|---------|
 | `deployment_repo_url` | The repository to clone deployment for DevSecOps toolchain template. | `string` | `""` |
 | `ibmcloud_api` | {{site.data.keyword.cloud}} API Endpoint. | `string` | `"https://cloud.ibm.com"` |
-{: caption="Table 11. Optional API key, secrets, and toolchain" caption-side="bottom"}
-{: #alm-opt-other-variables}
+{: caption="Table 12. API key, secrets, and toolchain" caption-side="bottom"}
+{: #api-parameters}
 {: tab-title="API key, secrets, and toolchain"}
-{: tab-group="optional"}
+{: tab-group="IAM-simple"}
 {: class="simple-tab-table"}
 
 | Name | Description | Type | Default | 
@@ -307,10 +307,10 @@ Set these variables to `true` to use a {{site.data.keyword.keymanagementservices
 | `ci_toolchain_name`  | The name of the CI toolchain. | `string` | `"DevSecOps CI Toolchain - Terraform"` |
 | `ci_toolchain_region` | The region that contains the CI toolchain. | `string` | `""` |
 | `ci_toolchain_resource_group` | The resource group within which the toolchain is created. | `string` | `""` |
-{: caption="Table 11. Continuous integration" caption-side="bottom"}
-{: #alm-opt-ci-variables}
+{: caption="Table 13. Continuous integration" caption-side="bottom"}
+{: #ci-parameters}
 {: tab-title="Continuous integration"}
-{: tab-group="optional"}
+{: tab-group="IAM-simple"}
 {: class="simple-tab-table"}
 
 | Name | Description | Type | Default |
@@ -397,8 +397,8 @@ Set these variables to `true` to use a {{site.data.keyword.keymanagementservices
 | `cd_toolchain_name`  | The name of the CD toolchain. | `string` | `"DevSecOps CD Toolchain - Terraform"` |
 | `cd_toolchain_region`  | The region that contains the CI toolchain. | `string` | `""` |
 | `cd_toolchain_resource_group`  | Resource group within which toolchain is created. | `string` | `""` |
-{: caption="Table 11. Continuous deployment" caption-side="bottom"}
-{: #alm-opt-cd-variables}
+{: caption="Table 14. Continuous deployment" caption-side="bottom"}
+{: #cd-parameters}
 {: tab-title="Continuous deployment"}
 {: tab-group="IAM-simple"}
 {: class="simple-tab-table"}
@@ -470,10 +470,10 @@ Set these variables to `true` to use a {{site.data.keyword.keymanagementservices
 | `cc_toolchain_name` | The name of the CC toolchain. | `string` | `"DevSecOps CC Toolchain - Terraform"` |
 | `cc_toolchain_region` | The region that contains the CI toolchain. | `string` | `""` |
 | `cc_toolchain_resource_group`  | Resource group within which the toolchain is created. | `string` | `""` |
-{: caption="Table 11. Continuous compliance" caption-side="bottom"}
-{: #alm-opt-cc-variables}
+{: caption="Table 15. Continuous compliance" caption-side="bottom"}
+{: #cc-parameters}
 {: tab-title="Continuous compliance"}
-{: tab-group="optional"}
+{: tab-group="IAM-simple"}
 {: class="simple-tab-table"}
 
 ## Output variables
