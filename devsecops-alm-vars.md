@@ -400,7 +400,7 @@ Set these variables to `true` to use a {{site.data.keyword.keymanagementservices
 {: caption="Table 11. Continuous deployment" caption-side="bottom"}
 {: #alm-opt-cd-variables}
 {: tab-title="Continuous deployment"}
-{: tab-group="optional"}
+{: tab-group="IAM-simple"}
 {: class="simple-tab-table"}
 
 | Name | Description | Type | Default |
