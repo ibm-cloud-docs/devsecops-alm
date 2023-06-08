@@ -20,7 +20,6 @@ Deploy an instance of the DevSecOps Application Lifecycle Management deployable 
 
 Follow these steps:
 
-1. Make sure that you comply with the prerequisites.
 1. Go to the {{site.data.keyword.cloud_notm}} [catalog](/catalog#reference_architecture){: external} and search for the DevSecOps Application Lifecycle Management architecture.
 1. Click the tile for the deployable architecture to open the details.
 1. Select the latest product version in the **Architecture** section.
@@ -29,7 +28,7 @@ Follow these steps:
 1. Select the **Create from the CLI** deployment type in Deployment options.   
 1. Copy and paste the `ibmcloud catalog install` command in the {{site.data.keyword.cloud_notm}} CLI. For more information, see [`ibmcloud catalog install`](/docs/cli?topic=cli-manage-catalogs-plugin#install-software-version).
    
-   Be sure to point to the `values.json` file that you created in [Create a `values.json` file](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-planning-req#devsecops-alm-inst-values) in your `ibmcloud catalog install` command.
+   You must the `values.json` file that you created in [Create a `values.json` file](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-planning-req#devsecops-alm-inst-values) in your `ibmcloud catalog install` command.
    {: note}
 
 1. Run `ibmcloud catalog install` to install your custom configuration. 
