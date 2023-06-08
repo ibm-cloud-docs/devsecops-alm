@@ -28,7 +28,7 @@ Follow these steps:
 1. Select the **Create from the CLI** deployment type in Deployment options.   
 1. Copy and paste the `ibmcloud catalog install` command in the {{site.data.keyword.cloud_notm}} CLI. For more information, see [`ibmcloud catalog install`](/docs/cli?topic=cli-manage-catalogs-plugin#install-software-version).
    
-   You must the `values.json` file that you created in [Create a `values.json` file](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-planning-req#devsecops-alm-inst-values) in your `ibmcloud catalog install` command.
+   You must use the `values.json` file that you created in [Create a `values.json` file](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-planning-req#devsecops-alm-inst-values) in your `ibmcloud catalog install` command.
    {: note}
 
 1. Run `ibmcloud catalog install` to install your custom configuration. 
