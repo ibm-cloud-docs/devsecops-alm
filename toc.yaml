@@ -40,6 +40,8 @@ toc:
       topics:
       - topic: devsecops-alm-dep-project.md
         navtitle: Deploy by adding to a project
+      - topic: devsecops-alm-dep-cli.md
+        navtitle: Deploy by using the CLI
       - topic: devsecops-alm-dep-schematics.md
         navtitle: Deploy with Schematics
 
