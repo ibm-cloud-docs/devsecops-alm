@@ -44,4 +44,11 @@ Create a resource group where all the relevant resources are collected.
 
 Resource groups organize your account resources in customizable groupings so that you can assign users access to multiple resources at a time. Every toolchain is associated with a resource group. By default, the toolchain is created in the `Default` resource group. For more information, see [Creating a resource group](/docs/account?topic=account-rgs&interface=ui#create_rgs).
 
+## Install the {{site.data.keyword.cloud_notm}} CLI and the catalogs management plug-in
+{: #devsecops-alm-inst-cli}
+
+If you plan to deploy DevSecOps Application Lifecycle Management by using the {{site.data.keyword.cloud_notm}} CLI, you must install the {{site.data.keyword.cloud_notm}} CLI and the Catalogs management CLI plug-in as follows:
+
+* For more information on installing the {{site.data.keyword.cloud_notm}} CLI, see [Installing the stand-alone IBM Cloud CLI](/docs/cli?topic=cli-install-ibmcloud-cli).
+* For more information on installing the Catalogs management CLI plug-in, see [Catalogs management CLI plug-in](/docs/cli?topic=cli-manage-catalogs-plugin).
 
