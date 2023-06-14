@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-06-06"
+lastupdated: "2023-06-14"
 
 keywords: devsecops-alm, deployment guide, deployable architecture
 
@@ -37,7 +37,7 @@ Use the required variables to create toolchains for the out of the box experienc
 |`ibmcloud_api_key`|API key that creates the toolchains. |  |  |
 {: caption="Table 1. Template repository" caption-side="top"}
 
-The variables that are prefixed with `ci`, `cd` and `cc` apply to the CI, CD, and CC toolchains. Nonprefixed variables apply to all the toolchains. Also, modifying the default values for the prefixed variable inputs causes the prefixed variables inputs to take precedence over nonprefixed variable inputs. 
+The variables that are prefixed with `ci`, `cd`, and `cc` apply to the CI, CD, and CC toolchains. Nonprefixed variables apply to all the toolchains. Also, modifying the default values for the prefixed variable inputs causes the prefixed variables inputs to take precedence over nonprefixed variable inputs. 
 {: note}
 
 ## Optional input variables

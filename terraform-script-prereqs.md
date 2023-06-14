@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-04-28"
+lastupdated: "2023-06-14"
 
 keywords: devsecops-alm, deployment guide, deployable architecture
 
@@ -44,24 +44,4 @@ Create a resource group where all the relevant resources are collected.
 
 Resource groups organize your account resources in customizable groupings so that you can assign users access to multiple resources at a time. Every toolchain is associated with a resource group. By default, the toolchain is created in the `Default` resource group. For more information, see [Creating a resource group](/docs/account?topic=account-rgs&interface=ui#create_rgs).
 
-
-## Create a `values.json` file
-{: #devsecops-alm-inst-values}
-
-If you plan to deploy DevSecOps Application Lifecycle Management by using the {{site.data.keyword.cloud_notm}} CLI, you must create a `values.json` file on your local computer. `values.json` contains your custom configuration, for example product version, cluster, and namespace. A sample `values.json` that you can modify is as follows:
-
-   ```json
-   {
-    "toolchain_name" : "DevSecOps",
-    "toolchain_region" : "us-south",
-    "toolchain_resource_group" : "Default",
-    "registry_name_space" : "my-registry-namespace",
-    "cluster_name" : "mycluster-free",
-    "sm_location" : "us-south",
-    "sm_name" : "sm-compliance-secrets",
-    "sm_resource_group" : "Default",
-    "sm_secret_group" : "Default"
-   }
-   ```
-   {: codeblock}
 
