@@ -60,9 +60,10 @@ Follow these steps:
       ```
       {: codeblock}
 
-   1. Specify the path to `values.json` in the CLI command. For example:
+   1. Specify the path to `values.json` and then run `ibmcloud catalog install`. For example:
    
       ```text
       ibmcloud catalog install --vl 1082e7d2-5e2f-0a11-a3bc-f88a8e1931fc.3aa45988-c0db-4e28-b01d-d31ef406280e-global --override-values /<mypath>/values.json
       ```
       {: codeblock}
+
