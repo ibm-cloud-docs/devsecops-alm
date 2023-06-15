@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-06-14"
+lastupdated: "2023-06-15"
 
 keywords:
 
@@ -39,9 +39,10 @@ Follow these steps:
 
 1. Edit `values.json` to reflect your configuration. You can find your configuration values as follows:
    
-   * From the {{site.data.keyword.cloud_notm}} console, click the menu icon ![Hamburger icon](images/icon_hamburger.svg) and select **DevOps**. On the Toolchains page, click the toolchain to open its Overview page and click **Details** to see your toolchain name, region and resource group.
-   * The CI pipeline properties `registry-namespace`, `registry-region`, and `cluster-name` contain your registry namespace, registry region, and cluster name.
+   * From the {{site.data.keyword.cloud_notm}} console, click the menu icon ![Hamburger icon](images/icon_hamburger.svg) and select **Resource List**. Under the **Security** section , click the instance of Secrets Manager and then click **Details** to find the name, resource group and location of the Secrets Manager instance. 
    * Use the `ibmcloud secrets-manager secret-groups` command to list the available secret groups. For more information, see [ibmcloud secrets-manager secret-groups](/docs/secrets-manager?topic=secrets-manager-cli-plugin-secrets-manager-cli#secrets-manager-cli-secret-groups-command).
+   * From the {{site.data.keyword.cloud_notm}} console, click the menu icon ![Hamburger icon](images/icon_hamburger.svg) and select **Kubernetes**. Use the **Cluster** and **Container Registry** options to find the cluster and container registry details.
+   * The toolchain name and region values are arbitrary, however resource group must be an existing resource group.
 
 1. Go to the {{site.data.keyword.cloud_notm}} [catalog](/catalog#reference_architecture){: external} and search for the DevSecOps Application Lifecycle Management architecture.
 1. Click the tile for the deployable architecture to open the details.
