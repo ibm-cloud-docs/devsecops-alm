@@ -39,7 +39,7 @@ Follow these steps:
 
 1. Edit `values.json` to reflect your configuration. You can find your configuration values as follows:
    
-   * You can specify your own toolchain name ("toolchain_name") and a toolchain region ("toolchain_region").
+   * You can specify your own toolchain name ("toolchain_name") and a toolchain region ("toolchain_region"). For more information on toolchain regions, see [Region and data center locations for resource deployment](/docs/overview?topic=overview-locations).
    * From the {{site.data.keyword.cloud_notm}} console, click  **Manage > Account > Resource groups** to find your resource group ("toolchain_resource_group").
    * From the {{site.data.keyword.cloud_notm}} console, click the menu icon ![Hamburger icon](../icons/icon_hamburger.svg) and click **Kubernetes**. Use the **Cluster** and **Container Registry** options to find the cluster and container registry details ("cluster_name" and "registry_name_space").
    * From the {{site.data.keyword.cloud_notm}} console, click the menu icon ![Hamburger icon](../icons/icon_hamburger.svg) and select **Resource List**. In the **Security** section, click the instance of Secrets Manager and then click **Details** to find the name ("sm_name"), resource group ("sm_resource_group") and location ("sm_location") of the Secrets Manager instance. 
