@@ -39,9 +39,10 @@ Follow these steps:
 
 1. Edit `values.json` to reflect your configuration. You can find your configuration values as follows:
    
-   * You can specify your own "toolchain_name" and "toolchain_region", however "toolchain_resource_group" must be an existing resource group.
-   * From the {{site.data.keyword.cloud_notm}} console, click the menu icon ![Hamburger icon](../icons/icon_hamburger.svg) and select **Kubernetes**. Use the **Cluster** and **Container Registry** options to find the cluster and container registry details ("cluster_name" and "registry_name_space").
-   * From the {{site.data.keyword.cloud_notm}} console, click the menu icon ![Hamburger icon](../icons/icon_hamburger.svg) and select **Resource List**. Under the **Security** section , click the instance of Secrets Manager and then click **Details** to find the name ("sm_name"), resource group ("sm_resource_group") and location ("sm_location") of the Secrets Manager instance. 
+   * You can specify your own toolchain name ("toolchain_name") and a toolchain region ("toolchain_region").
+   * From the {{site.data.keyword.cloud_notm}} console, click  **Manage > Account > Resource groups** to find your resource group ("toolchain_resource_group").
+   * From the {{site.data.keyword.cloud_notm}} console, click the menu icon ![Hamburger icon](../icons/icon_hamburger.svg) and click **Kubernetes**. Use the **Cluster** and **Container Registry** options to find the cluster and container registry details ("cluster_name" and "registry_name_space").
+   * From the {{site.data.keyword.cloud_notm}} console, click the menu icon ![Hamburger icon](../icons/icon_hamburger.svg) and select **Resource List**. In the **Security** section, click the instance of Secrets Manager and then click **Details** to find the name ("sm_name"), resource group ("sm_resource_group") and location ("sm_location") of the Secrets Manager instance. 
    * Use the `ibmcloud secrets-manager secret-groups` command to list the available secret groups ("sm_secret_group"). For more information, see [ibmcloud secrets-manager secret-groups](/docs/secrets-manager?topic=secrets-manager-cli-plugin-secrets-manager-cli#secrets-manager-cli-secret-groups-command).
 
 1. Go to the {{site.data.keyword.cloud_notm}} [catalog](/catalog#reference_architecture){: external} and search for the DevSecOps Application Lifecycle Management architecture.
