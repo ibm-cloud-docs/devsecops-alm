@@ -32,7 +32,7 @@ Version 1.0.6 of DevSecOps Application Lifecycle Management released
 
    - The {{site.data.keyword.en_full_notm}} support for multiple secret groups when using Secrets Manager.
 
-   - For more information, see [Mandatory and optional variables](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars). New SCC variables are prefixed with `scc_` and secret group variables are suffixed with `_secret_group`.
+   - For more information, see [Mandatory and optional variables](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars). New Security and Compliance Center variables are prefixed with `scc_` and secret group variables are suffixed with `_secret_group`.
 
 ## 08 September 2023
 {: #devsecops-alm-september2023}
