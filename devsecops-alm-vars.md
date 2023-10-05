@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-06-14"
+lastupdated: "2023-10-04"
 
 keywords: devsecops-alm, deployment guide, deployable architecture
 
@@ -15,7 +15,7 @@ subcollection: devsecops-alm
 # DevSecOps Application Lifecycle Management mandatory and optional variables
 {: #devsecops-alm-vars}
 
-Use the required variables to create toolchains for the out of the box experience. Then use the optional variables to make other adjustments to your toolchains. 
+Use the required variables to create toolchains for the out of the box experience. Then use the optional variables to make other adjustments to your toolchains.
 {: shortdesc}
 
 
@@ -37,7 +37,7 @@ Use the required variables to create toolchains for the out of the box experienc
 |`ibmcloud_api_key`|API key that creates the toolchains. |  |  |
 {: caption="Table 1. Template repository" caption-side="top"}
 
-The variables that are prefixed with `ci`, `cd`, and `cc` apply to the CI, CD, and CC toolchains. Nonprefixed variables apply to all the toolchains. Also, modifying the default values for the prefixed variable inputs causes the prefixed variables inputs to take precedence over nonprefixed variable inputs. 
+The variables that are prefixed with `ci`, `cd`, and `cc` apply to the CI, CD, and CC toolchains. Nonprefixed variables apply to all the toolchains. Also, modifying the default values for the prefixed variable inputs causes the prefixed variables inputs to take precedence over nonprefixed variable inputs.
 {: note}
 
 ## Optional input variables
@@ -57,18 +57,28 @@ The variables that are prefixed with `ci`, `cd`, and `cc` apply to the CI, CD, a
 |`slack_notifications`|This is enabled automatically when a Slack integration is created. The switch overrides the Slack notifications. Set `1` for on and `0` for off. This applies to the CI, CD, and CC toolchains. To set separately, see `ci_slack_notifications`, `cd_slack_notifications`, and `cc_slack_notifications`.|`string`|`""`|
 |`authorization_policy_creation`|Disable Toolchain Service to Secrets Manager Service authorization policy creation. To disable set the value to `disabled`. This applies to the CI, CD, and CC toolchains. To set separately, see `ci_authorization_policy_creation`, `cd_authorization_policy_creation`, and `cc_authorization_policy_creation`.|`string`|`""`|
 |`repo_group`|Specify Git user or group for your application. This must be set if the repository authentication type is `pat` (personal access token).|`string`|`""`|
+|`repo_secret_group`|Secret group in Secrets Manager that contains the secret for the repo. This variable sets the same secret group for all the repositories. It can be overridden on a per secret group basis. Only applies when using Secrets Manager.|`string`|`""`|
 |`repo_git_token_secret_name`|Name of the Git token secret in the secret provider. Specifying a secret name for the Git Token automatically sets the authentication type to `pat`.|`string`|`""`|
 |`compliance_base_image`|Pipeline baseimage to run most of the built-in pipeline code. Applies to the CI, CD and CC toolchain pipelines.|`string`|`""` |
+| `compliance_pipeline_branch` | The Compliance Pipeline branch. | `string` | `"open-v9"` |
+| `event_notifications_crn` | Set the {{site.data.keyword.en_short}} CRN to create an {{site.data.keyword.en_short}} integration. This paramater applies to the CI, CD and CC toolchains. It can be set individually with `ci_event_notifications_crn`, `cd_event_notifications_crn`, and `cc_event_notifications_crn`. | `string` | `""` |
+| `scc_attachment_id` | An attachment ID. An attachment is configured under a profile to define how a scan runs. To find the attachment ID, in the browser, in the attachments list, click the attachment link, and a panel appears that you can use to copy the attachment ID. This parameter is only relevant when the `scc_use_profile_attachment` parameter is enabled. | `string` | `""` |
+| `scc_instance_crn` | The Security and Compliance Center service instance CRN (Cloud Resource Name). This parameter is only relevant when the `scc_use_profile_attachment` parameter is enabled. The value must match the regular expression.| `string` | `""` |
+| `scc_profile_name` | The name of a Security and Compliance Center profile. Use the `IBM Cloud for Financial Services` profile, which contains the DevSecOps Toolchain rules, or use a user-authored customized profile that is configured to contain those rules. This parameter is only relevant when the `scc_use_profile_attachment` parameter is enabled. | `string` | `""` |
+| `scc_profile_version` | The version of a Security and Compliance Center profile, in SemVer format, like `0.0.0`. This parameter is only relevant when the `scc_use_profile_attachment` parameter is enabled.| `string` | `""` |
+| `scc_scc_api_key_secret_name` | The Security and Compliance Center api-key secret in the secret provider. | `string` | `"scc-api-key"` |
+| `scc_scc_api_key_secret_group` | Secret group prefix for the Security and Compliance tool secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
+| `scc_use_profile_attachment` | Set to `enabled` to enable use profile with attachment so that the scripts in the pipeline can interact with the Security and Compliance Center service. When enabled, other parameters become relevant; `scc_scc_scc_api_key_secret_name`, `scc_instance_crn`, `scc_profile_name`, `scc_profile_version`, `scc_attachment_id`. Can individually be `enabled` and `disabled` in the CD and CC toolchains by using `cd_scc_use_profile_attachment` and `cc_scc_use_profile_attachment`. | `string` | `"disabled"` |
 {: caption="Table 2. Group level variables" caption-side="top"}
 
 ### Toolchain creation variables
 {: #devsecops-alm-tccreate}
 
-The following variables determine which toolchains are created. By default all three are set to `true`, which creates the DevSecOps CI, CD and CC toolchains. Any combination of the three toolchains can be created. 
+The following variables determine which toolchains are created. By default all three are set to `true`, which creates the DevSecOps CI, CD and CC toolchains. Any combination of the three toolchains can be created.
 
 | Name | Description | Type | Default |
 |------|-------------|------|---------|
-| `create_ci_toolchain` | Determines whether the DevSecOps CI toolchain is created. If this toolchain is not created, then values must be set for the following variables: `evidence_repo_url`, `issues_repo_url`, and `inventory_repo_url`. | `bool` | `true` |
+| `create_ci_toolchain` | Determines whether the DevSecOps CI toolchain is created. If this toolchain is not created, then values must be set for the following variables: `evidence_repo_existing_url`, `issues_repo_existing_url`, and `inventory_repo_existing_url`. | `bool` | `true` |
 | `create_cd_toolchain` | Boolean flag that determines whether the DevSecOps CD toolchain is created. | `bool` | `true` |
 | `create_cc_toolchain` | Boolean flag that determines whether the DevSecOps CC toolchain is created. | `bool` | `true` |
 {: caption="Table 3. toolchain creation" caption-side="top"}
@@ -80,9 +90,9 @@ If the CI toolchain is not created, you must set the following variables.
 
 | Name | Description | Type | Default |
 |------|-------------|------|---------|
-| `evidence_repo_url`  | A template repository to clone compliance-evidence-locker for reference DevSecOps toolchain templates. | `string` | `""` |
-| `issues_repo_url` | A template repository to clone `compliance-issues` for reference DevSecOps toolchain templates. | `string` | `""` |
-| `inventory_repo_url` | A template repository to clone compliance-inventory for reference DevSecOps toolchain templates. | `string` | `""` |
+| `evidence_repo_existing_url`  | A template repository to clone compliance-evidence-locker for reference DevSecOps toolchain templates. | `string` | `""` |
+| `issues_repo_existing_url` | A template repository to clone `compliance-issues` for reference DevSecOps toolchain templates. | `string` | `""` |
+| `inventory_repo_existing_url` | A template repository to clone compliance-inventory for reference DevSecOps toolchain templates. | `string` | `""` |
 {: caption="Table 4. Template repository" caption-side="top"}
 
 ### Bring your own code
@@ -203,7 +213,7 @@ Set these variables to `true` to use a {{site.data.keyword.keymanagementservices
 {: tab-group="IAM-simple"}
 {: class="simple-tab-table"}
 
-| Name | Description | Type | Default | 
+| Name | Description | Type | Default |
 |------|-------------|------|---------|
 | `ci_app_group`  | Specify Git user or group for your application. | `string` | `""` |
 | `ci_app_name`  | Name of the application image and inventory entry. | `string` | `"hello-compliance-app"` |
@@ -220,6 +230,8 @@ Set these variables to `true` to use a {{site.data.keyword.keymanagementservices
 | `ci_code_engine_resource_group`  | The resource group of the Code Engine project. | `string` | `"Default"` |
 | `ci_code_engine_source`| The path to the location of code to build in the repository. | `string` | `""` |
 | `ci_compliance_base_image` | Pipeline baseimage to run most of the built-in pipeline code. | `string` | `""` |
+| `ci_compliance_pipeline_branch` | The CI Pipeline Compliance Pipeline branch.| `string` | `""` |
+| `ci_compliance_pipeline_pr_branch` | The PR Pipeline Compliance Pipeline branch.| `string` | `""` |
 | `ci_compliance_pipeline_group`  | Specify user or group for compliance pipline repo. | `string` | `""` |
 | `ci_compliance_pipeline_repo_auth_type`| Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
 | `ci_compliance_pipeline_repo_git_token_secret_name` | Name of the Git token secret in the secret provider. | `string` | `""` |
@@ -236,6 +248,7 @@ Set these variables to `true` to use a {{site.data.keyword.keymanagementservices
 | `ci_doi_toolchain_id_pipeline_property`  | The DevOps Insights instance toolchain ID. | `string` | `""` |
 | `ci_enable_pipeline_dockerconfigjson` | Adds the `pipeline-dockerconfigjson` property to the pipeline properties.| `bool` | `false` |
 | `ci_enable_slack` | Set to `true` to create the integration. | `bool` | `false` |
+| `ci_event_notifications_crn`  | Set the {{site.data.keyword.en_short}} CRN to create an {{site.data.keyword.en_short}} integration. | `string` | `""` |
 | `ci_evidence_group`  | Specify Git user or group for evidence repository. | `string` | `""` |
 | `ci_evidence_repo_auth_type`  | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
 | `ci_evidence_repo_git_token_secret_name`  | Name of the Git token secret in the secret provider. | `string` | `""` |
@@ -250,7 +263,6 @@ Set these variables to `true` to use a {{site.data.keyword.keymanagementservices
 | `ci_opt_in_dynamic_scan`| To enable the OWASP Zap scan. `1` enable or `0` disable. | `string` | `"1"` |
 | `ci_opt_in_dynamic_ui_scan` | To enable the OWASP Zap UI scan. `1` enable or `0` disable. | `string` | `"1"` |
 | `ci_opt_in_sonar` | Opt in for SonarQube. | `string` | `"1"` |
-| `ci_opt_out_v1_evidence` | Opt out of v1 evidence.| `string` | `"1"` |
 | `ci_pipeline_config_group` | Specify user or group for pipeline config repo. | `string` | `""` |
 | `ci_pipeline_config_path` | The name and path of the `pipeline-config.yaml` file within the pipeline-config repo. | `string` | `".pipeline-config.yaml"` |
 | `ci_pipeline_config_repo_auth_type` | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
@@ -283,6 +295,32 @@ Set these variables to `true` to use a {{site.data.keyword.keymanagementservices
 | `ci_toolchain_name`  | The name of the CI toolchain. | `string` | `"DevSecOps CI Toolchain - Terraform"` |
 | `ci_toolchain_region` | The region that contains the CI toolchain. | `string` | `""` |
 | `ci_toolchain_resource_group` | The resource group within which the toolchain is created. | `string` | `""` |
+| `ci_trigger_git_name` | The name of the CI pipeline GIT trigger. | `string` | `"Git CI Trigger"` |
+| `ci_trigger_git_enable` | Set to `true` to enable the CI pipeline Git trigger.| `bool` | `true` |
+| `ci_trigger_timed_name` | The name of the CI pipeline Timed trigger. | `string` | `"Git CI Timed Trigger"` |
+| `ci_trigger_timed_enable` | Set to `true` to enable the CI pipeline Timed trigger. | `bool` | `false` |
+| `ci_trigger_timed_cron_schedule` | Only needed for timer triggers. Cron expression that indicates when this trigger will activate. Maximum frequency is every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day of month, month, day of week. Example: 0 *_/2 * * * - every 2 hours.| `string` | `"0 4 * * *"` |
+| `ci_trigger_manual_name` | The name of the CI pipeline Manual trigger.| `string` | `"Manual Trigger"` |
+| `ci_trigger_manual_enable` | Set to `true` to enable the CI pipeline Manual trigger. | `bool` | `true` |
+| `ci_trigger_pr_git_name` | The name of the PR pipeline GIT trigger. | `string` | `"Git PR Trigger"` |
+| `ci_trigger_pr_git_enable` | Set to `true` to enable the PR pipeline Git trigger.| `bool` | `true` |
+| `ci_trigger_manual_pruner_name` | The name of the manual Pruner trigger.| `string` | `"Evidence Pruner Manual Trigger"` |
+| `ci_trigger_manual_pruner_enable` | Set to `true` to enable the manual Pruner trigger. | `bool` | `true` |
+| `ci_trigger_timed_pruner_name` | The name of the timed Pruner trigger. | `string` | `"Evidence Pruner Timed Trigger"` |
+| `ci_trigger_timed_pruner_enable` | Set to `true` to enable the timed Pruner trigger. | `bool` | `false` |
+| `ci_pipeline_ibmcloud_api_key_secret_group` | Secret group prefix for the pipeline ibmcloud API key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
+| `ci_signing_key_secret_group` | Secret group prefix for the signing key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` |
+| `ci_cos_api_key_secret_group` | Secret group prefix for the Cloud Object Storage API key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` |
+| `ci_slack_webhook_secret_group` | Secret group prefix for the Slack webhook secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
+| `ci_pipeline_dockerconfigjson_secret_group` | Secret group prefix for the pipeline DockerConfigJson secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` |
+| `ci_pipeline_git_token_secret_group` | Secret group prefix for the pipeline Git token secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
+| `ci_app_repo_secret_group` | Secret group prefix for the App repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
+| `ci_issues_repo_secret_group` | Secret group prefix for the Issues repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` |
+| `ci_inventory_repo_secret_group` | Secret group prefix for the Inventory repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
+| `ci_evidence_repo_secret_group` | Secret group prefix for the Evidence repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` |
+| `ci_compliance_pipeline_repo_secret_group` | Secret group prefix for the Compliance Pipeline repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` |
+| `ci_pipeline_config_repo_secret_group` | Secret group prefix for the Pipeline Config repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` |
+| `ci_pipeline_git_token_secret_name` | Name of the pipeline Git token secret in the secret provider. | `string` | `"pipeline-git-token"` |
 {: caption="Table 12. Continuous integration" caption-side="bottom"}
 {: #ci-parameters}
 {: tab-title="Continuous integration"}
@@ -304,6 +342,7 @@ Set these variables to `true` to use a {{site.data.keyword.keymanagementservices
 | `cd_cluster_region` | Region of the Kubernetes cluster where the application is deployed. | `string` | `"ibm:yp:us-south"` |
 | `cd_code_signing_cert_secret_name` | Name of the code signing certificate secret in the secret provider. | `string` | `"code-signing-cert"` |
 | `cd_compliance_base_image` | Pipeline baseimage to run most of the built-in pipeline code. | `string` | `""` |
+| `cd_compliance_pipeline_branch` | The CD Pipeline Compliance Pipeline branch.| `string` | `""` |
 | `cd_compliance_pipeline_group` | Specify user or group for compliance pipline repo. | `string` | `""` |
 | `cd_compliance_pipeline_repo_auth_type` | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
 | `cd_compliance_pipeline_repo_git_token_secret_name`  | Name of the Git token secret in the secret provider. | `string` | `""` |
@@ -327,6 +366,7 @@ Set these variables to `true` to use a {{site.data.keyword.keymanagementservices
 | `cd_emergency_label`  | Identifies the pull request as an emergency. | `string` | `"EMERGENCY"` |
 | `cd_enable_signing_validation` | Adds the `code-signing-certificate` Property to the pipeline properties. | `bool` | `false` |
 | `cd_enable_slack` | Set to true to create the integration. | `bool` | `false` |
+| `cd_event_notifications_crn`  | Set the {{site.data.keyword.en_short}} CRN to create an {{site.data.keyword.en_short}} integration. | `string` | `""` |
 | `cd_evidence_group` | Specify Git user or group for evidence repository. | `string` | `""` |
 | `cd_evidence_repo_auth_type` | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
 | `cd_evidence_repo_git_token_secret_name` | Name of the Git token secret in the secret provider. | `string` | `""` |
@@ -338,7 +378,6 @@ Set these variables to `true` to use a {{site.data.keyword.keymanagementservices
 | `cd_issues_repo_git_token_secret_name` | Name of the Git token secret in the secret provider. | `string` | `""` |
 | `cd_link_to_doi_toolchain` | Enable a link to a DevOps Insights instance in another toolchain, true or false. | `bool` | `true` |
 | `cd_merge_cra_sbom` | Merge the SBOM | `string` | `"1"` |
-| `cd_opt_out_v1_evidence` | Opt out of evidence v1. | `string` | `"1"` |
 | `cd_pipeline_config_group` | Specify user or group for pipeline config repo. | `string` | `""` |
 | `cd_pipeline_config_path` | The name and path of the pipeline-config.yaml file within the pipeline-config repo. | `string` | `".pipeline-config.yaml"` |
 | `cd_pipeline_config_repo_auth_type` | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
@@ -371,8 +410,36 @@ Set these variables to `true` to use a {{site.data.keyword.keymanagementservices
 | `cd_target_environment_purpose` | Purpose of the environment that is being updated. | `string` | `"production"` |
 | `cd_toolchain_description` | Description for the CD toolchain. | `string` | `"Toolchain created with terraform template for DevSecOps CD Best Practices."` |
 | `cd_toolchain_name`  | The name of the CD toolchain. | `string` | `"DevSecOps CD Toolchain - Terraform"` |
-| `cd_toolchain_region`  | The region that contains the CI toolchain. | `string` | `""` |
+| `cd_toolchain_region`  | The region that contains the CD toolchain. | `string` | `""` |
 | `cd_toolchain_resource_group`  | Resource group within which toolchain is created. | `string` | `""` |
+| `cd_trigger_git_name` | The name of the CD pipeline GIT trigger. | `string` | `"Git CD Trigger"` |
+| `cd_trigger_git_enable` | Set to `true` to enable the CD pipeline Git trigger.| `bool` | `true` |
+| `cd_trigger_timed_name` | The name of the CD pipeline Timed trigger. | `string` | `"Git CD Timed Trigger"` |
+| `cd_trigger_timed_enable` | Set to `true` to enable the CI pipeline Timed trigger. | `bool` | `false` |
+| `cd_trigger_timed_cron_schedule` | Only needed for timer triggers. Cron expression that indicates when this trigger will activate. Maximum frequency is every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day of month, month, day of week. Example: 0 *_/2 * * * - every 2 hours.| `string` | `"0 4 * * *"` |
+| `cd_trigger_manual_name` | The name of the CD pipeline Manual trigger.| `string` | `"Manual Trigger"` |
+| `cd_trigger_manual_enable` | Set to `true` to enable the CD pipeline Manual trigger. | `bool` | `true` |
+| `cd_trigger_manual_promotion_name` | The name of the CD pipeline Manual Promotion trigger.| `string` | `"Manual Promotion Trigger"` |
+| `cd_trigger_manual_promotion_enable` | Set to `true` to enable the CD pipeline Manual Promotion trigger.| `bool` | `true` |
+| `cd_trigger_manual_pruner_name` | The name of the manual Pruner trigger.| `string` | `"Evidence Pruner Manual Trigger"` |
+| `cd_trigger_manual_pruner_enable` | Set to `true` to enable the manual Pruner trigger. | `bool` | `true` |
+| `cd_trigger_timed_pruner_name` | The name of the timed Pruner trigger. | `string` | `"Evidence Pruner Timed Trigger"` |
+| `cd_trigger_timed_pruner_enable` | Set to `true` to enable the timed Pruner trigger. | `bool` | `false` |
+| `cd_scc_enable_scc` | Adds the SCC tool integration to the toolchain. | `bool` | `true` |
+| `cd_scc_use_profile_attachment` | Set to `enabled` to enable use profile with attachment so that the scripts in the pipeline can interact with the Security and Compliance Center service. When enabled, other parameters become relevant; `scc_scc_api_key_secret_name`, `scc_instance_crn`, `scc_profile_name`, `scc_profile_version`, `scc_attachment_id`. | `string` | `""` |
+| `cd_slack_webhook_secret_group` | Secret group prefix for the Slack webhook secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
+| `cd_change_management_repo_secret_group` | Secret group prefix for the Change Management repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
+| `cd_deployment_repo_secret_group` | Secret group prefix for the Deployment repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
+| `cd_issues_repo_secret_group` | Secret group prefix for the Issues repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
+| `cd_inventory_repo_secret_group` | Secret group prefix for the Inventory repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
+| `cd_evidence_repo_secret_group` | Secret group prefix for the Evidence repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
+| `cd_compliance_pipeline_repo_secret_group` |Secret group prefix for the Compliance Pipeline repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
+| `cd_pipeline_config_repo_secret_group` | Secret group prefix for the Pipeline Config repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` |
+| `cd_cos_api_key_secret_group` | Secret group prefix for the Cloud Object Storage API key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
+| `cd_pipeline_ibmcloud_api_key_secret_group` | Secret group prefix for the pipeline ibmcloud API key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
+| `cd_pipeline_git_token_secret_group` | Secret group prefix for the pipeline Git token secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
+| `cd_code_signing_cert` | The base64 encoded GPG public key. | `string` | `""` |
+| `cd_pipeline_git_token_secret_name` | Name of the pipeline Git token secret in the secret provider. | `string` | `"pipeline-git-token"` |
 {: caption="Table 12. Continuous deployment" caption-side="bottom"}
 {: #cd-parameters}
 {: tab-title="Continuous deployment"}
@@ -390,6 +457,7 @@ Set these variables to `true` to use a {{site.data.keyword.keymanagementservices
 | `cc_app_repo_url` | The Git URL for the application repository. | `string` | `""` |
 | `cc_authorization_policy_creation` | Disable the toolchain service to Secrets Manager service authorization policy creation. | `string` | `""` |
 | `cc_compliance_base_image`  | Pipeline baseimage to run most of the built-in pipeline code. | `string` | `""` |
+| `cc_compliance_pipeline_branch` | The CC Pipeline Compliance Pipeline branch.| `string` | `""` |
 | `cc_compliance_pipeline_group` | Specify user or group for compliance pipline repo. | `string` | `""` |
 | `cc_compliance_pipeline_repo_auth_type` | Select the authentication method that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
 | `cc_compliance_pipeline_repo_git_token_secret_name` | Name of the Git token secret in the secret provider. | `string` | `""` |
@@ -401,6 +469,7 @@ Set these variables to `true` to use a {{site.data.keyword.keymanagementservices
 | `cc_enable_pipeline_dockerconfigjson` | Adds the pipeline-dockerconfigjson property to the pipeline properties.| `bool` | `false` |
 | `cc_enable_slack` | Create the Slack integration. | `bool` | `false` |
 | `cc_environment_tag` | Tag name that represents the target environment in the inventory. Example: `prod_latest`. | `string` | `"prod_latest"` |
+| `cc_event_notifications_crn`  | Set the {{site.data.keyword.en_short}} CRN to create an {{site.data.keyword.en_short}} integration. | `string` | `""` |
 | `cc_evidence_group`  | Specify Git user or group for evidence repository. | `string` | `""` |
 | `cc_evidence_repo_auth_type` | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
 | `cc_evidence_repo_git_token_secret_name` | Name of the Git token secret in the secret provider. | `string` | `""` |
@@ -446,6 +515,27 @@ Set these variables to `true` to use a {{site.data.keyword.keymanagementservices
 | `cc_toolchain_name` | The name of the CC toolchain. | `string` | `"DevSecOps CC Toolchain - Terraform"` |
 | `cc_toolchain_region` | The region that contains the CI toolchain. | `string` | `""` |
 | `cc_toolchain_resource_group`  | Resource group within which the toolchain is created. | `string` | `""` |
+| `cc_trigger_timed_name` | The name of the CC pipeline Timed trigger. | `string` | `"CC Timed Trigger"` |
+| `cc_trigger_timed_enable` | Set to `true` to enable the CC pipeline Timed trigger. | `bool` | `false` |
+| `cc_trigger_timed_cron_schedule` | Only needed for timer triggers. Cron expression that indicates when this trigger will activate. Maximum frequency is every 5 minutes. The string is based on UNIX crontab syntax: minute, hour, day of month, month, day of week. Example: 0 *_/2 * * * - every 2 hours.| `string` | `"0 4 * * *"` |
+| `cc_trigger_manual_name` | The name of the CC pipeline Manual trigger.| `string` | `"CC Manual Trigger"` |
+| `cc_trigger_manual_enable` | Set to `true` to enable the CI pipeline Manual trigger. | `bool` | `true` |
+| `cc_trigger_manual_pruner_name` | The name of the manual Pruner trigger.| `string` | `"Evidence Pruner Manual Trigger"` |
+| `cc_trigger_manual_pruner_enable` | Set to `true` to enable the manual Pruner trigger. | `bool` | `true` |
+| `cc_trigger_timed_pruner_name` | The name of the timed Pruner trigger. | `string` | `"Evidence Pruner Timed Trigger"` |
+| `cc_trigger_timed_pruner_enable` | Set to `true` to enable the timed Pruner trigger. | `bool` | `false` |
+| `cc_scc_enable_scc` | Adds the SCC tool integration to the toolchain. | `bool` | `true` |
+| `cc_scc_use_profile_attachment` | Set to `enabled` to enable use profile with attachment so that the scripts in the pipeline can interact with the Security and Compliance Center service. When enabled, other parameters become relevant; `scc_scc_api_key_secret_name`, `scc_instance_crn`, `scc_profile_name`, `scc_profile_version`, `scc_attachment_id`. | `string` | `""` |
+| `cc_pipeline_ibmcloud_api_key_secret_group` | Secret group prefix for the pipeline ibmcloud API key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
+| `cc_cos_api_key_secret_group` | Secret group prefix for the Cloud Object Storage API key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
+| `cc_slack_webhook_secret_group` | Secret group prefix for the Slack webhook secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
+| `cc_pipeline_dockerconfigjson_secret_group` | Secret group prefix for the pipeline DockerConfigJson secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
+| `cc_app_repo_secret_group` |Secret group prefix for the App repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
+| `cc_issues_repo_secret_group` | Secret group prefix for the Issues repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
+| `cc_inventory_repo_secret_group` |Secret group prefix for the Inventory repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
+| `cc_evidence_repo_secret_group` | Secret group prefix for the Evidence repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
+| `cc_compliance_pipeline_repo_secret_group` | Secret group prefix for the Compliance Pipeline repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
+| `cc_pipeline_config_repo_secret_group` | Secret group prefix for the Pipeline Config repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
 {: caption="Table 12. Continuous compliance" caption-side="bottom"}
 {: #cc-parameters}
 {: tab-title="Continuous compliance"}
