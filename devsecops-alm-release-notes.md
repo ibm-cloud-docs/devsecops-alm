@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-10-05"
+lastupdated: "2023-10-13"
 
 keywords: devsecops-alm, deployment guide, deployable architecture, release notes
 
@@ -20,6 +20,8 @@ content-type: release-note
 Use these release notes to learn about the latest updates to the DevSecOps Application Lifecycle Management deployable architecture. The entries are grouped by date.
 {: shortdesc}
 
+To find the release notes for the DevSecOps compliance pipeline definitions that are used by this architecture, see [Release notes for DevSecOps](/docs/devsecops?topic=devsecops-release-notes).
+
 
 ## 02 October 2023
 {: #devsecops-alm-october2023}
@@ -32,7 +34,7 @@ Version 1.0.6 of DevSecOps Application Lifecycle Management released
 
    - The {{site.data.keyword.en_full_notm}} support for multiple secret groups when using Secrets Manager.
 
-   - For more information, see [Mandatory and optional variables](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars). New Security and Compliance Center variables are prefixed with `scc_` and secret group variables are suffixed with `_secret_group`.
+   - For more information, see [Mandatory and optional variables](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars). New SCC variables are prefixed with `scc_` and secret group variables are suffixed with `_secret_group`.
 
 ## 08 September 2023
 {: #devsecops-alm-september2023}
