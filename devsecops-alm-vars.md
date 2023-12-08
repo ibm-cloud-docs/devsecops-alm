@@ -203,7 +203,7 @@ Set these variables to `true` to use a {{site.data.keyword.keymanagementservices
 ## Optional CI, CD, and CC variables
 {: #devsecops-alm-optional}
 
-If you are deploying with Code engine, see [Optional Code Engine CI and CD variables](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars#devsecops-alm-codeengine-optional)
+If you are deploying with Code Engine, see [Optional Code Engine CI and CD variables](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars#devsecops-alm-codeengine-optional)
 {: note}
 
 | Name | Description | Type | Default |
