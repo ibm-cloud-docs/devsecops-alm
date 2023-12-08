@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-10-05"
+lastupdated: "2023-12-08"
 
 keywords: devsecops-alm, deployment guide, deployable architecture
 
@@ -203,6 +203,9 @@ Set these variables to `true` to use a {{site.data.keyword.keymanagementservices
 ## Optional CI, CD, and CC variables
 {: #devsecops-alm-optional}
 
+If you are deploying with Code engine, see [Optional Code Engine CI and CD variables](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars#devsecops-alm-codeengine-optional)
+{: note}
+
 | Name | Description | Type | Default |
 |------|-------------|------|---------|
 | `deployment_repo_url` | The repository to clone deployment for DevSecOps toolchain template. | `string` | `""` |
@@ -223,12 +226,6 @@ Set these variables to `true` to use a {{site.data.keyword.keymanagementservices
 | `ci_authorization_policy_creation` | Disable toolchain service to Secrets Manager Service authorization policy creation. | `string` | `""` |
 | `ci_cluster_name` | Name of the Kubernetes cluster where the application is deployed. The cluster can be the same cluster that is used for prod. | `string` | `"mycluster-free"` |
 | `ci_cluster_namespace` | Name of the Kubernetes cluster namespace where the application is deployed. | `string` | `"dev"` |
-| `ci_code_engine_build_strategy` | The build strategy for the Code Engine entity. Default strategy is `dockerfile`. Set as `buildpacks` for `buildpacks` build. | `string` | `""` |
-| `ci_code_engine_entity_type` | Type of Code Engine entity to create or update as part of deployment. Default type is `application`. Set as `job` for `job` type. | `string` | `""` |
-| `ci_code_engine_project` | The name of the Code Engine project to use (or create). | `string` | `"DevSecOps_CE"` |
-| `ci_code_engine_region`  | The region to create or look up for the Code Engine project. | `string` | `"ibm:yp:us-south"` |
-| `ci_code_engine_resource_group`  | The resource group of the Code Engine project. | `string` | `"Default"` |
-| `ci_code_engine_source`| The path to the location of code to build in the repository. | `string` | `""` |
 | `ci_compliance_base_image` | Pipeline baseimage to run most of the built-in pipeline code. | `string` | `""` |
 | `ci_compliance_pipeline_branch` | The CI Pipeline Compliance Pipeline branch.| `string` | `""` |
 | `ci_compliance_pipeline_pr_branch` | The PR Pipeline Compliance Pipeline branch.| `string` | `""` |
@@ -542,6 +539,79 @@ Set these variables to `true` to use a {{site.data.keyword.keymanagementservices
 {: tab-group="IAM-simple"}
 {: class="simple-tab-table"}
 
+## Optional Code Engine CI and CD variables
+{: #devsecops-alm-codeengine-optional}
+
+| Name | Description | Type | Default |
+|------|-------------|------|---------|
+| `ci_code_engine_app_concurrency` | The maximum number of requests that can be processed concurrently per instance. | `string` | `"100"` |
+| `ci_code_engine_app_deployment_timeout` | The maximum timeout for the application deployment. | `string` | `"300"` |
+| `ci_code_engine_app_max_scale` | The maximum number of instances that can be used for this application. If you set this value to 0, the application scales as needed. The application scaling is limited only by the instances per the resource quota for the project of your application. | `string` | `"1"` |
+| `ci_code_engine_app_min_scale` | The minimum number of instances that can be used for this application. This option is useful to ensure that no instances are running when not needed. | `string` | `"0"` |
+| `ci_code_engine_app_port` | The port where the application listens. The format is `[NAME:]PORT`, where `[NAME:]` is optional. If `[NAME:]` is specified, valid values are `h2c`, or `http1`. When `[NAME:]` is not specified or is `http1`, the port uses `HTTP/1.1`. When `[NAME:]` is `h2c`, the port uses unencrypted `HTTP/2`. | `string` | `"8080"` |
+| `ci_code_engine_app_visibility` | The visibility for the application. Valid values are public, private, and project. Setting a visibility of public means that your app can receive requests from the public internet or from components within the Code Engine project. Setting a visibility of private means that your app is not accessible from the public internet and network access is only possible from other IBM Cloud using Virtual Private Endpoints (VPE) or Code Engine components that are running in the same project. Visibility can be private only if the project supports application private visibility. Setting a visibility of project means that your app is not accessible from the public internet and network access is only possible from other Code Engine components that are running in the same project. | `string` | `"public"` |
+| `ci_code_engine_binding_resource_group` | The name of a resource group to use for authentication for the service bindings of the Code Engine project. A service ID is created with Operator and Manager roles for all services in this resource group. Use '*' to specify all resource groups in this account. | `string` | `""` |
+| `ci_code_engine_build_size` | The size to use for the build, which determines the amount of resources used. Valid values include `small`, `medium`, `large`, `xlarge`. | `string` | `"large"` |
+| `ci_code_engine_build_strategy` | The build strategy for the Code Engine component. It can be `dockerfile` or `buildpacks`. | `string` | `"dockerfile"` |
+| `ci_code_engine_build_timeout` | The amount of time, in seconds, that can pass before the build run must succeed or fail. | `string` | `"1200"` |
+| `ci_code_engine_build_use_native_docker` | Property to opt-in for using native docker build capabilities as opposed to use Code Engine build to containerize the source. Note this setting takes effect only if the build-strategy is set to `dockerfile`. Valid values are `true` and `false`. | `string` | `"false"` |
+| `ci_code_engine_context_dir` | The directory in the repository that contains the buildpacks file or the Dockerfile. | `string` | `"."` |
+| `ci_code_engine_cpu` | The amount of CPU set for the instance of the application or job. | `string` | `"0.25"` |
+| `ci_code_engine_deployment_type` | Type of Code Engine component to create/update as part of deployment. It can be either `application` or `job`. | `string` | `"application"` |
+| `ci_code_engine_dockerfile` | The path to the `Dockerfile`. Specify this option only if the name is other than `Dockerfile` | `string` | `"Dockerfile"` |
+| `ci_code_engine_env_from_configmaps` | Semi-colon separated list of configmaps to set environment variables. | `string` | `""` |
+| `ci_code_engine_env_from_secrets` | Semi-colon separated list of secrets to set environment variables. | `string` | `""` |
+| `ci_code_engine_ephemeral_storage` | The amount of ephemeral storage to set for the instance of the application or for the runs of the job. Use M for megabytes or G for gigabytes. | `string` | `"0.4G"` |
+| `ci_code_engine_image_name` | Name of the image that is built. | `string` | `"code-engine-compliance-app"` |
+| `ci_code_engine_job_instances` | Specifies the number of instances that are used for runs of the job. When you use this option, the system converts to array indices. For example, if you specify instances of 5, the system converts to array-indices of 0 - 4. This option can be specified only if the --array-indices option is not specified. The default value is 1. | `string` | `"1"` |
+| `ci_code_engine_job_maxexecutiontime` | The maximum execution time in seconds for runs of the job. | `string` | `"7200"` |
+| `ci_code_engine_job_retrylimit` | The number of times to rerun an instance of the job before the job is marked as failed. | `string` | `"3"` |
+| `ci_code_engine_memory` | The amount of memory set for the instance of the application or job. Use M for megabytes or G for gigabytes. | `string` | `"0.5G"` |
+| `ci_code_engine_project` | The name of the Code Engine project to use for the CI pipeline build. The project is created if it does not already exist. | `string` | `"Sample_CI_Project"` |
+| `ci_code_engine_region` | The region to create/lookup for the Code Engine project. | `string` | `""` |
+| `ci_code_engine_registry_domain` | The container registry URL domain that is used to build and tag the image. Useful when using private-endpoint container registry. | `string` | `""` |
+| `ci_code_engine_remove_refs` | Remove references to unspecified configuration resources (configmap/secret) references (pulled from env-from-configmaps, env-from-secrets along with auto-managed by CD). | `string` | `"false"` |
+| `ci_code_engine_resource_group` | The resource group of the Code Engine project. | `string` | `""` |
+| `ci_code_engine_service_bindings` | JSON array that includes service name as a simple JSON string. | `string` | `""` |
+| `ci_code_engine_source` | The path to the location of code to build in the repository. Defaults to the root of the source code repository. | `string` | `""` |
+| `ci_code_engine_wait_timeout` | The maximum timeout for the CLI operation to wait. | `string` | `"1300"` |
+{: caption="Table 13. Optional variables for Code Engine deployment" caption-side="bottom"}
+{: #ci-parameters-codeengine}
+{: tab-title="Continuous integration"}
+{: tab-group="codeengine-variables"}
+{: class="simple-tab-table"}
+
+| Name | Description | Type | Default |
+|------|-------------|------|---------|
+| `cd_code_engine_app_concurrency` | The maximum number of requests that can be processed concurrently per instance. | `string` | `"100"` |
+| `cd_code_engine_app_deployment_timeout` | The maximum timeout for the application deployment. | `string` | `"300"` |
+| `cd_code_engine_app_max_scale` | The maximum number of instances that can be used for this application. If you set this value to 0, the application scales as needed. The application scaling is limited only by the instances per the resource quota for the project of your application. | `string` | `"1"` |
+| `cd_code_engine_app_min_scale` | The minimum number of instances that can be used for this application. This option is useful to ensure that no instances are running when not needed. | `string` | `"0"` |
+| `cd_code_engine_app_port` | The port where the application listens. The format is `[NAME:]PORT`, where `[NAME:]` is optional. If `[NAME:]` is specified, valid values are `h2c`, or `http1`. When `[NAME:]` is not specified or is `http1`, the port uses `HTTP/1.1`. When `[NAME:]` is `h2c`, the port uses unencrypted `HTTP/2`. | `string` | `"8080"` |
+| `cd_code_engine_app_visibility` | The visibility for the application. Valid values are public, private, and project. Setting a visibility of public means that your app can receive requests from the public internet or from components within the Code Engine project. Setting a visibility of private means that your app is not accessible from the public internet and network access is only possible from other IBM Cloud using Virtual Private Endpoints (VPE) or Code Engine components that are running in the same project. Visibility can be private only if the project supports application private visibility. Setting a visibility of project means that your app is not accessible from the public internet and network access is only possible from other Code Engine components that are running in the same project. | `string` | `"public"` |
+| `cd_code_engine_binding_resource_group` | The name of a resource group to use for authentication for the service bindings of the Code Engine project. A service ID is created with Operator and Manager roles for all services in this resource group. Use '*' to specify all resource groups in this account. | `string` | `""` |
+| `cd_code_engine_cpu` | The amount of CPU set for the instance of the application or job. | `string` | `"0.25"` |
+| `cd_code_engine_deployment_type` | Type of Code Engine component to create/update as part of deployment. It can be either `application` or `job`. | `string` | `"application"` |
+| `cd_code_engine_env_from_configmaps` | Semi-colon separated list of configmaps to set environment variables. | `string` | `""` |
+| `cd_code_engine_env_from_secrets` | Semi-colon separated list of secrets to set environment variables. | `string` | `""` |
+| `cd_code_engine_ephemeral_storage` | The amount of ephemeral storage to set for the instance of the application or for the runs of the job. Use M for megabytes or G for gigabytes. | `string` | `"0.4G"` |
+| `cd_code_engine_job_instances` | Specifies the number of instances that are used for runs of the job. When you use this option, the system converts to array indices. For example, if you specify instances of 5, the system converts to array-indices of 0 - 4. This option can be specified only if the --array-indices option is not specified. The default value is 1. | `string` | `"1"` |
+| `cd_code_engine_job_maxexecutiontime` | The maximum execution time in seconds for runs of the job. | `string` | `"7200"` |
+| `cd_code_engine_job_retrylimit` | The number of times to rerun an instance of the job before the job is marked as failed. | `string` | `"3"` |
+| `cd_code_engine_memory` | The amount of memory set for the instance of the application or job. Use M for megabytes or G for gigabytes. | `string` | `"0.5G"` |
+| `cd_code_engine_project` | The name of the Code Engine project to use for the CD pipeline promoted code. The project is created if it does not already exist. | `string` | `"Sample_CD_Project"` |
+| `cd_code_engine_region` | The region to create/lookup for the Code Engine project. | `string` | `""` |
+| `cd_code_engine_remove_refs` | Remove references to unspecified configuration resources (configmap/secret) references (pulled from env-from-configmaps, env-from-secrets along with auto-managed by CD). | `string` | `"false"` |
+| `cd_code_engine_resource_group` | The resource group of the Code Engine project. | `string` | `""` |
+| `cd_code_engine_service_bindings` | JSON array that includes service name as a simple JSON string. | `string` | `""` |
+| `cd_code_signing_cert` | The base64 encoded GPG public key. | `string` | `""` |
+| `cd_code_engine_service_bindings` | JSON array that includes service name as a simple JSON string. | `string` | `""` |
+{: caption="Table 13. Optional variables for Code Engine deployment" caption-side="bottom"}
+{: #cd-parameters-codeengine}
+{: tab-title="Continuous deployment"}
+{: tab-group="codeengine-variables"}
+{: class="simple-tab-table"}
+
 ## Output variables
 {: #devsecops-alm-output}
 
@@ -559,4 +629,5 @@ Set these variables to `true` to use a {{site.data.keyword.keymanagementservices
 | `issues_repo_url` | The Issues Repo URL. |
 | `secrets_manager_instance_id` | The Secrets Manage Instance ID |
 | `key_protect_instance_id` | The Key Protect Instance ID |
-{: caption="Table 13. Outputs" caption-side="top"}
+{: caption="Table 14. Outputs" caption-side="top"}
+

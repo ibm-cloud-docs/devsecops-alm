@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-09-29"
+lastupdated: "2023-12-08"
 
 keywords:
 
@@ -54,13 +54,35 @@ You are now ready to configure the security, required variables, and optional va
     | `toolchain_name` | Enter the prefix name for the toolchain. The toolchain name is appended with `CI Toolchain`, `CD Toolchain`, or `CC Toolchain` followed by a timestamp. | `DevSecOps` |
     | `toolchain_region` | Enter the region identifier that is used, by default, for all resource creation and service instance lookup. | `us-south` |
     | `toolchain_resource_group` | Enter the resource group that is used, by default, for all resource creation and service instance lookups. If you have more than one resource group in your account, choose a group. If not, you can use the default. | `Default` |
-    | `registry_namespace` | Enter the namespace of the registry within the {{site.data.keyword.cloud_notm}} Container Registry region where the application image is stored. Namespaces need to be unique in the region that you selected. |`my-registry-namespace` |
+    | `registry_namespace` | Enter the namespace of the registry within the {{site.data.keyword.cloud_notm}} Container Registry region where the application image is stored. Namespaces need to be unique in the region that you selected. |`myregistry_free` |
     | `cluster_name` | Enter the name of the Kubernetes cluster that you already created. The assumption is that it is in the resource group you selected. You can modify this in Advanced options. | `mycluster_free` |
     | `sm_location` | Enter the region location of the Secrets Manager instance that you previously set up. | `us-south` |
     | `sm_name` | Enter the name of the Secrets Manager instance that you previously set up. | `sm-instance`|
     | `sm_resource_group`| Enter the resource group that contains the Secrets Manager instance that you previously set up. | `Default` |
     | `sm_secret_group` | Enter the group in Secrets Manager instance that you previously set up for organizing or grouping secrets.| `Default` |
+    {: class="simple-tab-table"}
     {: caption="Table 1. List of required values for deployment" caption-side="bottom"}
+    {: #simpletabtable1}
+    {: tab-title="Kubernetes values"}
+    {: tab-group="deployment-values"}
+
+    | Required value | Action | Example |
+    |---|---|---|
+    | `toolchain_name` | Enter the prefix name for the toolchain. The toolchain name is appended with `CI Toolchain`, `CD Toolchain`, or `CC Toolchain` followed by a timestamp. | `DevSecOps` |
+    | `toolchain_region` | Enter the region identifier that is used, by default, for all resource creation and service instance lookup. | `us-south` |
+    | `toolchain_resource_group` | Enter the resource group that is used, by default, for all resource creation and service instance lookups. If you have more than one resource group in your account, choose a group. If not, you can use the default. | `Default` |
+    | `registry_namespace` | Enter the namespace of the registry within the {{site.data.keyword.cloud_notm}} Container Registry region where the application image is stored. Namespaces need to be unique in the region that you selected. |`myregistry_free` |
+    | `ci_code_engine_project` | The name of the Code Engine project to use for the CI pipeline build. The project is created if it does not already exist. | `Sample_CI_Project` |
+    | `cd_code_engine_project` | The name of the Code Engine project to use for the CD pipeline promoted code. The project is created if it does not already exist.| `Sample_CD_Project` |
+    | `sm_location` | Enter the region location of the Secrets Manager instance that you previously set up. | `us-south` |
+    | `sm_name` | Enter the name of the Secrets Manager instance that you previously set up. | `sm-instance`|
+    | `sm_resource_group`| Enter the resource group that contains the Secrets Manager instance that you previously set up. | `Default` |
+    | `sm_secret_group` | Enter the group in Secrets Manager instance that you previously set up for organizing or grouping secrets.| `Default` |
+    {: class="simple-tab-table"}
+    {: caption="Table 1. List of required values for deployment" caption-side="bottom"}
+    {: #simpletabtable1}
+    {: tab-title="Code Engine values"}
+    {: tab-group="deployment-values"}
 
 1.  Optional: Specify other values from the **Optional** tab. For more information about optional values, see [Optional input variables](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars#devsecops-alm-opt).
 1.  Click **Save**.
