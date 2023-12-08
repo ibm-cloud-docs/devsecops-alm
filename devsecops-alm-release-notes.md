@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-10-13"
+lastupdated: "2023-12-08"
 
 keywords: devsecops-alm, deployment guide, deployable architecture, release notes
 
@@ -22,6 +22,26 @@ Use these release notes to learn about the latest updates to the DevSecOps Appli
 
 To find the release notes for the DevSecOps compliance pipeline definitions that are used by this architecture, see [Release notes for DevSecOps](/docs/devsecops?topic=devsecops-release-notes).
 
+
+## 23 November 2023
+{: #devsecops-alm-november2023}
+{: release-note}
+
+Version 1.0.7 of DevSecOps Application Lifecycle Management released
+:   Version 1.0.7 of the DevSecOps Application Lifecycle Management is available in the {{site.data.keyword.cloud_notm}} [catalog](/catalog#reference_architecture){: external}.
+
+   - You can now deploy a sample application with {{site.data.keyword.codeenginefull_notm}}.
+
+   - Support added in the CC toolchain for auto remediation of vulnerabilities using CRA for supported application types.
+
+   - DevSecOps Application Lifecycle Management now uses the `open-v10` version of the compliance pipelines. Upgrading from `1.0.6` to `1.0.7` in {{site.data.keyword.cloud_notm}} projects will also update the version to `open-v10`. You can explicitly change the version by using the `compliance_pipeline_branch` variable.
+
+   - Support added for SonarQube.
+
+   - A validation trigger has been added to the CD pipeline for validating Git promotions.
+
+  If you are upgrading from version `1.0.6` to `1.0.7` select the `Deploy to Kubernetes` option of `1.0.7`
+  {: note}
 
 ## 02 October 2023
 {: #devsecops-alm-october2023}
@@ -51,8 +71,8 @@ Version 1.0.5 of DevSecOps Application Lifecycle Management released
 
    - Triggers can now be named, enabled, and disabled. For example, `ci_trigger_manual_name` and `ci_trigger_manual_enable`. For more information, see [Mandatory and optional variables](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars).
 
-Note:
 Version 1.0.5 addresses a potential issue whereby the default Sonarqube scan fails to run and instead attempts to connect to a custom server. The issue can be remedied in the 1.0.4 release by deleting the text parameter `sonarqube` from both the CI and CC pipeline properties. This was set to `{}` previously.
+{: note}
 
 ## 26 May 2023
 {: #devsecops-alm-may2023}
