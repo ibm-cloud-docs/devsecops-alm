@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-12-08"
+lastupdated: "2023-12-11"
 
 keywords: devsecops-alm, deployment guide, deployable architecture, release notes
 
@@ -23,8 +23,8 @@ Use these release notes to learn about the latest updates to the DevSecOps Appli
 To find the release notes for the DevSecOps compliance pipeline definitions that are used by this architecture, see [Release notes for DevSecOps](/docs/devsecops?topic=devsecops-release-notes).
 
 
-## 23 November 2023
-{: #devsecops-alm-november2023}
+## 11 December 2023
+{: #devsecops-alm-december2023}
 {: release-note}
 
 Version 1.0.7 of DevSecOps Application Lifecycle Management released
