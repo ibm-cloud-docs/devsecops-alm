@@ -32,8 +32,8 @@ toc:
   - navgroup:
       id: plan
       topics:
-      - terraform-script-prereqs.md
-      - toolchain-operations-prereqs.md
+      - devsecops-alm-terraform-script-prereqs.md
+      - devsecops-alm-toolchain-operations-prereqs.md
 
   - navgroup:
       id: deploy
