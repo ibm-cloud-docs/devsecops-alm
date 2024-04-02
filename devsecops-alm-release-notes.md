@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2023
-lastupdated: "2023-12-11"
+  years: 2024
+lastupdated: "2024-03-22"
 
 keywords: devsecops-alm, deployment guide, deployable architecture, release notes
 
@@ -22,6 +22,27 @@ Use these release notes to learn about the latest updates to the DevSecOps Appli
 
 To find the release notes for the DevSecOps compliance pipeline definitions that are used by this architecture, see [Release notes for DevSecOps](/docs/devsecops?topic=devsecops-release-notes).
 
+
+
+## 22 March 2024
+{: #devsecops-alm-march2024}
+{: release-note}
+
+Version 1.1.0 of DevSecOps Application Lifecycle Management released
+:   Version 1.1.0 of the DevSecOps Application Lifecycle Management is available in the {{site.data.keyword.cloud_notm}} [catalog](/catalog#reference_architecture){: external}.
+
+   - CRN support added for Secrets Manager. Set `sm_instance_crn` with the CRN of the Secrets Manager instance. At minimum two CRN secrets, need to be provided. Set `pipeline_ibmcloud_api_key_secret_crn` with the CRN for the apikey that runs the pipelines and set `ci_signing_key_secret_crn` with the CRN for the signing key.
+
+   - Support added for GoSec scans. Set `opt_in_gosec` to `1` to enable GoSec scans. See [DevsecOps Docs](https://cloud.ibm.com/docs/devsecops?topic=devsecops-devsecops-image-verify){: external}
+
+   - Support for using a Git tag to select a version of the Compliance Pipelines definitions in the pipeline definitions section. The recommendation is to use the current settings, which automatically use the latest version of the Compliance Pipelines. To specifiy a tag use `pipeline_git_tag`.
+
+   - Support for enabling artifact validation. See [DevsecOps Docs](https://cloud.ibm.com/docs/devsecops?topic=devsecops-cd-devsecops-ci-pipeline#devsecops-ci-pipeline-gosec-add){: external}
+     The expected signing certificate secret name is `signing-certificate`. If this is already set in the secrets provider under a different secret name, it can be updated by setting `cd_code_signing_cert_secret_name` to match the existing secret entry name.
+
+
+If you are upgrading from version `1.0.7` to `1.1.0` select the variant that corresponds to your current configuration. If `print-code-signing-certificate` is set in the CI pipeline properties, delete the entry before continuing. Likewise for `code-signing-cert` in the CD pipeline. These will cause an update failure if present. If a failure occurs, ensure those pipeline properties have been removed and then try again.
+{: note}
 
 ## 11 December 2023
 {: #devsecops-alm-december2023}
