@@ -1,8 +1,8 @@
 ---
 
 copyright:
-  years: 2023
-lastupdated: "2023-12-08"
+  years: 2024
+lastupdated: "2024-01-29"
 
 keywords: devsecops-alm, deployment guide, deployable architecture
 
@@ -62,6 +62,22 @@ The variables that are prefixed with `ci`, `cd`, and `cc` apply to the CI, CD, a
 |`compliance_base_image`|Pipeline baseimage to run most of the built-in pipeline code. Applies to the CI, CD and CC toolchain pipelines.|`string`|`""` |
 | `compliance_pipeline_branch` | The Compliance Pipeline branch. | `string` | `"open-v9"` |
 | `event_notifications_crn` | Set the {{site.data.keyword.en_short}} CRN to create an {{site.data.keyword.en_short}} integration. This paramater applies to the CI, CD and CC toolchains. It can be set individually with `ci_event_notifications_crn`, `cd_event_notifications_crn`, and `cc_event_notifications_crn`. | `string` | `""` |
+| `gosec_private_repository_host` | Your private repository base URL. | `string` | `""` |
+| `gosec_repo_ssh_key_secret_group` | Secret group prefix for the gosec private repository ssh key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` |
+| `gosec_repo_ssh_key_secret_name` | Name of the SSH key token for the private repository in the secret provider. | `string` | `"git-ssh-key"` |
+| `opt_in_gosec` | Enables gosec scans | `string` | `""` |
+| `pipeline_git_tag` | The Git tag within the pipeline definitions repository for the Compliance Pipelines. | `string` | `""` |
+|`sm_instance_crn` | The CRN of the Secrets Manager instance applies to CI, CD, and CC toolchains unless set individually. | `string` | `""` | no |
+|`cos_api_key_secret_crn` | The CRN for the Cloud Object Storage apikey. | `string` | `""` | no |
+|`event_notifications_crn` | Set the Event Notifications CRN to create an Events Notification integration. This parameter applies to the CI, CD, and CC toolchains.The parameter can also be individually configured with `ci_event_notifications_crn`, `cd_event_notifications_crn`, `cc_event_notifications_crn`. | `string` | `""` | no |
+|`gosec_private_repository_ssh_key_secret_crn`| The CRN for the GoSec repository secret. | `string` | `""` | no |
+|`pipeline_doi_api_key_secret_crn`| The CRN for the pipeline DOI apikey. | `string` | `""` | no |
+|`pipeline_ibmcloud_api_key_secret_crn`| The CRN for the IBMCloud apikey. | `string` | `""` | no |
+|`repo_git_token_secret_crn` | The CRN for the repositories Git Token. | `string` | `""` | no |
+|`scc_instance_crn` | The Security and Compliance Center service instance CRN (Cloud Resource Name). This parameter is only relevant when the `scc_use_profile_attachment` parameter is enabled. The value must match the regular expression. | `string` | `""` | no |
+|`scc_scc_api_key_secret_crn` | The CRN for the SCC apikey. | `string` | `""` | no |
+|`slack_webhook_secret_crn` | The CRN for the Slack webhook secret. | `string` | `""` | no |
+|`sonarqube_secret_crn` | The CRN for the SonarQube secret. | `string` | `""` | no |
 | `scc_attachment_id` | An attachment ID. An attachment is configured under a profile to define how a scan runs. To find the attachment ID, in the browser, in the attachments list, click the attachment link, and a panel appears that you can use to copy the attachment ID. This parameter is only relevant when the `scc_use_profile_attachment` parameter is enabled. | `string` | `""` |
 | `scc_instance_crn` | The Security and Compliance Center service instance CRN (Cloud Resource Name). This parameter is only relevant when the `scc_use_profile_attachment` parameter is enabled. The value must match the regular expression.| `string` | `""` |
 | `scc_profile_name` | The name of a Security and Compliance Center profile. Use the `IBM Cloud for Financial Services` profile, which contains the DevSecOps Toolchain rules, or use a user-authored customized profile that is configured to contain those rules. This parameter is only relevant when the `scc_use_profile_attachment` parameter is enabled. | `string` | `""` |
@@ -203,7 +219,7 @@ Set these variables to `true` to use a {{site.data.keyword.keymanagementservices
 ## Optional CI, CD, and CC variables
 {: #devsecops-alm-optional}
 
-If you are deploying with Code Engine, see [Optional Code Engine CI and CD variables](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars#devsecops-alm-codeengine-optional)
+If you are deploying with Code engine, see [Optional Code Engine CI and CD variables](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars#devsecops-alm-codeengine-optional)
 {: note}
 
 | Name | Description | Type | Default |
@@ -221,6 +237,7 @@ If you are deploying with Code Engine, see [Optional Code Engine CI and CD varia
 | `ci_app_group`  | Specify Git user or group for your application. | `string` | `""` |
 | `ci_app_name`  | Name of the application image and inventory entry. | `string` | `"hello-compliance-app"` |
 | `ci_app_repo_auth_type` | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
+| `ci_app_repo_git_token_secret_crn`| The CRN for the app repository Git Token. | `string` | `""` | no |
 | `ci_app_repo_git_token_secret_name`  | Name of the Git token secret in the secret provider. | `string` | `""` |
 | `ci_app_version`  | The version of the app to deploy. | `string` | `"v1"` |
 | `ci_authorization_policy_creation` | Disable toolchain service to Secrets Manager Service authorization policy creation. | `string` | `""` |
@@ -231,7 +248,9 @@ If you are deploying with Code Engine, see [Optional Code Engine CI and CD varia
 | `ci_compliance_pipeline_pr_branch` | The PR Pipeline Compliance Pipeline branch.| `string` | `""` |
 | `ci_compliance_pipeline_group`  | Specify user or group for compliance pipline repo. | `string` | `""` |
 | `ci_compliance_pipeline_repo_auth_type`| Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
+| `ci_compliance_pipeline_repo_git_token_secret_crn` | The CRN for the Compliance Pipeline repository Git Token. | `string` | `""` | no |
 | `ci_compliance_pipeline_repo_git_token_secret_name` | Name of the Git token secret in the secret provider. | `string` | `""` |
+| `ci_cos_api_key_secret_crn` | The CRN for the Cloud Object Storage apikey. | `string` | `""` | no |
 | `ci_cos_api_key_secret_name`  | Name of the Cloud Object Storage API key secret in the secret provider. | `string` | `""` |
 | `ci_cos_bucket_name` | Cloud Object Storage bucket name. | `string` | `""` |
 | `ci_cos_endpoint`  | Cloud Object Storage endpoint name. | `string` | `""` |
@@ -248,17 +267,25 @@ If you are deploying with Code Engine, see [Optional Code Engine CI and CD varia
 | `ci_event_notifications_crn`  | Set the {{site.data.keyword.en_short}} CRN to create an {{site.data.keyword.en_short}} integration. | `string` | `""` |
 | `ci_evidence_group`  | Specify Git user or group for evidence repository. | `string` | `""` |
 | `ci_evidence_repo_auth_type`  | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
+| `ci_evidence_repo_git_token_secret_crn` | The CRN for the Evidence repository Git Token. | `string` | `""` | no |
 | `ci_evidence_repo_git_token_secret_name`  | Name of the Git token secret in the secret provider. | `string` | `""` |
+| `ci_gosec_private_repository_host` | Your private repository base URL. | `string` | `""` |
+| `ci_gosec_private_repository_ssh_key_secret_crn` | The CRN for the GoSec repository secret. | `string` | `""` | no |
+| `ci_gosec_repo_ssh_key_secret_group` | Secret group prefix for the gosec private repository ssh key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` |
+| `ci_gosec_repo_ssh_key_secret_name` | Name of the SSH key token for the private repository in the secret provider. | `string` | `"git-ssh-key"` |
 | `ci_inventory_group`  | Specify Git user or group for inventory repository. | `string` | `""` |
 | `ci_inventory_repo_auth_type` | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
+| `ci_inventory_repo_git_token_secret_crn` | The CRN for the Inventory repository Git Token. | `string` | `""` | no |
 | `ci_inventory_repo_git_token_secret_name` | Name of the Git token secret in the secret provider. | `string` | `""` |
 | `ci_issues_group` | Specify Git user or group for issues repository. | `string` | `""` |
 | `ci_issues_repo_auth_type` | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
+| `ci_issues_repo_git_token_secret_crn` | The CRN for the Issues repository Git Token. | `string` | `""` | no |
 | `ci_issues_repo_git_token_secret_name` | Name of the Git token secret in the secret provider. | `string` | `""` |
 | `ci_link_to_doi_toolchain`  | Enable a link to a DevOps Insights instance in another toolchain. | `bool` | `false` |
 | `ci_opt_in_dynamic_api_scan`  | Enable the OWASP Zap API scan. `1` enable or `0` disable. | `string` | `"1"` |
 | `ci_opt_in_dynamic_scan`| To enable the OWASP Zap scan. `1` enable or `0` disable. | `string` | `"1"` |
 | `ci_opt_in_dynamic_ui_scan` | To enable the OWASP Zap UI scan. `1` enable or `0` disable. | `string` | `"1"` |
+| `ci_opt_in_gosec` | Enables gosec scans | `string` | `""` |
 | `ci_opt_in_sonar` | Opt in for SonarQube. | `string` | `"1"` |
 | `ci_pipeline_config_group` | Specify user or group for pipeline config repo. | `string` | `""` |
 | `ci_pipeline_config_path` | The name and path of the `pipeline-config.yaml` file within the pipeline-config repo. | `string` | `".pipeline-config.yaml"` |
@@ -266,13 +293,21 @@ If you are deploying with Code Engine, see [Optional Code Engine CI and CD varia
 | `ci_pipeline_config_repo_branch` | Specify the branch that contains the custom `pipeline-config.yaml` file. | `string` | `""` |
 | `ci_pipeline_config_repo_clone_from_url` | Specify a repository that contains a custom `pipeline-config.yaml` file. | `string` | `""` |
 | `ci_pipeline_config_repo_existing_url`  | Specify a repository that contains a custom `pipeline-config.yaml` file. | `string` | `""` |
+| `ci_pipeline_config_repo_git_token_secret_crn` | The CRN for the Pipeline Config repository Git Token. | `string` | `""` | no |
 | `ci_pipeline_config_repo_git_token_secret_name` | Name of the Git token secret in the secret provider. | `string` | `""` |
 | `ci_pipeline_debug` | `0` by default. Set to `1` to enable debug logging. | `string` | `"0"` |
+| `ci_pipeline_dockerconfigjson_secret_crn` | The CRN for Dockerconfig json secret. | `string` | `""` | no |
 | `ci_pipeline_dockerconfigjson_secret_name` | Name of the pipeline docker config JSON secret in the secret provider.| `string` | `"pipeline_dockerconfigjson_secret_name"` |
+| `ci_pipeline_git_tag` | The GIT tag within the pipeline definitions repository for the Compliance CI Pipeline. | `string` | `""` |
+| `pr_pipeline_git_tag` | The GIT tag within the pipeline definitions repository for the Compliance PR Pipeline. | `string` | `""` |
+| `ci_pipeline_git_token_secret_crn` | The CRN for the Git Token pipeline property. | `string` | `""` | no |
+| `ci_pipeline_ibmcloud_api_key_secret_crn`| The CRN for the IBMCloud apikey. | `string` | `""` | no |
 | `ci_pipeline_ibmcloud_api_key_secret_name` | Name of the Cloud API key secret in the secret provider. | `string` | `"ibmcloud-api-key"` |
+| `ci_print_code_signing_certificate` | Set to `1` to enable printing of the public signing certificate in the logs. | `string` | `"1"` | no |
 | `ci_registry_namespace` | A unique namespace within the {{site.data.keyword.cloud}} Container Registry region where the application image is stored. | `string` | `""` |
 | `ci_registry_region` | The {{site.data.keyword.cloud}} Region where the {{site.data.keyword.cloud}} Container Registry namespace is to be created. | `string` | `"ibm:yp:us-south"` |
 | `ci_repositories_prefix`  | Prefix name for the cloned compliance repos. | `string` | `"compliance"` |
+| `ci_signing_key_secret_crn` | The CRN for Signing Key secret. | `string` | `""` | no |
 | `ci_signing_key_secret_name` | Name of the signing key secret in the secret provider. | `string` | `"signing_key"` |
 | `ci_slack_channel_name` | The Slack channel that notifications are posted to. | `string` | `""` |
 | `ci_slack_notifications` | The switch that turns the Slack integration on or off. | `string` | `"0"` |
@@ -283,11 +318,14 @@ If you are deploying with Code Engine, see [Optional Code Engine CI and CD varia
 | `ci_slack_toolchain_bind`  | Generate tool added to toolchain notifications. | `bool` | `true` |
 | `ci_slack_toolchain_unbind`  | Generate tool removed from toolchain notifications. | `bool` | `true` |
 | `ci_slack_webhook_secret_name`  | Name of the webhook secret in the secret provider. | `string` | `""` |
+| `ci_sm_instance_crn`| The CRN of the Secrets Manager instance for the CI toolchain. | `string` | `""` | no |
 | `ci_sm_location` | {{site.data.keyword.cloud}} location or region that contains the Secrets Manager instance. | `string` | `""` |
 | `ci_sm_name` | Name of the Secrets Manager instance where the secrets are stored. | `string` | `""` |
 | `ci_sm_resource_group` | The resource group that contains the Secrets Manager instance. | `string` | `""` |
 | `ci_sm_secret_group`  | Group in Secrets Manager for organizing or grouping secrets. | `string` | `""` |
 | `ci_sonarqube_config` | Runs a SonarQube scan in an isolated Docker-in-Docker container (default configuration) or in an existing Kubernetes cluster (custom configuration). Options: default or custom. Default is default. | `string` | `"default"` |
+| `ci_sonarqube_secret_crn` | The CRN for the SonarQube secret. | `string` | `""` | no |
+| `ci_sonarqube_secret_name`| The name of the SonarQube secret. | `string` | `"sonarqube-secret"` | no |
 | `ci_toolchain_description`  | Description for the CI toolchain. | `string` | `"Toolchain created with terraform template for DevSecOps CI Best Practices."` |
 | `ci_toolchain_name`  | The name of the CI toolchain. | `string` | `"DevSecOps CI Toolchain - Terraform"` |
 | `ci_toolchain_region` | The region that contains the CI toolchain. | `string` | `""` |
@@ -308,6 +346,7 @@ If you are deploying with Code Engine, see [Optional Code Engine CI and CD varia
 | `ci_pipeline_ibmcloud_api_key_secret_group` | Secret group prefix for the pipeline ibmcloud API key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
 | `ci_signing_key_secret_group` | Secret group prefix for the signing key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` |
 | `ci_cos_api_key_secret_group` | Secret group prefix for the Cloud Object Storage API key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` |
+| `ci_slack_webhook_secret_crn` | The CRN for the Slack webhook secret. | `string` | `""` | no |
 | `ci_slack_webhook_secret_group` | Secret group prefix for the Slack webhook secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
 | `ci_pipeline_dockerconfigjson_secret_group` | Secret group prefix for the pipeline DockerConfigJson secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` |
 | `ci_pipeline_git_token_secret_group` | Secret group prefix for the pipeline Git token secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
@@ -331,18 +370,22 @@ If you are deploying with Code Engine, see [Optional Code Engine CI and CD varia
 | `cd_change_management_group` | Specify group for change management repository. | `string` | `""` |
 | `cd_change_management_repo`  | This repository holds the change management requests created for the deployments. | `string` | `""` |
 | `cd_change_management_repo_auth_type` | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
+| `cd_change_management_repo_git_token_secret_crn`| The CRN for the Change Management repository Git Token. | `string` | `""` | no |
 | `cd_change_management_repo_git_token_secret_name` | Name of the Git token secret in the secret provider. | `string` | `""` |
 | `cd_change_repo_clone_from_url` | Override the default management repo, which is cloned into the app repo. If the app repo exists, use `clone_if_not_exists` to leave the repo contents unchanged. | `string` | `""` |
 | `cd_change_request_id` | The ID of an open change request. If this variable is set to `notAvailable`, a change request is automatically created by the continuous deployment pipeline. | `string` | `"notAvailable"` |
 | `cd_cluster_name`| Name of the Kubernetes cluster where the application is deployed. | `string` | `"mycluster-free"` |
 | `cd_cluster_namespace` | Name of the Kubernetes cluster namespace where the application is deployed. | `string` | `"prod"` |
 | `cd_cluster_region` | Region of the Kubernetes cluster where the application is deployed. | `string` | `"ibm:yp:us-south"` |
-| `cd_code_signing_cert_secret_name` | Name of the code signing certificate secret in the secret provider. | `string` | `"code-signing-cert"` |
+| `cd_code_signing_cert_secret_crn` | The CRN for the public signing key cert in the secrets provider. | `string` | `""` |
+| `cd_code_signing_cert_secret_group` | Secret group prefix for the pipeline Public signing key cert secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` |
+| `cd_code_signing_cert_secret_name` | Name of the Cloud API key secret in the secret provider. | `string` | `"signing-certificate"` |
 | `cd_compliance_base_image` | Pipeline baseimage to run most of the built-in pipeline code. | `string` | `""` |
 | `cd_compliance_pipeline_branch` | The CD Pipeline Compliance Pipeline branch.| `string` | `""` |
 | `cd_compliance_pipeline_group` | Specify user or group for compliance pipline repo. | `string` | `""` |
 | `cd_compliance_pipeline_repo_auth_type` | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
 | `cd_compliance_pipeline_repo_git_token_secret_name`  | Name of the Git token secret in the secret provider. | `string` | `""` |
+| `cd_cos_api_key_secret_crn` | The CRN for the Cloud Object Storage apikey. | `string` | `""` | no |
 | `cd_cos_api_key_secret_name` | Name of the Cloud Object Storage API key secret in the secret provider. | `string` | `""` |
 | `cd_cos_bucket_name` | Cloud Object Storage bucket name. | `string` | `""` |
 | `cd_cos_endpoint`  | Cloud Object Storage endpoint name. | `string` | `""` |
@@ -357,21 +400,24 @@ If you are deploying with Code Engine, see [Optional Code Engine CI and CD varia
 | `cd_deployment_repo_existing_git_id`  | By default absent, otherwise use custom server GUID, or other options for `git_id` field in the browser UI. | `string` | `""` |
 | `cd_deployment_repo_existing_git_provider` | By default `hostedgit`, otherwise use `githubconsolidated` or `gitlab`. | `string` | `"hostedgit"` |
 | `cd_deployment_repo_existing_url` | Override to bring your own existing deployment repository URL, which is used directly instead of cloning the default deployment sample. | `string` | `""` |
+| `cd_deployment_repo_git_token_secret_crn` | The CRN for the Deployment repository Git Token. | `string` | `""` | no |
 | `cd_deployment_repo_git_token_secret_name` | Name of the Git token secret in the secret provider. | `string` | `""` |
 | `cd_doi_environment` | DevOps Insights environment for DevSecOps CD deployment. | `string` | `""` |
 | `cd_doi_toolchain_id` | DevOps Insights toolchain ID to link to. | `string` | `""` |
 | `cd_emergency_label`  | Identifies the pull request as an emergency. | `string` | `"EMERGENCY"` |
-| `cd_enable_signing_validation` | Adds the `code-signing-certificate` Property to the pipeline properties. | `bool` | `false` |
 | `cd_enable_slack` | Set to true to create the integration. | `bool` | `false` |
 | `cd_event_notifications_crn`  | Set the {{site.data.keyword.en_short}} CRN to create an {{site.data.keyword.en_short}} integration. | `string` | `""` |
 | `cd_evidence_group` | Specify Git user or group for evidence repository. | `string` | `""` |
 | `cd_evidence_repo_auth_type` | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
+| `cd_evidence_repo_git_token_secret_crn`| The CRN for the Evidence repository Git Token. | `string` | `""` | no |
 | `cd_evidence_repo_git_token_secret_name` | Name of the Git token secret in the secret provider. | `string` | `""` |
 | `cd_inventory_group` | Specify Git user or group for inventory repository. | `string` | `""` |
 | `cd_inventory_repo_auth_type` | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
+| `cd_inventory_repo_git_token_secret_crn` | The CRN for the Inventory repository Git Token. | `string` | `""` | no |
 | `cd_inventory_repo_git_token_secret_name` | Name of the Git token secret in the secret provider. | `string` | `""` |
 | `cd_issues_group` | Specify Git user or group for issues repository. | `string` | `""` |
 | `cd_issues_repo_auth_type` | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
+| `cd_issues_repo_git_token_secret_crn` | The CRN for the Issues repository Git Token. | `string` | `""` | no |
 | `cd_issues_repo_git_token_secret_name` | Name of the Git token secret in the secret provider. | `string` | `""` |
 | `cd_link_to_doi_toolchain` | Enable a link to a DevOps Insights instance in another toolchain, true or false. | `bool` | `true` |
 | `cd_merge_cra_sbom` | Merge the SBOM | `string` | `"1"` |
@@ -381,8 +427,11 @@ If you are deploying with Code Engine, see [Optional Code Engine CI and CD varia
 | `cd_pipeline_config_repo_branch` | Specify the branch that contains the custom pipeline-config.yaml file. | `string` | `""` |
 | `cd_pipeline_config_repo_clone_from_url` | Specify a repository that contains a custom pipeline-config.yaml file. | `string` | `""` |
 | `cd_pipeline_config_repo_existing_url` | Specify a repository that contains a custom pipeline-config.yaml file. | `string` | `""` |
+| `cd_pipeline_config_repo_git_token_secret_crn` | The CRN for the Config repository Git Token. | `string` | `""` | no |
 | `cd_pipeline_config_repo_git_token_secret_name` | Name of the Git token secret in the secret provider. | `string` | `""` |
 | `cd_pipeline_debug`  | `0` by default. Set to `1` to enable debug logging. | `string` | `"0"` |
+| `cd_pipeline_git_token_secret_crn`| The CRN for the Git Token secret in the pipeline properties. | `string` | `""` | no |
+| `cd_pipeline_ibmcloud_api_key_secret_crn` | The CRN for the pipeline apikey. | `string` | `""` | no |
 | `cd_pipeline_ibmcloud_api_key_secret_name` | Name of the Cloud API key secret in the secret provider. | `string` | `"ibmcloud-api-key"` |
 | `cd_repositories_prefix`  | Prefix name for the cloned compliance repos. | `string` | `"compliance"` |
 | `cd_satellite_cluster_group` | The Satellite cluster group | `string` | `""` |
@@ -424,7 +473,9 @@ If you are deploying with Code Engine, see [Optional Code Engine CI and CD varia
 | `cd_trigger_timed_pruner_enable` | Set to `true` to enable the timed Pruner trigger. | `bool` | `false` |
 | `cd_scc_enable_scc` | Adds the SCC tool integration to the toolchain. | `bool` | `true` |
 | `cd_scc_use_profile_attachment` | Set to `enabled` to enable use profile with attachment so that the scripts in the pipeline can interact with the Security and Compliance Center service. When enabled, other parameters become relevant; `scc_scc_api_key_secret_name`, `scc_instance_crn`, `scc_profile_name`, `scc_profile_version`, `scc_attachment_id`. | `string` | `""` |
+| `cd_slack_webhook_secret_crn` | The CRN for the Slack webhook secret. | `string` | `""` | no |
 | `cd_slack_webhook_secret_group` | Secret group prefix for the Slack webhook secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
+| `cd_sm_instance_crn`| The CRN of the Secrets Manager instance. | `string` | `""` | no |
 | `cd_change_management_repo_secret_group` | Secret group prefix for the Change Management repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
 | `cd_deployment_repo_secret_group` | Secret group prefix for the Deployment repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
 | `cd_issues_repo_secret_group` | Secret group prefix for the Issues repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
@@ -434,6 +485,7 @@ If you are deploying with Code Engine, see [Optional Code Engine CI and CD varia
 | `cd_pipeline_config_repo_secret_group` | Secret group prefix for the Pipeline Config repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` |
 | `cd_cos_api_key_secret_group` | Secret group prefix for the Cloud Object Storage API key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
 | `cd_pipeline_ibmcloud_api_key_secret_group` | Secret group prefix for the pipeline ibmcloud API key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
+| `cd_pipeline_git_tag` | The GIT tag within the pipeline definitions repository for the Compliance CD Pipeline. | `string` | `""` |
 | `cd_pipeline_git_token_secret_group` | Secret group prefix for the pipeline Git token secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
 | `cd_code_signing_cert` | The base64 encoded GPG public key. | `string` | `""` |
 | `cd_pipeline_git_token_secret_name` | Name of the pipeline Git token secret in the secret provider. | `string` | `"pipeline-git-token"` |
@@ -450,14 +502,18 @@ If you are deploying with Code Engine, see [Optional Code Engine CI and CD varia
 | `cc_app_repo_branch` | The default branch of the app repo. | `string` | `"master"` |
 | `cc_app_repo_git_id` | By default absent, otherwise use the custom server GUID, or other options for `git_id` field in the browser UI.  | `string` | `""` |
 | `cc_app_repo_git_provider` | The type of the Git provider. | `string` | `"hostedgit"` |
+| `cc_app_repo_git_token_secret_crn` | The CRN for the app repository Git Token. | `string` | `""` | no |
 | `cc_app_repo_git_token_secret_name` | Name of the Git token secret in the secret provider. | `string` | `""` |
 | `cc_app_repo_url` | The Git URL for the application repository. | `string` | `""` |
+| `cc_artifactory_token_secret_crn` | The CRN for the Artifactory secret. | `string` | `""` | no |
 | `cc_authorization_policy_creation` | Disable the toolchain service to Secrets Manager service authorization policy creation. | `string` | `""` |
 | `cc_compliance_base_image`  | Pipeline baseimage to run most of the built-in pipeline code. | `string` | `""` |
 | `cc_compliance_pipeline_branch` | The CC Pipeline Compliance Pipeline branch.| `string` | `""` |
 | `cc_compliance_pipeline_group` | Specify user or group for compliance pipline repo. | `string` | `""` |
 | `cc_compliance_pipeline_repo_auth_type` | Select the authentication method that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
+| `cc_compliance_pipeline_repo_git_token_secret_crn` | The CRN for the Compliance Pipeline repository Git Token. | `string` | `""` | no |
 | `cc_compliance_pipeline_repo_git_token_secret_name` | Name of the Git token secret in the secret provider. | `string` | `""` |
+| `cc_cos_api_key_secret_crn`| The CRN for the Cloud Object Storage apikey. | `string` | `""` | no |
 | `cc_cos_api_key_secret_name` | Name of the Cloud Object Storage API key secret in the secret provider. | `string` | `""` |
 | `cc_cos_bucket_name` | Cloud Object Storage bucket name. | `string` | `""` |
 | `cc_cos_endpoint` | Cloud Object Storage endpoint name. | `string` | `""` |
@@ -469,27 +525,41 @@ If you are deploying with Code Engine, see [Optional Code Engine CI and CD varia
 | `cc_event_notifications_crn`  | Set the {{site.data.keyword.en_short}} CRN to create an {{site.data.keyword.en_short}} integration. | `string` | `""` |
 | `cc_evidence_group`  | Specify Git user or group for evidence repository. | `string` | `""` |
 | `cc_evidence_repo_auth_type` | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
+| `cc_evidence_repo_git_token_secret_crn`| The CRN for the Evidence repository Git Token. | `string` | `""` | no |
 | `cc_evidence_repo_git_token_secret_name` | Name of the Git token secret in the secret provider. | `string` | `""` |
 | `cc_inventory_group`  | Specify Git user or group for inventory repository. | `string` | `""` |
 | `cc_inventory_repo_auth_type` | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
+| `cc_inventory_repo_git_token_secret_crn` | The CRN for the Inventory repository Git Token. | `string` | `""` | no |
 | `cc_inventory_repo_git_token_secret_name`  | Name of the Git token secret in the secret provider. | `string` | `""` |
 | `cc_issues_group` | Specify Git user or group for issues repository. | `string` | `""` |
 | `cc_issues_repo_auth_type` | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
+| `cc_issues_repo_git_token_secret_crn` | The CRN for the Issues repository Git Token. | `string` | `""` | no |
 | `cc_issues_repo_git_token_secret_name` | Name of the Git token secret in the secret provider. | `string` | `""` |
+| `cc_gosec_private_repository_host` | Your private repository base URL. | `string` | `""` |
+| `cc_gosec_private_repository_ssh_key_secret_crn` | The CRN for the Deployment repository Git Token. | `string` | `""` | no |
+| `cc_gosec_repo_ssh_key_secret_group` | Secret group prefix for the gosec private repository ssh key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` |
+| `cc_gosec_repo_ssh_key_secret_name` | Name of the SSH key token for the private repository in the secret provider. | `string` | `"git-ssh-key"` |
 | `cc_link_to_doi_toolchain` | Enable a link to a DevOps Insights instance in another toolchain, true or false. | `bool` | `true` |
 | `cc_opt_in_auto_close`  | Enable auto-closing of issues that come from vulnerabilities when the vulnerability is no longer detected by the CC pipeline run. | `string` | `"1"` |
 | `cc_opt_in_dynamic_api_scan` | Enable the OWASP Zap API scan. `1` enable or `0` disable. | `string` | `""` |
 | `cc_opt_in_dynamic_scan`  | Enable the OWASP Zap scan. `1` enable or `0` disable. | `string` | `""` |
 | `cc_opt_in_dynamic_ui_scan` | Enable the OWASP Zap UI scan. `1` enable or `0` disable. | `string` | `""` |
+| `cc_opt_in_gosec` | Enables gosec scans | `string` | `""` |
 | `cc_pipeline_config_group` | Specify user or group for pipeline config repo. | `string` | `""` |
 | `cc_pipeline_config_path` | The name and path of the `pipeline-config.yaml` file within the pipeline-config repo. | `string` | `".pipeline-config.yaml"` |
 | `cc_pipeline_config_repo_auth_type` | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
 | `cc_pipeline_config_repo_branch` | Specify the branch that contains the custom `pipeline-config.yaml` file. | `string` | `""` |
 | `cc_pipeline_config_repo_clone_from_url` | Specify a repository that contains a custom `pipeline-config.yaml` file. | `string` | `""` |
 | `cc_pipeline_config_repo_existing_url` | Specify a repository that contains a custom `pipeline-config.yaml` file. | `string` | `""` |
+| `cc_pipeline_config_repo_git_token_secret_crn` | The CRN for the Pipeline Config repository Git Token. | `string` | `""` | no |
 | `cc_pipeline_config_repo_git_token_secret_name` | Name of the Git token secret in the secret provider. | `string` | `""` |
 | `cc_pipeline_debug` | `0` by default. Set to `1` to enable debug logging. | `string` | `"0"` |
+| `cc_pipeline_dockerconfigjson_secret_crn` | The CRN for the Dockerconfig json secret. | `string` | `""` | no |
 | `cc_pipeline_dockerconfigjson_secret_name` | Name of the pipeline docker config JSON secret in the secret provider.| `string` | `"pipeline_dockerconfigjson_secret_name"` |
+| `cc_pipeline_doi_api_key_secret_crn` | The CRN for the pipeline DOI apikey. | `string` | `""` | no |
+| `cc_pipeline_git_tag` | The GIT tag within the pipeline definitions repository for the Compliance CC Pipeline. | `string` | `""` |
+| `cc_pipeline_git_token_secret_crn` | The CRN for pipeline Git token property. | `string` | `""` | no |
+| `cc_pipeline_ibmcloud_api_key_secret_crn` | The CRN for the IBMCloud apikey. | `string` | `""` | no |
 | `cc_pipeline_ibmcloud_api_key_secret_name` | Name of the Cloud API key secret in the secret provider. | `string` | `"ibmcloud-api-key"` |
 | `cc_repositories_prefix` | The prefix for the compliance repositories. | `string` | `"compliance"` |
 | `cc_scc_enable_scc` | Enable the SCC integration. | `bool` | `true` |
@@ -502,12 +572,16 @@ If you are deploying with Code Engine, see [Optional Code Engine CI and CD varia
 | `cc_slack_team_name` | The Slack team name, which is the word or phrase before `.slack.com` in the team URL. | `string` | `""` |
 | `cc_slack_toolchain_bind` | Generate tool added to toolchain notifications. | `bool` | `true` |
 | `cc_slack_toolchain_unbind`  | Generate tool removed from toolchain notifications. | `bool` | `true` |
+| `cc_slack_webhook_secret_crn` | The CRN for Slack Webhook secret. | `string` | `""` | no |
 | `cc_slack_webhook_secret_name`  | Name of the webhook secret in the secret provider. | `string` | `""` |
+| `cc_sm_instance_crn`| The CRN of the Secrets Manager instance. | `string` | `""` | no |
 | `cc_sm_location`  | {{site.data.keyword.cloud}} location or region that contains the Secrets Manager instance. | `string` | `""` |
 | `cc_sm_name` | Name of the Secrets Manager instance where the secrets are stored. | `string` | `""` |
 | `cc_sm_resource_group`  | The resource group that contains the Secrets Manager instance for your secrets. | `string` | `""` |
 | `cc_sm_secret_group`  | Group in Secrets Manager for organizing or grouping secrets. | `string` | `""` |
 | `cc_sonarqube_config` | Runs a SonarQube scan in an isolated Docker-in-Docker container (default configuration) or in an existing Kubernetes cluster (custom configuration). Options: default or custom. Default is default. | `string` | `"default"` |
+| `cc_sonarqube_secret_crn` | The CRN for the SonarQube secret. | `string` | `""` | no |
+| `cc_sonarqube_secret_name` | The name of the SonarQube secret. | `string` | `""` | no |
 | `cc_toolchain_description` | Description of the CC toolchain. | `string` | `"Toolchain created with terraform template for DevSecOps CC Best Practices."` |
 | `cc_toolchain_name` | The name of the CC toolchain. | `string` | `"DevSecOps CC Toolchain - Terraform"` |
 | `cc_toolchain_region` | The region that contains the CI toolchain. | `string` | `""` |
@@ -549,21 +623,21 @@ If you are deploying with Code Engine, see [Optional Code Engine CI and CD varia
 | `ci_code_engine_app_max_scale` | The maximum number of instances that can be used for this application. If you set this value to 0, the application scales as needed. The application scaling is limited only by the instances per the resource quota for the project of your application. | `string` | `"1"` |
 | `ci_code_engine_app_min_scale` | The minimum number of instances that can be used for this application. This option is useful to ensure that no instances are running when not needed. | `string` | `"0"` |
 | `ci_code_engine_app_port` | The port where the application listens. The format is `[NAME:]PORT`, where `[NAME:]` is optional. If `[NAME:]` is specified, valid values are `h2c`, or `http1`. When `[NAME:]` is not specified or is `http1`, the port uses `HTTP/1.1`. When `[NAME:]` is `h2c`, the port uses unencrypted `HTTP/2`. | `string` | `"8080"` |
-| `ci_code_engine_app_visibility` | The visibility for the application. Valid values are public, private, and project. Setting a visibility of public means that your app can receive requests from the public internet or from components within the Code Engine project. Setting a visibility of private means that your app is not accessible from the public internet and network access is only possible from other IBM Cloud using Virtual Private Endpoints (VPE) or Code Engine components that are running in the same project. Visibility can be private only if the project supports application private visibility. Setting a visibility of project means that your app is not accessible from the public internet and network access is only possible from other Code Engine components that are running in the same project. | `string` | `"public"` |
+| `ci_code_engine_app_visibility` | The visibility for the application. Valid values are public, private and project. Setting a visibility of public means that your app can receive requests from the public internet or from components within the Code Engine project. Setting a visibility of private means that your app is not accessible from the public internet and network access is only possible from other IBM Cloud using Virtual Private Endpoints (VPE) or Code Engine components that are running in the same project. Visibility can only be private if the project supports application private visibility. Setting a visibility of project means that your app is not accessible from the public internet and network access is only possible from other Code Engine components that are running in the same project. | `string` | `"public"` |
 | `ci_code_engine_binding_resource_group` | The name of a resource group to use for authentication for the service bindings of the Code Engine project. A service ID is created with Operator and Manager roles for all services in this resource group. Use '*' to specify all resource groups in this account. | `string` | `""` |
 | `ci_code_engine_build_size` | The size to use for the build, which determines the amount of resources used. Valid values include `small`, `medium`, `large`, `xlarge`. | `string` | `"large"` |
 | `ci_code_engine_build_strategy` | The build strategy for the Code Engine component. It can be `dockerfile` or `buildpacks`. | `string` | `"dockerfile"` |
 | `ci_code_engine_build_timeout` | The amount of time, in seconds, that can pass before the build run must succeed or fail. | `string` | `"1200"` |
-| `ci_code_engine_build_use_native_docker` | Property to opt-in for using native docker build capabilities as opposed to use Code Engine build to containerize the source. Note this setting takes effect only if the build-strategy is set to `dockerfile`. Valid values are `true` and `false`. | `string` | `"false"` |
+| `ci_code_engine_build_use_native_docker` | Property to opt-in for using native docker build capabilities as opposed to use Code Engine build to containerize the source. Note this setting only takes effect if the build-strategy is set to `dockerfile`. Valid values are `true` and `false`. | `string` | `"false"` |
 | `ci_code_engine_context_dir` | The directory in the repository that contains the buildpacks file or the Dockerfile. | `string` | `"."` |
 | `ci_code_engine_cpu` | The amount of CPU set for the instance of the application or job. | `string` | `"0.25"` |
-| `ci_code_engine_deployment_type` | Type of Code Engine component to create/update as part of deployment. It can be either `application` or `job`. | `string` | `"application"` |
+| `ci_code_engine_deployment_type` | type of Code Engine component to create/update as part of deployment. It can be either `application` or `job`. | `string` | `"application"` |
 | `ci_code_engine_dockerfile` | The path to the `Dockerfile`. Specify this option only if the name is other than `Dockerfile` | `string` | `"Dockerfile"` |
 | `ci_code_engine_env_from_configmaps` | Semi-colon separated list of configmaps to set environment variables. | `string` | `""` |
 | `ci_code_engine_env_from_secrets` | Semi-colon separated list of secrets to set environment variables. | `string` | `""` |
 | `ci_code_engine_ephemeral_storage` | The amount of ephemeral storage to set for the instance of the application or for the runs of the job. Use M for megabytes or G for gigabytes. | `string` | `"0.4G"` |
 | `ci_code_engine_image_name` | Name of the image that is built. | `string` | `"code-engine-compliance-app"` |
-| `ci_code_engine_job_instances` | Specifies the number of instances that are used for runs of the job. When you use this option, the system converts to array indices. For example, if you specify instances of 5, the system converts to array-indices of 0 - 4. This option can be specified only if the --array-indices option is not specified. The default value is 1. | `string` | `"1"` |
+| `ci_code_engine_job_instances` | Specifies the number of instances that are used for runs of the job. When you use this option, the system converts to array indices. For example, if you specify instances of 5, the system converts to array-indices of 0 - 4. This option can only be specified if the --array-indices option is not specified. The default value is 1. | `string` | `"1"` |
 | `ci_code_engine_job_maxexecutiontime` | The maximum execution time in seconds for runs of the job. | `string` | `"7200"` |
 | `ci_code_engine_job_retrylimit` | The number of times to rerun an instance of the job before the job is marked as failed. | `string` | `"3"` |
 | `ci_code_engine_memory` | The amount of memory set for the instance of the application or job. Use M for megabytes or G for gigabytes. | `string` | `"0.5G"` |
@@ -572,8 +646,8 @@ If you are deploying with Code Engine, see [Optional Code Engine CI and CD varia
 | `ci_code_engine_registry_domain` | The container registry URL domain that is used to build and tag the image. Useful when using private-endpoint container registry. | `string` | `""` |
 | `ci_code_engine_remove_refs` | Remove references to unspecified configuration resources (configmap/secret) references (pulled from env-from-configmaps, env-from-secrets along with auto-managed by CD). | `string` | `"false"` |
 | `ci_code_engine_resource_group` | The resource group of the Code Engine project. | `string` | `""` |
-| `ci_code_engine_service_bindings` | JSON array that includes service name as a simple JSON string. | `string` | `""` |
-| `ci_code_engine_source` | The path to the location of code to build in the repository. Defaults to the root of the source code repository. | `string` | `""` |
+| `ci_code_engine_service_bindings` | JSON array including service name(s) as a simple JSON string. | `string` | `""` |
+| `ci_code_engine_source` | The path to the location of code to build in the repository. Defaults to the root of source code repository. | `string` | `""` |
 | `ci_code_engine_wait_timeout` | The maximum timeout for the CLI operation to wait. | `string` | `"1300"` |
 {: caption="Table 13. Optional variables for Code Engine deployment" caption-side="bottom"}
 {: #ci-parameters-codeengine}
@@ -588,14 +662,14 @@ If you are deploying with Code Engine, see [Optional Code Engine CI and CD varia
 | `cd_code_engine_app_max_scale` | The maximum number of instances that can be used for this application. If you set this value to 0, the application scales as needed. The application scaling is limited only by the instances per the resource quota for the project of your application. | `string` | `"1"` |
 | `cd_code_engine_app_min_scale` | The minimum number of instances that can be used for this application. This option is useful to ensure that no instances are running when not needed. | `string` | `"0"` |
 | `cd_code_engine_app_port` | The port where the application listens. The format is `[NAME:]PORT`, where `[NAME:]` is optional. If `[NAME:]` is specified, valid values are `h2c`, or `http1`. When `[NAME:]` is not specified or is `http1`, the port uses `HTTP/1.1`. When `[NAME:]` is `h2c`, the port uses unencrypted `HTTP/2`. | `string` | `"8080"` |
-| `cd_code_engine_app_visibility` | The visibility for the application. Valid values are public, private, and project. Setting a visibility of public means that your app can receive requests from the public internet or from components within the Code Engine project. Setting a visibility of private means that your app is not accessible from the public internet and network access is only possible from other IBM Cloud using Virtual Private Endpoints (VPE) or Code Engine components that are running in the same project. Visibility can be private only if the project supports application private visibility. Setting a visibility of project means that your app is not accessible from the public internet and network access is only possible from other Code Engine components that are running in the same project. | `string` | `"public"` |
+| `cd_code_engine_app_visibility` | The visibility for the application. Valid values are public, private and project. Setting a visibility of public means that your app can receive requests from the public internet or from components within the Code Engine project. Setting a visibility of private means that your app is not accessible from the public internet and network access is only possible from other IBM Cloud using Virtual Private Endpoints (VPE) or Code Engine components that are running in the same project. Visibility can only be private if the project supports application private visibility. Setting a visibility of project means that your app is not accessible from the public internet and network access is only possible from other Code Engine components that are running in the same project. | `string` | `"public"` |
 | `cd_code_engine_binding_resource_group` | The name of a resource group to use for authentication for the service bindings of the Code Engine project. A service ID is created with Operator and Manager roles for all services in this resource group. Use '*' to specify all resource groups in this account. | `string` | `""` |
 | `cd_code_engine_cpu` | The amount of CPU set for the instance of the application or job. | `string` | `"0.25"` |
-| `cd_code_engine_deployment_type` | Type of Code Engine component to create/update as part of deployment. It can be either `application` or `job`. | `string` | `"application"` |
+| `cd_code_engine_deployment_type` | type of Code Engine component to create/update as part of deployment. It can be either `application` or `job`. | `string` | `"application"` |
 | `cd_code_engine_env_from_configmaps` | Semi-colon separated list of configmaps to set environment variables. | `string` | `""` |
 | `cd_code_engine_env_from_secrets` | Semi-colon separated list of secrets to set environment variables. | `string` | `""` |
 | `cd_code_engine_ephemeral_storage` | The amount of ephemeral storage to set for the instance of the application or for the runs of the job. Use M for megabytes or G for gigabytes. | `string` | `"0.4G"` |
-| `cd_code_engine_job_instances` | Specifies the number of instances that are used for runs of the job. When you use this option, the system converts to array indices. For example, if you specify instances of 5, the system converts to array-indices of 0 - 4. This option can be specified only if the --array-indices option is not specified. The default value is 1. | `string` | `"1"` |
+| `cd_code_engine_job_instances` | Specifies the number of instances that are used for runs of the job. When you use this option, the system converts to array indices. For example, if you specify instances of 5, the system converts to array-indices of 0 - 4. This option can only be specified if the --array-indices option is not specified. The default value is 1. | `string` | `"1"` |
 | `cd_code_engine_job_maxexecutiontime` | The maximum execution time in seconds for runs of the job. | `string` | `"7200"` |
 | `cd_code_engine_job_retrylimit` | The number of times to rerun an instance of the job before the job is marked as failed. | `string` | `"3"` |
 | `cd_code_engine_memory` | The amount of memory set for the instance of the application or job. Use M for megabytes or G for gigabytes. | `string` | `"0.5G"` |
@@ -603,9 +677,9 @@ If you are deploying with Code Engine, see [Optional Code Engine CI and CD varia
 | `cd_code_engine_region` | The region to create/lookup for the Code Engine project. | `string` | `""` |
 | `cd_code_engine_remove_refs` | Remove references to unspecified configuration resources (configmap/secret) references (pulled from env-from-configmaps, env-from-secrets along with auto-managed by CD). | `string` | `"false"` |
 | `cd_code_engine_resource_group` | The resource group of the Code Engine project. | `string` | `""` |
-| `cd_code_engine_service_bindings` | JSON array that includes service name as a simple JSON string. | `string` | `""` |
+| `cd_code_engine_service_bindings` | JSON array including service name(s) as a simple JSON string. | `string` | `""` |
 | `cd_code_signing_cert` | The base64 encoded GPG public key. | `string` | `""` |
-| `cd_code_engine_service_bindings` | JSON array that includes service name as a simple JSON string. | `string` | `""` |
+| `cd_code_engine_service_bindings` | JSON array including service name(s) as a simple JSON string. | `string` | `""` |
 {: caption="Table 13. Optional variables for Code Engine deployment" caption-side="bottom"}
 {: #cd-parameters-codeengine}
 {: tab-title="Continuous deployment"}
