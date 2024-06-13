@@ -2,7 +2,7 @@
 
 copyright:
   years: 2024
-lastupdated: "2024-03-22"
+lastupdated: "2024-03-25"
 
 keywords: devsecops-alm, deployment guide, deployable architecture, release notes
 
@@ -21,7 +21,6 @@ Use these release notes to learn about the latest updates to the DevSecOps Appli
 {: shortdesc}
 
 To find the release notes for the DevSecOps compliance pipeline definitions that are used by this architecture, see [Release notes for DevSecOps](/docs/devsecops?topic=devsecops-release-notes).
-
 
 
 ## 22 March 2024

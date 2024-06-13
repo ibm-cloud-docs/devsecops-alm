@@ -17,3 +17,5 @@ subcollection: devsecops-alm
 
 The DevSecOps Application Lifecycle Management Deployable Architecture creates a set of DevOps toolchains and pipelines. DevSecOps uses continuous delivery (CD) ({{site.data.keyword.gitrepos}}, Tekton Pipelines, {{site.data.keyword.DRA_full}}, and Code Risk Analyzer), Secrets Manager, {{site.data.keyword.keymanagementservicelong}}, {{site.data.keyword.cos_full}}, {{site.data.keyword.registrylong}}, and Vulnerability Advisor. 
 {: shortdesc}
+
+To learn more about integrating security practices through DevSecOps with {{site.data.keyword.contdelivery_short}}, check out the [DevSecOps product guide](/docs/devsecops). 
