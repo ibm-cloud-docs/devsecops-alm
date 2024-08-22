@@ -13,7 +13,6 @@ toc:
     path: devsecops-alm
     description: The DevSecOps Deployable Architecture creates a set of DevOps toolchains and pipelines.
     label: DevSecOps Application Lifecycle Management
-
   entries:
   - navgroup:
       id: overview
@@ -22,19 +21,16 @@ toc:
         navtitle: Overview
       - topic: devsecops-alm-release-notes.md
         navtitle: Release notes
-
   - navgroup:
       id: architecture
       topics:
       - include: ../deployable-reference-architectures/terraform-ibm-devsecops-alm/deploy-arch-ibm-devsecops-alm.md
         navtitle: DevSecOps Application Lifecycle Management
-
   - navgroup:
       id: plan
       topics:
       - devsecops-alm-terraform-script-prereqs.md
       - devsecops-alm-toolchain-operations-prereqs.md
-
   - navgroup:
       id: deploy
       topics:
@@ -44,12 +40,10 @@ toc:
         navtitle: Deploy by using the CLI
       - topic: devsecops-alm-dep-schematics.md
         navtitle: Deploy with Schematics
-
   - navgroup:
       id: howto
       topics:
       - devsecops-alm-update-schematics.md
-
   - navgroup:
       id: reference
       topics:

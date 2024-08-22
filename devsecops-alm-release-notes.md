@@ -2,7 +2,7 @@
 
 copyright:
   years: 2024
-lastupdated: "2024-03-22"
+lastupdated: "2024-06-24"
 
 keywords: devsecops-alm, deployment guide, deployable architecture, release notes
 
@@ -22,7 +22,131 @@ Use these release notes to learn about the latest updates to the DevSecOps Appli
 
 To find the release notes for the DevSecOps compliance pipeline definitions that are used by this architecture, see [Release notes for DevSecOps](/docs/devsecops?topic=devsecops-release-notes).
 
+## 21 June 2024
+{: #devsecops-alm-june2024}
+{: release-note}
 
+Version 1.8.0 of DevSecOps Application Lifecycle Management released
+:   Version 1.8.0 of the DevSecOps Application Lifecycle Management is available in the {{site.data.keyword.cloud_notm}} [catalog](/catalog#reference_architecture){: external}.
+
+This version surfaces additional functionality from the DevSecOps pipelines including options for modifying the behavior of CRA scans and Event Notifications.
+`ci_cra_bom_generate`,
+`ci_cra_deploy_analysis`,
+`ci_cra_vulnerability_scan`,
+`pr_cra_bom_generate`,
+`pr_cra_deploy_analysis`,
+`pr_cra_vulnerability_scan`,
+`ci_enable_pipeline_notifications`,
+`ci_event_notifications`,
+`ci_pipeline_properties`,
+`ci_repository_properties`,
+`cd_enable_pipeline_notifications`,
+`cd_event_notifications`,
+`cd_pipeline_properties`,
+`cc_cra_bom_generate`,
+`cc_cra_deploy_analysis`,
+`cc_cra_vulnerability_scan`,
+`cc_enable_pipeline_notifications`,
+`cc_event_notifications`,
+`cc_pipeline_properties`
+
+For more information, see [Variables](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars)
+
+This version introduces a new customization feature. The variables `ci_pipeline_properties`, `cd_pipeline_properties` and `cc_pipeline_properties` allow the user to add custom properties to the CI, CD and CC pipelines using the relevant prefixed variables.
+
+The following example uses the `ci_pipeline_properties` which targets the the CI toolchain. Note the `pipeline_id` lines in the JSON which has `ci` and `pr` values and denotes the CI and PR pipelines. When using the `cd_pipeline_properties` and `cc_pipeline_properties` variables, using `cd` and `cc` as the values will target the respective pipelines to add the new variables. The example highlights the addition of custom text, secret and enum pipeline properties. Note that for the secure type property, it is enough to specify only the name of the secret in the default Secrets Manager instance. Alterantively the full secret reference can be provided, for example `{vault::sm-compliance-secrets.custom-secret-group.secret-name}`
+
+```
+[
+  {
+    "pipeline_id": "ci",
+    "properties": [
+      {
+        "name": "custom-param1",
+        "type": "text",
+        "value": "example1"
+      },
+      {
+        "name": "custom-param2",
+        "type": "secure",
+        "value": "grit-token"
+      },
+      {
+        "name": "custom-param3",
+        "type": "single_select",
+        "value": "0",
+        "enum": "[0,1,2]"
+      }
+    ]
+  },
+  {
+    "pipeline_id": "pr",
+    "properties": [
+      {
+        "name": "custom-param1",
+        "type": "text",
+        "value": "example1"
+      }
+    ]
+  }
+]
+
+```
+
+The CI toolchain additionally has a variable called `ci_repository_properties` that allows the user to add new or existing repositories to the CI toolchain. The default behavior is that listed repositories will treat the repositories as existing rather then attempt to clone those repositories.
+
+The following example highlights how to add additional repositories to the CI toolchain. Note that the top level entries in the JSON are inherited by the child elements and can be overridden by entries in the child elements with the same key name. Two repositories are listed in the example. The first repository, is the most basic case. It contains a `repository_url` and `default_branch`. The `default_branch` overrides the `master` value with `main`. The default `mode` is `link`. Since the repository is on GitHub, it requires Git token. This is specified in the top level of the JSON. This value needs to be in the Secrets Provider. Specifying the repository as such will result in triggers automatically being created for the repository, namely a Git Trigger, a manual trigger and a PR trigger. 
+
+The second listed repository is in `clone` mode and will attempt to clone the repository into GRIT. If a `name` is not provided for the repository, it will use the same name as the repository being cloned. 
+
+This second example also shows the creation of custom triggers. It should be noted that add custom triggers will prevent the creation of the automatic triggers.
+
+```
+[
+  {
+    "pipeline_id": "ci",
+    "repository_owner": "owner_name",
+    "default_branch": "master",
+    "repositories": [
+      {
+        "repository_url": "https://github.com/open-toolchain/secure-kube-toolchain",
+        "default_branch": "main",
+         "git_token_secret_ref": "github-token",
+      },
+      {
+        "repository_url": "https://github.com/open-toolchain/hello-containers",
+        "mode": "clone",
+        "name": "clone-of-hello-containers",
+        "triggers": [
+          {
+            "type": "manual",
+            "name": "Manual Trigger1",
+            "properties": [
+              {
+                "type": "text",
+                "name": "param1",
+                "value": "example1"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+
+```
+
+## 15 May 2024
+{: #devsecops-alm-may2024}
+{: release-note}
+
+Version 1.2.1 of DevSecOps Application Lifecycle Management released
+:   Version 1.2.1 of the DevSecOps Application Lifecycle Management is available in the {{site.data.keyword.cloud_notm}} [catalog](/catalog#reference_architecture){: external}.
+
+   - Additional options to configure the name of the Code Engine Projects in the Code Engine Variant, `code_engine_project`, `code_engine_project_prefix`, `ci_code_engine_project_prefix` and `cd_code_engine_project_prefix`. 
+
+For more information, see [Variables](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars)
 
 ## 22 March 2024
 {: #devsecops-alm-march2024}

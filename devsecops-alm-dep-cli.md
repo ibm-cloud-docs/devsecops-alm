@@ -26,7 +26,7 @@ Make sure that you complete the prerequisites in the planning topics:
 - [Prerequisites for provisioning DevSecOps toolchains by using the Terraform script](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-planning-req)
 - [Prerequisites for provisioning DevSecOps toolchain operations](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-ops-req)
 
-## Create a values.json file
+## Create a `values.json` file
 {: #devsecops-alm-cli-file}
 {: step}
 

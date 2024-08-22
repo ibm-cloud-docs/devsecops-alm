@@ -25,7 +25,7 @@ If you experience an issue or have questions when you are deploying DevSecOps Ap
 * ![GitHub icon](../icons/logo-github-16.svg "GitHub icon") Review the [GitHub issues](https://github.com/terraform-ibm-modules/terraform-ibm-powervs-sap/issues){: external} to see whether other users experienced the same problem.
 
 
-<!-- In this list above, you can also provide a public slack channel for searching for answers or asking questions in a forum, if there is one available. For example, you'd include a bullet like "![Slack icon](../icons/logo-slack-16.svg "GitHub icon") Ask product experts and the community questions on the [slack-channel-name)[url.com] slack channel."  -->
+
 
 If you still can't resolve the problem, you can open a support case. For more information, see [Creating support cases](/docs/get-support?topic=get-support-open-case). And, if you're looking to provide feedback, see [Submitting feedback](/docs/overview?topic=overview-feedback).
 

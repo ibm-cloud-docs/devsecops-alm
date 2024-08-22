@@ -2,7 +2,7 @@
 
 copyright:
   years: 2024
-lastupdated: "2024-01-29"
+lastupdated: "2024-06-24"
 
 keywords: devsecops-alm, deployment guide, deployable architecture
 
@@ -254,7 +254,13 @@ If you are deploying with Code engine, see [Optional Code Engine CI and CD varia
 | `ci_cos_api_key_secret_name`  | Name of the Cloud Object Storage API key secret in the secret provider. | `string` | `""` |
 | `ci_cos_bucket_name` | Cloud Object Storage bucket name. | `string` | `""` |
 | `ci_cos_endpoint`  | Cloud Object Storage endpoint name. | `string` | `""` |
+| `ci_cra_bom_generate` | Set this flag to `1` to generate cra bom in CI pipeline.| `string` | `"1"` |
+| `ci_cra_deploy_analysis` | Set this flag to `1` for cra deployment analysis to be done.| `string` | `"1"` |
 | `ci_cra_generate_cyclonedx_format` | If set to 1, CRA also generates the BOM in cyclonedx format (defaults to 1). | `string` | `"1"` |
+| `ci_cra_vulnerability_scan` | Set this flag to `1` and `ci-cra-bom-generate` to `1` for cra vulnerability scan in CI pipeline. If this value is set to 1 and `ci-cra-bom-generate` is set to `0`, the scan will be marked as `failure`| `string` | `"1"` |
+| `pr_cra_bom_generate` | Set this flag to `1` to generate cra bom in CC pipeline.| `string` | `"1"` |
+| `pr_cra_deploy_analysis` | Set this flag to `1` for cra deployment analysis to be done.| `string` | `"1"` |
+| `pr_cra_vulnerability_scan` | Set this flag to `1` and `pr-cra-bom-generate` to `1` for cra vulnerability scan in CI pipeline. If this value is set to 1 and `pr-cra-bom-generate` is set to `0`, the scan will be marked as `failure`| `string` | `"1"` |
 | `ci_custom_image_tag`  | The custom tag for the image in a comma-separated list. | `string` | `""` |
 | `ci_deployment_target` | The deployment target, cluster, or code-engine. | `string` | `"cluster"` |
 | `ci_dev_region`  | Region of the Kubernetes cluster where the application is deployed. | `string` | `"ibm:yp:us-south"` |
@@ -264,6 +270,8 @@ If you are deploying with Code engine, see [Optional Code Engine CI and CD varia
 | `ci_doi_toolchain_id_pipeline_property`  | The DevOps Insights instance toolchain ID. | `string` | `""` |
 | `ci_enable_pipeline_dockerconfigjson` | Adds the `pipeline-dockerconfigjson` property to the pipeline properties.| `bool` | `false` |
 | `ci_enable_slack` | Set to `true` to create the integration. | `bool` | `false` |
+| `ci_enable_pipeline_notifications` | When enabled, pipeline run events will be sent to the Event Notifications and Slack integrations in the enclosing toolchain. | `bool` | `false` |
+| `ci_event_notifications` | To enable event notification, set event_notifications to 1 | `string` | `"0"` |
 | `ci_event_notifications_crn`  | Set the {{site.data.keyword.en_short}} CRN to create an {{site.data.keyword.en_short}} integration. | `string` | `""` |
 | `ci_evidence_group`  | Specify Git user or group for evidence repository. | `string` | `""` |
 | `ci_evidence_repo_auth_type`  | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
@@ -306,7 +314,8 @@ If you are deploying with Code engine, see [Optional Code Engine CI and CD varia
 | `ci_print_code_signing_certificate` | Set to `1` to enable printing of the public signing certificate in the logs. | `string` | `"1"` | no |
 | `ci_registry_namespace` | A unique namespace within the {{site.data.keyword.cloud}} Container Registry region where the application image is stored. | `string` | `""` |
 | `ci_registry_region` | The {{site.data.keyword.cloud}} Region where the {{site.data.keyword.cloud}} Container Registry namespace is to be created. | `string` | `"ibm:yp:us-south"` |
-| `ci_repositories_prefix`  | Prefix name for the cloned compliance repos. | `string` | `"compliance"` |
+| `ci_repositories_prefix`  | Prefix name for the cloned compliance repos. For the repositories_prefix value only a-z, A-Z and 0-9 and the special characters `-_` are allowed. In addition the string must not end with a special character or have two consecutive special characters.| `string` | `"compliance"` |
+| `ci_repository_properties` | Stringified JSON containing the repositories and triggers that get created in the CI toolchain pipelines. | `string` | `""` |
 | `ci_signing_key_secret_crn` | The CRN for Signing Key secret. | `string` | `""` | no |
 | `ci_signing_key_secret_name` | Name of the signing key secret in the secret provider. | `string` | `"signing_key"` |
 | `ci_slack_channel_name` | The Slack channel that notifications are posted to. | `string` | `""` |
@@ -406,6 +415,8 @@ If you are deploying with Code engine, see [Optional Code Engine CI and CD varia
 | `cd_doi_toolchain_id` | DevOps Insights toolchain ID to link to. | `string` | `""` |
 | `cd_emergency_label`  | Identifies the pull request as an emergency. | `string` | `"EMERGENCY"` |
 | `cd_enable_slack` | Set to true to create the integration. | `bool` | `false` |
+| `cd_enable_pipeline_notifications` | When enabled, pipeline run events will be sent to the Event Notifications and Slack integrations in the enclosing toolchain. | `bool` | `false` |
+| `cd_event_notifications` | To enable event notification, set event_notifications to 1 | `string` | `"0"` |
 | `cd_event_notifications_crn`  | Set the {{site.data.keyword.en_short}} CRN to create an {{site.data.keyword.en_short}} integration. | `string` | `""` |
 | `cd_evidence_group` | Specify Git user or group for evidence repository. | `string` | `""` |
 | `cd_evidence_repo_auth_type` | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
@@ -433,6 +444,7 @@ If you are deploying with Code engine, see [Optional Code Engine CI and CD varia
 | `cd_pipeline_git_token_secret_crn`| The CRN for the Git Token secret in the pipeline properties. | `string` | `""` | no |
 | `cd_pipeline_ibmcloud_api_key_secret_crn` | The CRN for the pipeline apikey. | `string` | `""` | no |
 | `cd_pipeline_ibmcloud_api_key_secret_name` | Name of the Cloud API key secret in the secret provider. | `string` | `"ibmcloud-api-key"` |
+| `cd_pipeline_properties` | Stringified JSON containing the properties for the CD toolchain pipelines. | `string` | `""` |
 | `cd_repositories_prefix`  | Prefix name for the cloned compliance repos. | `string` | `"compliance"` |
 | `cd_satellite_cluster_group` | The Satellite cluster group | `string` | `""` |
 | `cd_scc_enable_scc` | Enable the SCC integration. | `bool` | `true` |
@@ -517,11 +529,16 @@ If you are deploying with Code engine, see [Optional Code Engine CI and CD varia
 | `cc_cos_api_key_secret_name` | Name of the Cloud Object Storage API key secret in the secret provider. | `string` | `""` |
 | `cc_cos_bucket_name` | Cloud Object Storage bucket name. | `string` | `""` |
 | `cc_cos_endpoint` | Cloud Object Storage endpoint name. | `string` | `""` |
+| `cc_cra_bom_generate` | Set this flag to `1` to generate cra bom in CC pipeline.| `string` | `"1"` |
+| `cc_cra_deploy_analysis` | Set this flag to `1` for cra deployment analysis to be done.| `string` | `"1"` |
+| `cc_cra_vulnerability_scan` | Set this flag to `1` and `cc-cra-bom-generate` to `1` for cra vulnerability scan in CI pipeline. If this value is set to 1 and `cc-cra-bom-generate` is set to `0`, the scan will be marked as `failure`| `string` | `"1"` |
 | `cc_doi_environment`  | DevOps Insights environment for DevSecOps CD deployment. | `string` | `""` |
 | `cc_doi_toolchain_id`  | DevOps Insights toolchain ID to link to. | `string` | `""` |
 | `cc_enable_pipeline_dockerconfigjson` | Adds the pipeline-dockerconfigjson property to the pipeline properties.| `bool` | `false` |
 | `cc_enable_slack` | Create the Slack integration. | `bool` | `false` |
 | `cc_environment_tag` | Tag name that represents the target environment in the inventory. Example: `prod_latest`. | `string` | `"prod_latest"` |
+| `cc_enable_pipeline_notifications` | When enabled, pipeline run events will be sent to the Event Notifications and Slack integrations in the enclosing toolchain. | `bool` | `false` |
+| `cc_event_notifications` | To enable event notification, set event_notifications to 1 | `string` | `"0"` |
 | `cc_event_notifications_crn`  | Set the {{site.data.keyword.en_short}} CRN to create an {{site.data.keyword.en_short}} integration. | `string` | `""` |
 | `cc_evidence_group`  | Specify Git user or group for evidence repository. | `string` | `""` |
 | `cc_evidence_repo_auth_type` | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
@@ -561,6 +578,7 @@ If you are deploying with Code engine, see [Optional Code Engine CI and CD varia
 | `cc_pipeline_git_token_secret_crn` | The CRN for pipeline Git token property. | `string` | `""` | no |
 | `cc_pipeline_ibmcloud_api_key_secret_crn` | The CRN for the IBMCloud apikey. | `string` | `""` | no |
 | `cc_pipeline_ibmcloud_api_key_secret_name` | Name of the Cloud API key secret in the secret provider. | `string` | `"ibmcloud-api-key"` |
+| `cc_pipeline_properties` | Stringified JSON containing the properties for the CC toolchain pipelines. | `string` | `""` |
 | `cc_repositories_prefix` | The prefix for the compliance repositories. | `string` | `"compliance"` |
 | `cc_scc_enable_scc` | Enable the SCC integration. | `bool` | `true` |
 | `cc_scc_integration_name` | The SCC integration name. | `string` | `"Security and Compliance"` |
@@ -618,6 +636,8 @@ If you are deploying with Code engine, see [Optional Code Engine CI and CD varia
 
 | Name | Description | Type | Default |
 |------|-------------|------|---------|
+| `code_engine_project` | The name of the Code Engine project to use. Created if it does not exist. Applies to both the CI and CD toolchains. To set individually use `ci_code_engine_project` and `cd_code_engine_project`. | `string` | `""` |
+| `code_engine_project_prefix` | A string that will be prefixed to`ci_code_engine_project` and `cd_code_engine_project`. | `string` | `""` |
 | `ci_code_engine_app_concurrency` | The maximum number of requests that can be processed concurrently per instance. | `string` | `"100"` |
 | `ci_code_engine_app_deployment_timeout` | The maximum timeout for the application deployment. | `string` | `"300"` |
 | `ci_code_engine_app_max_scale` | The maximum number of instances that can be used for this application. If you set this value to 0, the application scales as needed. The application scaling is limited only by the instances per the resource quota for the project of your application. | `string` | `"1"` |
@@ -642,6 +662,7 @@ If you are deploying with Code engine, see [Optional Code Engine CI and CD varia
 | `ci_code_engine_job_retrylimit` | The number of times to rerun an instance of the job before the job is marked as failed. | `string` | `"3"` |
 | `ci_code_engine_memory` | The amount of memory set for the instance of the application or job. Use M for megabytes or G for gigabytes. | `string` | `"0.5G"` |
 | `ci_code_engine_project` | The name of the Code Engine project to use for the CI pipeline build. The project is created if it does not already exist. | `string` | `"Sample_CI_Project"` |
+| `ci_code_engine_project_prefix` | A string that will be prefixed to `ci_code_engine_project`. This takes precedence over values set in `code_engine_project_prefix`. | `string` | `""` |
 | `ci_code_engine_region` | The region to create/lookup for the Code Engine project. | `string` | `""` |
 | `ci_code_engine_registry_domain` | The container registry URL domain that is used to build and tag the image. Useful when using private-endpoint container registry. | `string` | `""` |
 | `ci_code_engine_remove_refs` | Remove references to unspecified configuration resources (configmap/secret) references (pulled from env-from-configmaps, env-from-secrets along with auto-managed by CD). | `string` | `"false"` |
@@ -674,6 +695,7 @@ If you are deploying with Code engine, see [Optional Code Engine CI and CD varia
 | `cd_code_engine_job_retrylimit` | The number of times to rerun an instance of the job before the job is marked as failed. | `string` | `"3"` |
 | `cd_code_engine_memory` | The amount of memory set for the instance of the application or job. Use M for megabytes or G for gigabytes. | `string` | `"0.5G"` |
 | `cd_code_engine_project` | The name of the Code Engine project to use for the CD pipeline promoted code. The project is created if it does not already exist. | `string` | `"Sample_CD_Project"` |
+| `cd_code_engine_project_prefix` | A string that will be prefixed to `cd_code_engine_project`. This takes precedence over values set in `code_engine_project_prefix`. | `string` | `""` |
 | `cd_code_engine_region` | The region to create/lookup for the Code Engine project. | `string` | `""` |
 | `cd_code_engine_remove_refs` | Remove references to unspecified configuration resources (configmap/secret) references (pulled from env-from-configmaps, env-from-secrets along with auto-managed by CD). | `string` | `"false"` |
 | `cd_code_engine_resource_group` | The resource group of the Code Engine project. | `string` | `""` |
