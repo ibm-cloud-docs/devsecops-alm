@@ -49,7 +49,7 @@ To find the {{site.data.keyword.bplong_notm}} workspaces you created, go to [{{s
 |Name |The name of the workspace.|
 |Resource Group|The resource group where the workspace is created.|
 |Location|The location where the workspace is created.|
-{: caption="Table 1. Workspace variables" caption-side="top"}
+{: caption="Workspace variables" caption-side="top"}
 
 ## Deploy the architecture
 {: #deploy}
@@ -77,7 +77,7 @@ To deploy DevSecOps Application Lifecycle Management toolchains by using Schemat
     | `sm_name` | Enter the name of the Secrets Manager instance that you previously set up. | `sm-instance`|
     | `sm_resource_group`| Enter the resource group that contains the Secrets Manager instance that you previously set up. | `Default` |
     | `sm_secret_group` | Enter the group in Secrets Manager instance that you previously set up for organizing or grouping secrets.| `Default` |
-    {: caption="Table 1. List of required values for deployment" caption-side="bottom"}
+    {: caption="List of required values for deployment" caption-side="bottom"}
 
     For more information, see [Required input variables](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars#devsecops-alm-min).
     {: note}
@@ -85,5 +85,3 @@ To deploy DevSecOps Application Lifecycle Management toolchains by using Schemat
 1. Optional. Click **Optional input variables** and modify any optional variables to extend the experience. For more information, see [Optional input variables](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars#devsecops-alm-opt).
 1. Click **Deploy**.
 1. Click **Generate plan** to create the resource deployable architecture.
-
-
