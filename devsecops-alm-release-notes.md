@@ -31,24 +31,25 @@ Version 2.0.3 of the DevSecOps Application Lifecycle Management released
 
 Building on the previously released feature of using a JSON to specify custom pipeline properties, version 2.0.3 further simplifies the configuration of the CI, CD and CC pipelines. All of the default pipeline properties and any custom properties are now set using the CI, CD and CC JSON variables. The only exception to this are the tool integration properties for the repositories that get created upon the initial set up of the toolchains. Having the properties together benefits the user by removing the problem of having to locate the exact variable that corresponded to a specific pipeline property. The name of the pipeline property as presented in the JSON variable matches how the property appears in the pipeline properties.
 
-Note: This update is a breaking change and before updating from a previous release, it is important to take note of the current properties and their values for the pipelines in the CI, CD and CC toolchains. You will have to take the step of updating the JSON variables for the CI, CD and CC toolchains to mirror the previous setup. Please use the following files as your templates and fill in the values according to your previous pipeline property values. Any previously specified custom properties and can also be added.
+This update is a breaking change and before updating from a previous release, it is important to take note of the current properties and their values for the pipelines in the CI, CD and CC toolchains. You will have to take the step of updating the JSON variables for the CI, CD and CC toolchains to mirror the previous setup. Please use the following files as your templates and fill in the values according to your previous pipeline property values. Any previously specified custom properties and can also be added.
+{: #note}
 
 For the Kubernetes flavor of the toolchains use [CI JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/kubernetes/ci-properties.json), [CD JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/kubernetes/cd-properties.json) and the [CC JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/kubernetes/cc-properties.json).
 
 Alternatively for the Code Engine flavor use [CI JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/code-engine/ci-properties.json), [CD JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/code-engine/cd-properties.json) and the [CC JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/code-engine/cc-properties.json).
 
 The most common variable type is the text property which takes the form:
-```
+```JSON
   {
     "name": "opt-in-dynamic-scan",
     "type": "text",
     "value": "1"
   }
-  ```
+```
 
 Secrets are set as follows:
 
-```
+```JSON
 
   {
     "name": "git-token",
