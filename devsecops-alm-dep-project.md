@@ -61,7 +61,7 @@ You are now ready to configure the security, required variables, and optional va
     | `sm_resource_group`| Enter the resource group that contains the Secrets Manager instance that you previously set up. | `Default` |
     | `sm_secret_group` | Enter the group in Secrets Manager instance that you previously set up for organizing or grouping secrets.| `Default` |
     {: class="simple-tab-table"}
-    {: caption="Table 1. List of required values for deployment" caption-side="bottom"}
+    {: caption="List of required values for deployment" caption-side="bottom"}
     {: #simpletabtable1}
     {: tab-title="Kubernetes values"}
     {: tab-group="deployment-values"}
@@ -79,7 +79,7 @@ You are now ready to configure the security, required variables, and optional va
     | `sm_resource_group`| Enter the resource group that contains the Secrets Manager instance that you previously set up. | `Default` |
     | `sm_secret_group` | Enter the group in Secrets Manager instance that you previously set up for organizing or grouping secrets.| `Default` |
     {: class="simple-tab-table"}
-    {: caption="Table 1. List of required values for deployment" caption-side="bottom"}
+    {: caption="List of required values for deployment" caption-side="bottom"}
     {: #simpletabtable1}
     {: tab-title="Code Engine values"}
     {: tab-group="deployment-values"}

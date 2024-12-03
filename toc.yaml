@@ -57,7 +57,7 @@ toc:
       - topic: devsecops-alm-support.md
         navtitle: Getting help and support
       - topicgroup:
-          label: Troubleshooting  
+          label: Troubleshooting
           topics:
           - devsecops-alm-deployment-fail.md
           - include: ../schematics/troubleshooting/apply_500_errors.md

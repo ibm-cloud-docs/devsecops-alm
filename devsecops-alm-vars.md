@@ -35,7 +35,7 @@ Use the required variables to create toolchains for the out of the box experienc
 |`sm_resource_group`|The resource group containing the Secrets Manager instance. This applies to the CI, CD, and CC Secret Manager integrations. See `ci_sm_resource_group`, `cd_sm_resource_group`, and `cc_sm_resource_group` to set separately.|`string`|`Default`|
 |`sm_secret_group`|Group in Secrets Manager for organizing/grouping secrets. This applies to the CI, CD and CC Secret Manager integrations. See `ci_sm_secret_group`, `cd_sm_secret_group`, and `cc_sm_secret_group` to set separately.|`string`|`Default`|
 |`ibmcloud_api_key`|API key that creates the toolchains. |  |  |
-{: caption="Table 1. Template repository" caption-side="top"}
+{: caption="Template repository" caption-side="top"}
 
 The variables that are prefixed with `ci`, `cd`, and `cc` apply to the CI, CD, and CC toolchains. Nonprefixed variables apply to all the toolchains. Also, modifying the default values for the prefixed variable inputs causes the prefixed variables inputs to take precedence over nonprefixed variable inputs.
 {: note}
@@ -85,7 +85,7 @@ The variables that are prefixed with `ci`, `cd`, and `cc` apply to the CI, CD, a
 | `scc_scc_api_key_secret_name` | The Security and Compliance Center api-key secret in the secret provider. | `string` | `"scc-api-key"` |
 | `scc_scc_api_key_secret_group` | Secret group prefix for the Security and Compliance tool secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
 | `scc_use_profile_attachment` | Set to `enabled` to enable use profile with attachment so that the scripts in the pipeline can interact with the Security and Compliance Center service. When enabled, other parameters become relevant; `scc_scc_scc_api_key_secret_name`, `scc_instance_crn`, `scc_profile_name`, `scc_profile_version`, `scc_attachment_id`. Can individually be `enabled` and `disabled` in the CD and CC toolchains by using `cd_scc_use_profile_attachment` and `cc_scc_use_profile_attachment`. | `string` | `"disabled"` |
-{: caption="Table 2. Group level variables" caption-side="top"}
+{: caption="Group level variables" caption-side="top"}
 
 ### Toolchain creation variables
 {: #devsecops-alm-tccreate}
@@ -97,7 +97,7 @@ The following variables determine which toolchains are created. By default all t
 | `create_ci_toolchain` | Determines whether the DevSecOps CI toolchain is created. If this toolchain is not created, then values must be set for the following variables: `evidence_repo_existing_url`, `issues_repo_existing_url`, and `inventory_repo_existing_url`. | `bool` | `true` |
 | `create_cd_toolchain` | Boolean flag that determines whether the DevSecOps CD toolchain is created. | `bool` | `true` |
 | `create_cc_toolchain` | Boolean flag that determines whether the DevSecOps CC toolchain is created. | `bool` | `true` |
-{: caption="Table 3. toolchain creation" caption-side="top"}
+{: caption="toolchain creation" caption-side="top"}
 
 ### Compliance repositories
 {: #devsecops-alm-compl}
@@ -109,7 +109,7 @@ If the CI toolchain is not created, you must set the following variables.
 | `evidence_repo_existing_url`  | A template repository to clone compliance-evidence-locker for reference DevSecOps toolchain templates. | `string` | `""` |
 | `issues_repo_existing_url` | A template repository to clone `compliance-issues` for reference DevSecOps toolchain templates. | `string` | `""` |
 | `inventory_repo_existing_url` | A template repository to clone compliance-inventory for reference DevSecOps toolchain templates. | `string` | `""` |
-{: caption="Table 4. Template repository" caption-side="top"}
+{: caption="Template repository" caption-side="top"}
 
 ### Bring your own code
 {: #devsecops-alm-byoc}
@@ -126,7 +126,7 @@ The default experience for the DevSecOps toolchains is to use a sample app. This
 | `ci_app_repo_existing_git_id`  | By default absent, otherwise use custom server GUID, or other options for `git_id` field in the browser UI. | `string` | `""` |
 | `ci_app_repo_existing_git_provider`  | By default `hostedgit`, otherwise use `githubconsolidated` or `gitlab`. | `string` | `""` |
 | `ci_app_repo_existing_url`  | Override to bring your own existing application repository URL, which is used directly instead of cloning the default sample. | `string` | `""` |
-{: caption="Table 5. Clone or use an existing repository" caption-side="top"}
+{: caption="Clone or use an existing repository" caption-side="top"}
 
 To use an existing application in github.ibm.com, use the following example settings:
 
@@ -136,7 +136,7 @@ To use an existing application in github.ibm.com, use the following example sett
 |`ci_app_repo_existing_branch`|`"main"`|
 |`ci_app_repo_existing_git_provider`|`"githubconsolidated"`|
 |`ci_app_repo_existing_git_id`|`"integrated"`|
-{: caption="Table 6. Examples to use an existing application" caption-side="top"}
+{: caption="Examples to use an existing application" caption-side="top"}
 
 ### Secrets
 {: #devsecops-alm-secrets}
@@ -158,7 +158,7 @@ To create an API key for the DevSecOps toolchains, see [{{site.data.keyword.clou
 |`cd_ibmcloud_api_key_secret_name`|Name of the {{site.data.keyword.cloud}} API key secret in the secret provider.|`"ibmcloud-api-key"`|
 |`cc_ibmcloud_api_key_secret_name`|Name of the {{site.data.keyword.cloud}} API key secret in the secret provider.|`"ibmcloud-api-key"`|
 |`ci_signing_key_secret_name`|Name of the signing key secret in the secret provider.|`"signing_key"`|
-{: caption="Table 7. Secret names" caption-side="top"}
+{: caption="Secret names" caption-side="top"}
 
 For more secret names, search for "secret_name" in the variable list.
 
@@ -172,7 +172,7 @@ Secrets Manager is the default secrets provider for the DevSecOps toolchains. Ho
 | `kp_name` | Name of the {{site.data.keyword.keymanagementserviceshort}} instance where the secrets are stored. | `string` | `"kp-compliance-secrets"` |
 | `kp_location`  | {{site.data.keyword.cloud}} location or region that contains the {{site.data.keyword.keymanagementserviceshort}} instance. | `string` | `"us-south"` |
 | `kp_resource_group` | The resource group that contains the {{site.data.keyword.keymanagementserviceshort}} instance for your secrets. | `string` | `"Default"` |
-{: caption="Table 8. {{site.data.keyword.keymanagementserviceshort}}" caption-side="top"}
+{: caption="{{site.data.keyword.keymanagementserviceshort}}" caption-side="top"}
 
 Alternatively, you can set the {{site.data.keyword.keymanagementserviceshort}} integration settings in individual toolchains by using the prefixed form of the variables:
 
@@ -187,7 +187,7 @@ Alternatively, you can set the {{site.data.keyword.keymanagementserviceshort}} i
 | `cc_kp_name` | Name of the {{site.data.keyword.keymanagementserviceshort}} instance where the secrets are stored. | `string` | `""` |
 | `cc_kp_location` | {{site.data.keyword.cloud}} location or region that contains the {{site.data.keyword.keymanagementserviceshort}} instance. | `string` | `""` |
 | `cc_kp_resource_group` | The resource group that contains the {{site.data.keyword.keymanagementserviceshort}} instance for your secrets. | `string` | `""` |
-{: caption="Table 9. Prefixed forms" caption-side="top"}
+{: caption="Prefixed forms" caption-side="top"}
 
 ### Switching between secrets providers
 {: #devsecops-alm-switchsecret}
@@ -200,7 +200,7 @@ Secrets providers can be switched across all the toolchains.
 |------|-------------|------|---------|
 | `enable_key_protect` | Enable {{site.data.keyword.keymanagementserviceshort}} integrations. | `bool` | `false` |
 | `enable_secrets_manager` | Enable the Secrets Manager integrations. | `bool` | `true` |
-{: caption="Table 10. Secrets providers" caption-side="top"}
+{: caption="Secrets providers" caption-side="top"}
 
 Alternatively, you can switch secrets providers seperately for the different toolchains. The toolchain-specific variable defaults for the secrets providers, as outlined in the Table 10, are set to `false` by default. The variables are grouped under Key Protect and Secrets Manager. All the variables in a group take precendence if any variable in that group is changed from the default value.
 
@@ -212,7 +212,7 @@ Alternatively, you can switch secrets providers seperately for the different too
 | `ci_enable_secrets_manager`  | Enables Secrets Manager integration. | `bool` | `false` |
 | `cd_enable_secrets_manager` | Uses the Secrets Manager integration. | `bool` | `false` |
 | `cc_enable_secrets_manager` | Enables Secrets Manager integration. | `bool` | `false` |
-{: caption="Table 11. Switch secrets provider" caption-side="top"}
+{: caption="Switch secrets provider" caption-side="top"}
 
 Set these variables to `true` to use a {{site.data.keyword.keymanagementserviceshort}} integration instead of Secrets Manager. Also, set the Secrets Manager values to `false` in this case so that an unnecessary integration is not created in the toolchain.
 
@@ -226,7 +226,7 @@ If you are deploying with Code engine, see [Optional Code Engine CI and CD varia
 |------|-------------|------|---------|
 | `deployment_repo_url` | The repository to clone deployment for DevSecOps toolchain template. | `string` | `""` |
 | `ibmcloud_api` | {{site.data.keyword.cloud}} API Endpoint. | `string` | `"https://cloud.ibm.com"` |
-{: caption="Table 12. API key, secrets, and toolchain" caption-side="bottom"}
+{: caption="API key, secrets, and toolchain" caption-side="bottom"}
 {: #api-parameters}
 {: tab-title="API key, secrets, and toolchain"}
 {: tab-group="IAM-simple"}
@@ -366,7 +366,7 @@ If you are deploying with Code engine, see [Optional Code Engine CI and CD varia
 | `ci_compliance_pipeline_repo_secret_group` | Secret group prefix for the Compliance Pipeline repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` |
 | `ci_pipeline_config_repo_secret_group` | Secret group prefix for the Pipeline Config repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` |
 | `ci_pipeline_git_token_secret_name` | Name of the pipeline Git token secret in the secret provider. | `string` | `"pipeline-git-token"` |
-{: caption="Table 12. Continuous integration" caption-side="bottom"}
+{: caption="Continuous integration" caption-side="bottom"}
 {: #ci-parameters}
 {: tab-title="Continuous integration"}
 {: tab-group="IAM-simple"}
@@ -501,7 +501,7 @@ If you are deploying with Code engine, see [Optional Code Engine CI and CD varia
 | `cd_pipeline_git_token_secret_group` | Secret group prefix for the pipeline Git token secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
 | `cd_code_signing_cert` | The base64 encoded GPG public key. | `string` | `""` |
 | `cd_pipeline_git_token_secret_name` | Name of the pipeline Git token secret in the secret provider. | `string` | `"pipeline-git-token"` |
-{: caption="Table 12. Continuous deployment" caption-side="bottom"}
+{: caption="Continuous deployment" caption-side="bottom"}
 {: #cd-parameters}
 {: tab-title="Continuous deployment"}
 {: tab-group="IAM-simple"}
@@ -625,7 +625,7 @@ If you are deploying with Code engine, see [Optional Code Engine CI and CD varia
 | `cc_evidence_repo_secret_group` | Secret group prefix for the Evidence repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
 | `cc_compliance_pipeline_repo_secret_group` | Secret group prefix for the Compliance Pipeline repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
 | `cc_pipeline_config_repo_secret_group` | Secret group prefix for the Pipeline Config repo secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
-{: caption="Table 12. Continuous compliance" caption-side="bottom"}
+{: caption="Continuous compliance" caption-side="bottom"}
 {: #cc-parameters}
 {: tab-title="Continuous compliance"}
 {: tab-group="IAM-simple"}
@@ -670,7 +670,7 @@ If you are deploying with Code engine, see [Optional Code Engine CI and CD varia
 | `ci_code_engine_service_bindings` | JSON array including service name(s) as a simple JSON string. | `string` | `""` |
 | `ci_code_engine_source` | The path to the location of code to build in the repository. Defaults to the root of source code repository. | `string` | `""` |
 | `ci_code_engine_wait_timeout` | The maximum timeout for the CLI operation to wait. | `string` | `"1300"` |
-{: caption="Table 13. Optional variables for Code Engine deployment" caption-side="bottom"}
+{: caption="Optional variables for Code Engine deployment" caption-side="bottom"}
 {: #ci-parameters-codeengine}
 {: tab-title="Continuous integration"}
 {: tab-group="codeengine-variables"}
@@ -702,7 +702,7 @@ If you are deploying with Code engine, see [Optional Code Engine CI and CD varia
 | `cd_code_engine_service_bindings` | JSON array including service name(s) as a simple JSON string. | `string` | `""` |
 | `cd_code_signing_cert` | The base64 encoded GPG public key. | `string` | `""` |
 | `cd_code_engine_service_bindings` | JSON array including service name(s) as a simple JSON string. | `string` | `""` |
-{: caption="Table 13. Optional variables for Code Engine deployment" caption-side="bottom"}
+{: caption="Optional variables for Code Engine deployment" caption-side="bottom"}
 {: #cd-parameters-codeengine}
 {: tab-title="Continuous deployment"}
 {: tab-group="codeengine-variables"}
@@ -725,5 +725,4 @@ If you are deploying with Code engine, see [Optional Code Engine CI and CD varia
 | `issues_repo_url` | The Issues Repo URL. |
 | `secrets_manager_instance_id` | The Secrets Manage Instance ID |
 | `key_protect_instance_id` | The Key Protect Instance ID |
-{: caption="Table 14. Outputs" caption-side="top"}
-
+{: caption="Outputs" caption-side="top"}
