@@ -29,14 +29,24 @@ To find the release notes for the DevSecOps compliance pipeline definitions that
 Version 2.0.3 of the DevSecOps Application Lifecycle Management released
 :   Version 2.0.3 of the DevSecOps Application Lifecycle Management is available in the {{site.data.keyword.cloud_notm}} [catalog](/catalog#reference_architecture){: external}.
 
-Building on the previously released feature of using a JSON to specify custom pipeline properties, version 2.0.3 further simplifies the configuration of the CI, CD and CC pipelines. All of the default pipeline properties and any custom properties are now set using the CI, CD and CC JSON variables. The only exception to this are the tool integration properties for the repositories that get created upon the initial set up of the toolchains. Having the properties together benefits the user by removing the problem of having to locate the exact variable that corresponded to a specific pipeline property. The name of the pipeline property as presented in the JSON variable matches how the property appears in the pipeline properties.
 
-This update is a breaking change and before updating from a previous release, it is important to take note of the current properties and their values for the pipelines in the CI, CD and CC toolchains. You will have to take the step of updating the JSON variables for the CI, CD and CC toolchains to mirror the previous setup. Please use the following files as your templates and fill in the values according to your previous pipeline property values. Any previously specified custom properties and can also be added.
+**Simplified pipeline configuration**: All default and custom pipeline properties are now set using a single JSON variable for each pipeline type (CI, CD, and CC).
+
+Changes and Improvements
+
+Streamlined pipeline configuration and management
+Improved usability with JSON variable names matching pipeline property names
+Reduced complexity with all pipeline properties in one place
+
+
+This update is a breaking change. Update with caution.. To ensure a smooth transition, follow these steps:
+
+1. Record current pipeline properties and values for CI, CD, and CC toolchains.
+1. Update JSON variables using the following templates:
+    - For the Kubernetes flavor of the toolchains, use [CI JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/kubernetes/ci-properties.json), [CD JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/kubernetes/cd-properties.json) and the [CC JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/kubernetes/cc-properties.json).
+    - Alternatively for the Code Engine flavor, use [CI JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/code-engine/ci-properties.json), [CD JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/code-engine/cd-properties.json) and the [CC JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/code-engine/cc-properties.json).
+1. Add any previously specified custom properties to the updated JSON variables.
 {: #note}
-
-For the Kubernetes flavor of the toolchains use [CI JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/kubernetes/ci-properties.json), [CD JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/kubernetes/cd-properties.json) and the [CC JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/kubernetes/cc-properties.json).
-
-Alternatively for the Code Engine flavor use [CI JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/code-engine/ci-properties.json), [CD JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/code-engine/cd-properties.json) and the [CC JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/code-engine/cc-properties.json).
 
 The most common variable type is the text property which takes the form:
 ```JSON
@@ -59,10 +69,11 @@ Secrets are set as follows:
 
 ```
 
-There are three supported ways to set the value to a secure type:
-1. The name of the secret as it appears in the secrets provider. The full reference to the secret is automatically calculated based on the Secrets Manager and Secret group that was specified during the DA creation.
-2. A CRN to a secret can be set. This depends on having a Secrets Manager integration configured in CRN mode.
-3. The full secret reference can be set, for example `{vault::sm-compliance-secrets.Default.my-github-token}`.  The benefit of this approach is that different secret groups can be specified.
+You can set the value to a secure type in one of the following three ways:
+
+**Secret name**: Use the name of the secret as it appears in the secrets provider. The full reference to the secret is automatically calculated based on the Secrets Manager and Secret group specified during DA creation.
+**CRN**: Set a Cloud Resource Name (CRN) to a secret. This requires a Secrets Manager integration configured in CRN mode.
+**Full secret reference**: Set the full secret reference, for example {vault::sm-compliance-secrets.Default.my-github-token}. This approach allows you to specify different secret groups.
 
 There are several existing variables that now operate in tandem with the JSON preoperties. These are as follows:
 `app_repo_branch`,
