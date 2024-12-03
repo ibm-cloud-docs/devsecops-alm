@@ -32,7 +32,7 @@ Version 2.0.3 of the DevSecOps Application Lifecycle Management released
 
 **Simplified pipeline configuration**: All default and custom pipeline properties are now set using a single JSON variable for each pipeline type (CI, CD, and CC).
 
-Changes and Improvements
+**Changes and Improvements**
 
 - Streamlined pipeline configuration and management
 - Improved usability with JSON variable names matching pipeline property names
@@ -76,6 +76,8 @@ You can set the value to a secure type in one of the following three ways:
 **Full secret reference**: Set the full secret reference, for example {vault::sm-compliance-secrets.Default.my-github-token}. This approach allows you to specify different secret groups.
 
 There are several existing variables that now operate in tandem with the JSON preoperties. These are as follows:
+
+```JSON
 `app_repo_branch`,
 `cluster_name`,
 `cluster_namespace`,
@@ -99,28 +101,31 @@ There are several existing variables that now operate in tandem with the JSON pr
 `registry_region`,
 `signing_key_secret_name`,
 `pipeline_config_repo_branch`
+```
 
 The purpose of these variables is to allow an alternate way to specify the value of a pipeline property. They are helper variables. Take for example the variables that end with `region`. These will automatically be set with the region matching the `toolchain_region` variable. The `cluster_region` can be explicitly set or it will inherit the value set in `toolchain_region` .As such the equivalent pipeline property in the JSON can be left empty but it still needs to be specifed for the pipeline property to be created. Setting the value in the JSON has the highest precedence and when set it will override any values set in the variables above. 
 
-```
+```JSON
   {
     "name": "cluster-region",
     "type": "text",
     "value": ""
   }
-  ```
+```
 Another special case is the `doi_toolchain_id`. Unless you know beforehand that you would like the DevOpInsights integration to point to a specific toolchain that already exists, leave this entry empty and the DA will automatically provide the ID for you.
 
 There is the possibility that the upgrade will fail and this is likely due to adding pipeline properties to the pipelines manually via the UI rather than through Projects. The likely error in this case that is seen in the logs will be `duplicate property error`. To resolve this issue, you will have to remove the problematic property in the UI and then re-run the Projects deploy step of the DA. If the property is not easily identifiable then delete all the pipeline properties apart from the repository tool integration properties. 
 
-Note: If the property does not appear in the JSON then it will not appear in the pipeline properties after the deployment. As long as the property has an empty value set, then you can use the above listed variables if required.
+If the property does not appear in the JSON then it will not appear in the pipeline properties after the deployment. As long as the property has an empty value set, then you can use the above listed variables if required.
+{: #note}
 
 Version 2.0.3 has two other significant changes
-1) There is a significant reduction in the number of variables available for setup. Roughly a 60% reduction. This is from a combination of using the pipeline property JSONs and adding more group level variables and hiding their related variables. For example `cos_bucket_name` sets the cos bucket name across all three toolchains and the related variables of `ci_cos_bucket_name`, `cd_cos_bucket_name` and `cc_cos_bucket_name` are now absent.
 
-2) Locked properties: This is a new feature designed to limit the control for users that only have permission to run the pipelines. When the property is locked, it will not be available to edit when running a pipeline. Several properties are now locked by default. To unlock these properties, identify the required property in the properties JSON and add the following line:
+1. There is a significant reduction in the number of variables available for setup. Roughly a 60% reduction. This is from a combination of using the pipeline property JSONs and adding more group level variables and hiding their related variables. For example `cos_bucket_name` sets the cos bucket name across all three toolchains and the related variables of `ci_cos_bucket_name`, `cd_cos_bucket_name` and `cc_cos_bucket_name` are now absent.
 
-```
+1. Locked properties: This is a new feature designed to limit the control for users that only have permission to run the pipelines. When the property is locked, it will not be available to edit when running a pipeline. Several properties are now locked by default. To unlock these properties, identify the required property in the properties JSON and add the following line:
+
+```JSON
 {
   "name": "doi-ibmcloud-api-key",
   "type": "secure",
