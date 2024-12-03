@@ -34,12 +34,12 @@ Version 2.0.3 of the DevSecOps Application Lifecycle Management released
 
 Changes and Improvements
 
-Streamlined pipeline configuration and management
-Improved usability with JSON variable names matching pipeline property names
-Reduced complexity with all pipeline properties in one place
+- Streamlined pipeline configuration and management
+- Improved usability with JSON variable names matching pipeline property names
+- Reduced complexity with all pipeline properties in one place
 
 
-This update is a breaking change. Update with caution.. To ensure a smooth transition, follow these steps:
+This update is a breaking change. Update with caution. To ensure a smooth transition, follow these steps:
 
 1. Record current pipeline properties and values for CI, CD, and CC toolchains.
 1. Update JSON variables using the following templates:
