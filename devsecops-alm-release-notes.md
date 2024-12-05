@@ -321,8 +321,9 @@ Version 1.0.7 of DevSecOps Application Lifecycle Management released
 
    - A validation trigger has been added to the CD pipeline for validating Git promotions.
 
-  If you are upgrading from version `1.0.6` to `1.0.7` select the `Deploy to Kubernetes` option of `1.0.7`
-  {: note}
+
+If you are upgrading from version `1.0.6` to `1.0.7` select the `Deploy to Kubernetes` option of `1.0.7`
+{: #note}
 
 ## 02 October 2023
 {: #devsecops-alm-october2023}
