@@ -29,7 +29,7 @@ To find the release notes for the DevSecOps compliance pipeline definitions that
 Version 2.3.0 of DevSecOps Application Lifecycle Management released
 :   Version 2.3.0 of the DevSecOps Application Lifecycle Management is available in the {{site.data.keyword.cloud_notm}} [catalog](/catalog#reference_architecture){: external}.
 
-The DA can now be used to provision secrets in the Configured Secrets Manager instance, specifically a git token and the signing keys. The variables required are as follows:
+The DA can now be used to provision secrets in the Configured Secrets Manager instance, specifically a git token, and the signing keys. The variables that are required are as follows:
 
 `create_git_token`
 `repo_git_token_secret_name`
@@ -39,14 +39,14 @@ The DA can now be used to provision secrets in the Configured Secrets Manager in
 `ci_signing_key_secret_name`
 `cd_code_signing_cert_secret_name`
 
-Setting `create_git_token` to `true`, `repo_git_token_secret_name` to `my-git-token`  and specifying a Git personal access token in `repo_git_token_secret_value` will result in a secret called `my-git-token` with the value specified in `repo_git_token_secret_value` being created in Secrets Manager.
-It is important to note that setting `repo_git_token_secret_value` will change the behaviour of the authentication used by the repository tools. The repositories will now expect to use an access token and a username/owner for your repositories. This owner name needs to be set in `repo_group`. This behaviour can be overridden using the auth type variable associated with each specific repository and reverted to `oauth` access. These variables end with `_repo_auth_type` for example `issues_repo_auth_type`
+Setting `create_git_token` to `true`, `repo_git_token_secret_name` to `my-git-token`  and specifying a Git personal access token in `repo_git_token_secret_value` will result in a secret that is called `my-git-token` with the value that is specified in `repo_git_token_secret_value` being created in Secrets Manager.
+It is important to note that setting `repo_git_token_secret_value` changes the behavior of the authentication that is used by the repository tools. The repositories will now expect to use an access token and a username/owner for your repositories. This owner name needs to be set in `repo_group`. This behavior can be overridden using the auth type variable that is associated with each specific repository and reverted to `oauth` access. These variables end with `_repo_auth_type` for example `issues_repo_auth_type`
 
-Setting `create_signing_key` to `true` will generate a signing key and the corresponding signing validation certificate. The names for these secrets are specified in `ci_signing_key_secret_name` and `cd_code_signing_cert_secret_name`.
+Setting `create_signing_key` to `true` generates a signing key and the corresponding signing validation certificate. The names for these secrets are specified in `ci_signing_key_secret_name` and `cd_code_signing_cert_secret_name`.
 
-The generated signing secrets can be rotated by setting `rotate_signing_key` to true. This will rotate both the signing key and signing validation certifcate. It is important to make a copy of the validation certificate in the event that there are pending deployments that were signed with the previous signing key.
+The generated signing secrets can be rotated by setting `rotate_signing_key` to true. This key will rotate both the signing key and signing validation certifcate. It is important to make a copy of the validation certificate in the event that there are pending deployments that were signed with the previous signing key.
 
-This release also provides support for using GitLab as a source for the repositories and a simplified means of changing the Git Provider. 
+This release also provides support for using GitLab as a source for the repositories and a simplified means of changing the Git Provider.
 See `repo_git_provider`. Set this variable to `GitLab` to configure all the compliance repository tools created by the DA to use GitLab.
 
 To use GitLab as a provider, an access token for GitLab and the user/owner name must be provided. The name of the access token can be set in `repo_git_token_secret_name`  which applies to all the compliance repositories and the repository owner name can be set using `repo_group`.
@@ -65,24 +65,26 @@ Version 2.0.3 of the DevSecOps Application Lifecycle Management released
 
 Building on the previously released feature of using a JSON to specify custom pipeline properties, version 2.0.3 further simplifies the configuration of the CI, CD and CC pipelines. All of the default pipeline properties and any custom properties are now set using the CI, CD and CC JSON variables. The only exception to this are the tool integration properties for the repositories that get created upon the initial set up of the toolchains. Having the properties together benefits the user by removing the problem of having to locate the exact variable that corresponded to a specific pipeline property. The name of the pipeline property as presented in the JSON variable matches how the property appears in the pipeline properties.
 
-Note: This update is a breaking change and before updating from a previous release, it is important to take note of the current properties and their values for the pipelines in the CI, CD and CC toolchains. You will have to take the step of updating the JSON variables for the CI, CD and CC toolchains to mirror the previous setup. Please use the following files as your templates and fill in the values according to your previous pipeline property values. Any previously specified custom properties and can also be added.
+This update is a breaking change and before updating from a previous release, it is important to take note of the current properties and their values for the pipelines in the CI, CD and CC toolchains. You will have to take the step of updating the JSON variables for the CI, CD and CC toolchains to mirror the previous setup. Please use the following files as your templates and fill in the values according to your previous pipeline property values. Any previously specified custom properties and can also be added.
+{: #note}
 
 For the Kubernetes flavor of the toolchains use [CI JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/kubernetes/ci-properties.json), [CD JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/kubernetes/cd-properties.json) and the [CC JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/kubernetes/cc-properties.json).
 
 Alternatively for the Code Engine flavor use [CI JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/code-engine/ci-properties.json), [CD JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/code-engine/cd-properties.json) and the [CC JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/code-engine/cc-properties.json).
 
 The most common variable type is the text property which takes the form:
-```
+```JSON
   {
     "name": "opt-in-dynamic-scan",
     "type": "text",
     "value": "1"
   }
-  ```
+```
+
 
 Secrets are set as follows:
 
-```
+```JSON
 
   {
     "name": "git-token",
@@ -122,7 +124,7 @@ There are several existing variables that now operate in tandem with the JSON pr
 `signing_key_secret_name`,
 `pipeline_config_repo_branch`
 
-The purpose of these variables is to allow an alternate way to specify the value of a pipeline property. They are helper variables. Take for example the variables that end with `region`. These will automatically be set with the region matching the `toolchain_region` variable. The `cluster_region` can be explicitly set or it will inherit the value set in `toolchain_region` .As such the equivalent pipeline property in the JSON can be left empty but it still needs to be specifed for the pipeline property to be created. Setting the value in the JSON has the highest precedence and when set it will override any values set in the variables above. 
+The purpose of these variables is to allow an alternate way to specify the value of a pipeline property. They are helper variables. Take for example the variables that end with `region`. These will automatically be set with the region matching the `toolchain_region` variable. The `cluster_region` can be explicitly set or it will inherit the value set in `toolchain_region` .As such the equivalent pipeline property in the JSON can be left empty but it still needs to be specifed for the pipeline property to be created. Setting the value in the JSON has the highest precedence and when set it will override any values set in the variables above.
 
 ```
   {
@@ -133,7 +135,7 @@ The purpose of these variables is to allow an alternate way to specify the value
   ```
 Another special case is the `doi_toolchain_id`. Unless you know beforehand that you would like the DevOpInsights integration to point to a specific toolchain that already exists, leave this entry empty and the DA will automatically provide the ID for you.
 
-There is the possibility that the upgrade will fail and this is likely due to adding pipeline properties to the pipelines manually via the UI rather than through Projects. The likely error in this case that is seen in the logs will be `duplicate property error`. To resolve this issue, you will have to remove the problematic property in the UI and then re-run the Projects deploy step of the DA. If the property is not easily identifiable then delete all the pipeline properties apart from the repository tool integration properties. 
+There is the possibility that the upgrade will fail and this is likely due to adding pipeline properties to the pipelines manually via the UI rather than through Projects. The likely error in this case that is seen in the logs will be `duplicate property error`. To resolve this issue, you will have to remove the problematic property in the UI and then re-run the Projects deploy step of the DA. If the property is not easily identifiable then delete all the pipeline properties apart from the repository tool integration properties.
 
 Note: If the property does not appear in the JSON then it will not appear in the pipeline properties after the deployment. As long as the property has an empty value set, then you can use the above listed variables if required.
 
@@ -229,9 +231,9 @@ The following example uses the `ci_pipeline_properties` which targets the the CI
 
 The CI toolchain additionally has a variable called `ci_repository_properties` that allows the user to add new or existing repositories to the CI toolchain. The default behavior is that listed repositories will treat the repositories as existing rather then attempt to clone those repositories.
 
-The following example highlights how to add additional repositories to the CI toolchain. Note that the top level entries in the JSON are inherited by the child elements and can be overridden by entries in the child elements with the same key name. Two repositories are listed in the example. The first repository, is the most basic case. It contains a `repository_url` and `default_branch`. The `default_branch` overrides the `master` value with `main`. The default `mode` is `link`. Since the repository is on GitHub, it requires Git token. This is specified in the top level of the JSON. This value needs to be in the Secrets Provider. Specifying the repository as such will result in triggers automatically being created for the repository, namely a Git Trigger, a manual trigger and a PR trigger. 
+The following example highlights how to add additional repositories to the CI toolchain. Note that the top level entries in the JSON are inherited by the child elements and can be overridden by entries in the child elements with the same key name. Two repositories are listed in the example. The first repository, is the most basic case. It contains a `repository_url` and `default_branch`. The `default_branch` overrides the `master` value with `main`. The default `mode` is `link`. Since the repository is on GitHub, it requires Git token. This is specified in the top level of the JSON. This value needs to be in the Secrets Provider. Specifying the repository as such will result in triggers automatically being created for the repository, namely a Git Trigger, a manual trigger and a PR trigger.
 
-The second listed repository is in `clone` mode and will attempt to clone the repository into GRIT. If a `name` is not provided for the repository, it will use the same name as the repository being cloned. 
+The second listed repository is in `clone` mode and will attempt to clone the repository into GRIT. If a `name` is not provided for the repository, it will use the same name as the repository being cloned.
 
 This second example also shows the creation of custom triggers. It should be noted that add custom triggers will prevent the creation of the automatic triggers.
 
@@ -278,7 +280,7 @@ This second example also shows the creation of custom triggers. It should be not
 Version 1.2.1 of DevSecOps Application Lifecycle Management released
 :   Version 1.2.1 of the DevSecOps Application Lifecycle Management is available in the {{site.data.keyword.cloud_notm}} [catalog](/catalog#reference_architecture){: external}.
 
-   - Additional options to configure the name of the Code Engine Projects in the Code Engine Variant, `code_engine_project`, `code_engine_project_prefix`, `ci_code_engine_project_prefix` and `cd_code_engine_project_prefix`. 
+   - Additional options to configure the name of the Code Engine Projects in the Code Engine Variant, `code_engine_project`, `code_engine_project_prefix`, `ci_code_engine_project_prefix` and `cd_code_engine_project_prefix`.
 
 For more information, see [Variables](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars)
 
