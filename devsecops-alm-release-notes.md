@@ -126,13 +126,13 @@ There are several existing variables that now operate in tandem with the JSON pr
 
 The purpose of these variables is to allow an alternate way to specify the value of a pipeline property. They are helper variables. Take for example the variables that end with `region`. These will automatically be set with the region matching the `toolchain_region` variable. The `cluster_region` can be explicitly set or it will inherit the value set in `toolchain_region` .As such the equivalent pipeline property in the JSON can be left empty but it still needs to be specifed for the pipeline property to be created. Setting the value in the JSON has the highest precedence and when set it will override any values set in the variables above.
 
-```
+```JSON
   {
     "name": "cluster-region",
     "type": "text",
     "value": ""
   }
-  ```
+```
 Another special case is the `doi_toolchain_id`. Unless you know beforehand that you would like the DevOpInsights integration to point to a specific toolchain that already exists, leave this entry empty and the DA will automatically provide the ID for you.
 
 There is the possibility that the upgrade will fail and this is likely due to adding pipeline properties to the pipelines manually via the UI rather than through Projects. The likely error in this case that is seen in the logs will be `duplicate property error`. To resolve this issue, you will have to remove the problematic property in the UI and then re-run the Projects deploy step of the DA. If the property is not easily identifiable then delete all the pipeline properties apart from the repository tool integration properties.
@@ -144,7 +144,7 @@ Version 2.0.3 has two other significant changes
 
 2) Locked properties: This is a new feature designed to limit the control for users that only have permission to run the pipelines. When the property is locked, it will not be available to edit when running a pipeline. Several properties are now locked by default. To unlock these properties, identify the required property in the properties JSON and add the following line:
 
-```
+```JSON
 {
   "name": "doi-ibmcloud-api-key",
   "type": "secure",
