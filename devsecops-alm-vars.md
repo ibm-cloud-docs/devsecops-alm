@@ -59,8 +59,12 @@ The variables that are prefixed with `ci`, `cd`, and `cc` apply to the CI, CD, a
 |`repo_group`|Specify Git user or group for your application. This must be set if the repository authentication type is `pat` (personal access token).|`string`|`""`|
 |`repo_secret_group`|Secret group in Secrets Manager that contains the secret for the repo. This variable sets the same secret group for all the repositories. It can be overridden on a per secret group basis. Only applies when using Secrets Manager.|`string`|`""`|
 |`repo_git_token_secret_name`|Name of the Git token secret in the secret provider. Specifying a secret name for the Git Token automatically sets the authentication type to `pat`.|`string`|`""`|
+|`repo_git_token_secret_value`|The personal access token that will be added to the `repo_git_token_secret_name` secret in the secrets provider.|`string`|`""`|
 |`compliance_base_image`|Pipeline baseimage to run most of the built-in pipeline code. Applies to the CI, CD and CC toolchain pipelines.|`string`|`""` |
 | `compliance_pipeline_branch` | The Compliance Pipeline branch. | `string` | `"open-v9"` |
+| `create_git_token` | Set to `true` to create and add the specified personal access token secret to the Secrets Provider. Use `repo_git_token_secret_value` for setting the value.| `bool` | `false` |
+| `create_signing_key` | Set to `true` to create and add a `signing-key` and the `signing-certificate` to the Secrets Provider.| `bool` | `false` |
+| `rotate_signing_key` | Set to `true` to rotate the signing key and signing certificate. It is important to make a back up for the current code signing certificate as pending CD deployments might require image validation against the previous signing key.| `bool` | `false` |
 | `event_notifications_crn` | Set the {{site.data.keyword.en_short}} CRN to create an {{site.data.keyword.en_short}} integration. This paramater applies to the CI, CD and CC toolchains. It can be set individually with `ci_event_notifications_crn`, `cd_event_notifications_crn`, and `cc_event_notifications_crn`. | `string` | `""` |
 | `gosec_private_repository_host` | Your private repository base URL. | `string` | `""` |
 | `gosec_repo_ssh_key_secret_group` | Secret group prefix for the gosec private repository ssh key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` |
@@ -73,6 +77,8 @@ The variables that are prefixed with `ci`, `cd`, and `cc` apply to the CI, CD, a
 |`gosec_private_repository_ssh_key_secret_crn`| The CRN for the GoSec repository secret. | `string` | `""` | no |
 |`pipeline_doi_api_key_secret_crn`| The CRN for the pipeline DOI apikey. | `string` | `""` | no |
 |`pipeline_ibmcloud_api_key_secret_crn`| The CRN for the IBMCloud apikey. | `string` | `""` | no |
+|`repo_git_id` | The Git ID for the compliance repositories.| `string` | `""` | no |
+|`repo_git_provider` | The Git provider type.| `string` | `""` | no |
 |`repo_git_token_secret_crn` | The CRN for the repositories Git Token. | `string` | `""` | no |
 |`scc_instance_crn` | The Security and Compliance Center service instance CRN (Cloud Resource Name). This parameter is only relevant when the `scc_use_profile_attachment` parameter is enabled. The value must match the regular expression. | `string` | `""` | no |
 |`scc_scc_api_key_secret_crn` | The CRN for the SCC apikey. | `string` | `""` | no |

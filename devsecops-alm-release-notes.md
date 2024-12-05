@@ -22,6 +22,40 @@ Use these release notes to learn about the latest updates to the DevSecOps Appli
 
 To find the release notes for the DevSecOps compliance pipeline definitions that are used by this architecture, see [Release notes for DevSecOps](/docs/devsecops?topic=devsecops-release-notes).
 
+## 6 November 2024
+{: #devsecops-alm-novy2024}
+{: release-note}
+
+Version 2.3.0 of DevSecOps Application Lifecycle Management released
+:   Version 2.3.0 of the DevSecOps Application Lifecycle Management is available in the {{site.data.keyword.cloud_notm}} [catalog](/catalog#reference_architecture){: external}.
+
+The DA can now be used to provision secrets in the Configured Secrets Manager instance, specifically a git token and the signing keys. The variables required are as follows:
+
+`create_git_token`
+`repo_git_token_secret_name`
+`repo_git_token_secret_value`
+`create_signing_key`
+`rotate_signing_key`
+`ci_signing_key_secret_name`
+`cd_code_signing_cert_secret_name`
+
+Setting `create_git_token` to `true`, `repo_git_token_secret_name` to `my-git-token`  and specifying a Git personal access token in `repo_git_token_secret_value` will result in a secret called `my-git-token` with the value specified in `repo_git_token_secret_value` being created in Secrets Manager.
+It is important to note that setting `repo_git_token_secret_value` will change the behaviour of the authentication used by the repository tools. The repositories will now expect to use an access token and a username/owner for your repositories. This owner name needs to be set in `repo_group`. This behaviour can be overridden using the auth type variable associated with each specific repository and reverted to `oauth` access. These variables end with `_repo_auth_type` for example `issues_repo_auth_type`
+
+Setting `create_signing_key` to `true` will generate a signing key and the corresponding signing validation certificate. The names for these secrets are specified in `ci_signing_key_secret_name` and `cd_code_signing_cert_secret_name`.
+
+The generated signing secrets can be rotated by setting `rotate_signing_key` to true. This will rotate both the signing key and signing validation certifcate. It is important to make a copy of the validation certificate in the event that there are pending deployments that were signed with the previous signing key.
+
+This release also provides support for using GitLab as a source for the repositories and a simplified means of changing the Git Provider. 
+See `repo_git_provider`. Set this variable to `GitLab` to configure all the compliance repository tools created by the DA to use GitLab.
+
+To use GitLab as a provider, an access token for GitLab and the user/owner name must be provided. The name of the access token can be set in `repo_git_token_secret_name`  which applies to all the compliance repositories and the repository owner name can be set using `repo_group`.
+
+These can be individually configured using the variables ending with `_repo_git_token_secret_name` and `_group`. For example `issues_repo_git_token_secret_name` and `issues_group`
+
+
+For more information, see [Variables](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars)
+
 ## 26 September 2024
 {: #devsecops-alm-sept2024}
 {: release-note}
@@ -29,37 +63,26 @@ To find the release notes for the DevSecOps compliance pipeline definitions that
 Version 2.0.3 of the DevSecOps Application Lifecycle Management released
 :   Version 2.0.3 of the DevSecOps Application Lifecycle Management is available in the {{site.data.keyword.cloud_notm}} [catalog](/catalog#reference_architecture){: external}.
 
+Building on the previously released feature of using a JSON to specify custom pipeline properties, version 2.0.3 further simplifies the configuration of the CI, CD and CC pipelines. All of the default pipeline properties and any custom properties are now set using the CI, CD and CC JSON variables. The only exception to this are the tool integration properties for the repositories that get created upon the initial set up of the toolchains. Having the properties together benefits the user by removing the problem of having to locate the exact variable that corresponded to a specific pipeline property. The name of the pipeline property as presented in the JSON variable matches how the property appears in the pipeline properties.
 
-**Simplified pipeline configuration**: All default and custom pipeline properties are now set using a single JSON variable for each pipeline type (CI, CD, and CC).
+Note: This update is a breaking change and before updating from a previous release, it is important to take note of the current properties and their values for the pipelines in the CI, CD and CC toolchains. You will have to take the step of updating the JSON variables for the CI, CD and CC toolchains to mirror the previous setup. Please use the following files as your templates and fill in the values according to your previous pipeline property values. Any previously specified custom properties and can also be added.
 
-**Changes and Improvements**
+For the Kubernetes flavor of the toolchains use [CI JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/kubernetes/ci-properties.json), [CD JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/kubernetes/cd-properties.json) and the [CC JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/kubernetes/cc-properties.json).
 
-- Streamlined pipeline configuration and management
-- Improved usability with JSON variable names matching pipeline property names
-- Reduced complexity with all pipeline properties in one place
-
-
-This update is a breaking change. Update with caution. To ensure a smooth transition, follow these steps:
-
-1. Record current pipeline properties and values for CI, CD, and CC toolchains.
-1. Update JSON variables using the following templates:
-    - For the Kubernetes flavor of the toolchains, use [CI JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/kubernetes/ci-properties.json), [CD JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/kubernetes/cd-properties.json) and the [CC JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/kubernetes/cc-properties.json).
-    - Alternatively for the Code Engine flavor, use [CI JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/code-engine/ci-properties.json), [CD JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/code-engine/cd-properties.json) and the [CC JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/code-engine/cc-properties.json).
-1. Add any previously specified custom properties to the updated JSON variables.
-{: #note}
+Alternatively for the Code Engine flavor use [CI JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/code-engine/ci-properties.json), [CD JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/code-engine/cd-properties.json) and the [CC JSON](https://github.com/terraform-ibm-modules/terraform-ibm-devsecops-alm/blob/main/solutions/code-engine/cc-properties.json).
 
 The most common variable type is the text property which takes the form:
-```JSON
+```
   {
     "name": "opt-in-dynamic-scan",
     "type": "text",
     "value": "1"
   }
-```
+  ```
 
 Secrets are set as follows:
 
-```JSON
+```
 
   {
     "name": "git-token",
@@ -69,15 +92,12 @@ Secrets are set as follows:
 
 ```
 
-You can set the value to a secure type in one of the following three ways:
-
-**Secret name**: Use the name of the secret as it appears in the secrets provider. The full reference to the secret is automatically calculated based on the Secrets Manager and Secret group specified during DA creation.
-**CRN**: Set a Cloud Resource Name (CRN) to a secret. This requires a Secrets Manager integration configured in CRN mode.
-**Full secret reference**: Set the full secret reference, for example {vault::sm-compliance-secrets.Default.my-github-token}. This approach allows you to specify different secret groups.
+There are three supported ways to set the value to a secure type:
+1. The name of the secret as it appears in the secrets provider. The full reference to the secret is automatically calculated based on the Secrets Manager and Secret group that was specified during the DA creation.
+2. A CRN to a secret can be set. This depends on having a Secrets Manager integration configured in CRN mode.
+3. The full secret reference can be set, for example `{vault::sm-compliance-secrets.Default.my-github-token}`.  The benefit of this approach is that different secret groups can be specified.
 
 There are several existing variables that now operate in tandem with the JSON preoperties. These are as follows:
-
-```JSON
 `app_repo_branch`,
 `cluster_name`,
 `cluster_namespace`,
@@ -101,31 +121,28 @@ There are several existing variables that now operate in tandem with the JSON pr
 `registry_region`,
 `signing_key_secret_name`,
 `pipeline_config_repo_branch`
-```
 
 The purpose of these variables is to allow an alternate way to specify the value of a pipeline property. They are helper variables. Take for example the variables that end with `region`. These will automatically be set with the region matching the `toolchain_region` variable. The `cluster_region` can be explicitly set or it will inherit the value set in `toolchain_region` .As such the equivalent pipeline property in the JSON can be left empty but it still needs to be specifed for the pipeline property to be created. Setting the value in the JSON has the highest precedence and when set it will override any values set in the variables above. 
 
-```JSON
+```
   {
     "name": "cluster-region",
     "type": "text",
     "value": ""
   }
-```
+  ```
 Another special case is the `doi_toolchain_id`. Unless you know beforehand that you would like the DevOpInsights integration to point to a specific toolchain that already exists, leave this entry empty and the DA will automatically provide the ID for you.
 
 There is the possibility that the upgrade will fail and this is likely due to adding pipeline properties to the pipelines manually via the UI rather than through Projects. The likely error in this case that is seen in the logs will be `duplicate property error`. To resolve this issue, you will have to remove the problematic property in the UI and then re-run the Projects deploy step of the DA. If the property is not easily identifiable then delete all the pipeline properties apart from the repository tool integration properties. 
 
-If the property does not appear in the JSON then it will not appear in the pipeline properties after the deployment. As long as the property has an empty value set, then you can use the above listed variables if required.
-{: #note}
+Note: If the property does not appear in the JSON then it will not appear in the pipeline properties after the deployment. As long as the property has an empty value set, then you can use the above listed variables if required.
 
 Version 2.0.3 has two other significant changes
+1) There is a significant reduction in the number of variables available for setup. Roughly a 60% reduction. This is from a combination of using the pipeline property JSONs and adding more group level variables and hiding their related variables. For example `cos_bucket_name` sets the cos bucket name across all three toolchains and the related variables of `ci_cos_bucket_name`, `cd_cos_bucket_name` and `cc_cos_bucket_name` are now absent.
 
-1. There is a significant reduction in the number of variables available for setup. Roughly a 60% reduction. This is from a combination of using the pipeline property JSONs and adding more group level variables and hiding their related variables. For example `cos_bucket_name` sets the cos bucket name across all three toolchains and the related variables of `ci_cos_bucket_name`, `cd_cos_bucket_name` and `cc_cos_bucket_name` are now absent.
+2) Locked properties: This is a new feature designed to limit the control for users that only have permission to run the pipelines. When the property is locked, it will not be available to edit when running a pipeline. Several properties are now locked by default. To unlock these properties, identify the required property in the properties JSON and add the following line:
 
-1. Locked properties: This is a new feature designed to limit the control for users that only have permission to run the pipelines. When the property is locked, it will not be available to edit when running a pipeline. Several properties are now locked by default. To unlock these properties, identify the required property in the properties JSON and add the following line:
-
-```JSON
+```
 {
   "name": "doi-ibmcloud-api-key",
   "type": "secure",
