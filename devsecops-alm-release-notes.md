@@ -31,14 +31,14 @@ Version 2.5.0 of DevSecOps Application Lifecycle Management released
 
 Upgrading to 2.5.0
 
-:  Upgrading from 2.4.3
-      When upgrading from version 2.4.3, set the `compliance_pipeline_repo_name` variable to `compliance-pipelines` to prevent the forced replacement of the compliance-pipelines tool integration.
+Upgrading from 2.4.3
+:   When upgrading from version 2.4.3, set the `compliance_pipeline_repo_name` variable to `compliance-pipelines` to prevent the forced replacement of the compliance-pipelines tool integration.
 
 Do not set this variable if upgrading from `2.0.3` to `2.5.0`.
-{: #important}
+{: important}
 
-:  Upgrading from 2.0.3
-During the upgrade process, an unused Terraform resource of type `random_string` is destroyed.
+Upgrading from 2.0.3
+:   During the upgrade process, an unused Terraform resource of type `random_string` is destroyed.
 
 Fixed issues
 :   The slack-notifications pipeline property is now correctly calculated when enabling the Slack tool integration.
@@ -64,7 +64,7 @@ Private Worker Configuration
    4. Specify the secret name in the `privateworker_credentials_secret_name` variable where the service API key will be stored.
 
    An existing private worker services API key is required.
-   {: #note}
+   {: note}
 
 
 For more information, refer to [Variables](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars).
