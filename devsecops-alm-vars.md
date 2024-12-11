@@ -48,6 +48,7 @@ The variables that are prefixed with `ci`, `cd`, and `cc` apply to the CI, CD, a
 
  | Name | Description | Type | Default |
 |------|-------------|------|---------|
+| `add_pipeline_definitions` | Set to `true` to add pipeline definitions. | `string` | `"true"` |
 | `cos_endpoint` | Set the Cloud Object Storage endpoint for accessing your COS bucket. This setting sets the same endpoint for COS in the CI, CD, and CC toolchains. See `ci_cos_endpoint`, `cd_cos_endpoint`, and `cc_cos_endpoint` to set the endpoints separately.| `string` | `""` |
 | `cos_bucket_name` | Set the name of your COS bucket. This applies the same COS bucket name for the CI, CD, and CC toolchains. See `ci_cos_bucket_name`, `cd_cos_bucket_name`, and `cc_cos_bucket_name` to set separately.| `string` | `""` |
 | `enable_slack` | Set to `true` to create the integration. This requires a valid `slack_channel_name`, `slack_team_name`, and a valid `webhook` (see `slack_webhook_secret_name`). This setting applies for CI, CD, and CC toolchains. To enable Slack separately, see `ci_enable_slack`, `cd_enable_slack`, and `cc_enable_slack`.| `bool` | `false` |
@@ -62,8 +63,21 @@ The variables that are prefixed with `ci`, `cd`, and `cc` apply to the CI, CD, a
 |`repo_git_token_secret_value`|The personal access token that will be added to the `repo_git_token_secret_name` secret in the secrets provider.|`string`|`""`|
 |`compliance_base_image`|Pipeline baseimage to run most of the built-in pipeline code. Applies to the CI, CD and CC toolchain pipelines.|`string`|`""` |
 | `compliance_pipeline_branch` | The Compliance Pipeline branch. | `string` | `"open-v9"` |
+| `compliance_pipeline_existing_repo_url` | The URL of an existing compliance pipelines repository. | `string` | `""` |
+| `compliance_pipeline_repo_blind_connection` | Setting this value to `true` means the server is not addressable on the public internet. IBM Cloud will not be able to validate the connection details you provide. Certain functionality that requires API access to the git server will be disabled. Delivery pipeline will only work using a private worker that has network access to the git server. | `string` | `""` |
+| `compliance_pipeline_repo_git_id` | Set this value to `github` for github.com, or to the ID of a custom GitHub Enterprise server. | `string` | `""` |
+| `compliance_pipeline_repo_git_provider` | Git provider for compliance pipeline repo. If not set will default to `hostedgit`. | `string` | `""` |
+| `compliance_pipeline_repo_name` | Sets the name for the compliance pipelines repository if cloned. The expected behaviour is to link to an existing compliance-pipelines repository. | `string` | `""` |
+| `compliance_pipeline_repo_root_url` | (Optional) The Root URL of the server. e.g. https://git.example.com. | `string` | `""` |
+| `compliance_pipeline_repo_title` | (Optional) The title of the server. e.g. My Git Enterprise Server. | `string` | `""` |
+| `compliance_pipeline_repo_use_group_settings` | Set to `true` to apply group level repository settings to the compliance pipeline repository. See `repo_git_provider` as an example. | `bool` | `false` |
+| `compliance_pipeline_source_repo_url` | The URL of a compliance pipelines repository to clone. | `string` | `""` |
 | `create_git_token` | Set to `true` to create and add the specified personal access token secret to the Secrets Provider. Use `repo_git_token_secret_value` for setting the value.| `bool` | `false` |
+| `create_git_triggers` | Set to `true` to create the default Git triggers associated with the compliance repos and sample app. | `string` | `"true"` |
+| `create_privateworker_secret` | Set to `true` to add a specified private worker service api key to the Secrets Provider. | `bool` | `false` |
 | `create_signing_key` | Set to `true` to create and add a `signing-key` and the `signing-certificate` to the Secrets Provider.| `bool` | `false` |
+| `create_triggers` | Set to `true` to create the default triggers associated with the compliance repos and sample app. | `string` | `"true"` |
+| `enable_privateworker` | Set to `true` to enable private workers for the CI, CD, CC and PR pipelines. A valid service api key must be set in Secrets Manager. The name of this secret can be specified using `privateworker_credentials_secret_name`. | `string` | `"false"` |
 | `rotate_signing_key` | Set to `true` to rotate the signing key and signing certificate. It is important to make a back up for the current code signing certificate as pending CD deployments might require image validation against the previous signing key.| `bool` | `false` |
 | `event_notifications_crn` | Set the {{site.data.keyword.en_short}} CRN to create an {{site.data.keyword.en_short}} integration. This paramater applies to the CI, CD and CC toolchains. It can be set individually with `ci_event_notifications_crn`, `cd_event_notifications_crn`, and `cc_event_notifications_crn`. | `string` | `""` |
 | `gosec_private_repository_host` | Your private repository base URL. | `string` | `""` |
@@ -77,9 +91,19 @@ The variables that are prefixed with `ci`, `cd`, and `cc` apply to the CI, CD, a
 |`gosec_private_repository_ssh_key_secret_crn`| The CRN for the GoSec repository secret. | `string` | `""` | no |
 |`pipeline_doi_api_key_secret_crn`| The CRN for the pipeline DOI apikey. | `string` | `""` | no |
 |`pipeline_ibmcloud_api_key_secret_crn`| The CRN for the IBMCloud apikey. | `string` | `""` | no |
+| `pipeline_config_repo_git_id` | Set this value to `github` for github.com, or to the GUID of a custom GitHub Enterprise server. | `string` | `""` |
+| `pipeline_config_repo_git_provider` | Git provider for pipeline repo config | `string` | `""` |
+| `privateworker_credentials_secret_crn` | The CRN for the Private Worker secret secret. | `string` | `""` |
+| `privateworker_credentials_secret_group` | Secret group prefix for the Private Worker secret. Defaults to using `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` |
+| `privateworker_credentials_secret_name` | Name of the privateworker secret in the secret provider. | `string` | `""` |
+| `privateworker_name` | The name of the private worker tool integration. | `string` | `"private-worker-tool-01"` |
+| `privateworker_secret_value` | The private worker service api key that will be added to the `privateworker_credentials_secret_name` secret in the secrets provider. | `string` | `""` |
+|`repo_blind_connection` | Setting this value to `true` means the server is not addressable on the public internet. IBM Cloud will not be able to validate the connection details you provide. Certain functionality that requires API access to the git server will be disabled. Delivery pipeline will only work using a private worker that has network access to the git server. | `string` | `""` |
 |`repo_git_id` | The Git ID for the compliance repositories.| `string` | `""` | no |
 |`repo_git_provider` | The Git provider type.| `string` | `""` | no |
 |`repo_git_token_secret_crn` | The CRN for the repositories Git Token. | `string` | `""` | no |
+| `repo_root_url` | (Optional) The Root URL of the server. e.g. https://git.example.com. | `string` | `""` |
+|`repo_title` | (Optional) The title of the server. e.g. My Git Enterprise Server. | `string` | `""` |
 |`scc_instance_crn` | The Security and Compliance Center service instance CRN (Cloud Resource Name). This parameter is only relevant when the `scc_use_profile_attachment` parameter is enabled. The value must match the regular expression. | `string` | `""` | no |
 |`scc_scc_api_key_secret_crn` | The CRN for the SCC apikey. | `string` | `""` | no |
 |`slack_webhook_secret_crn` | The CRN for the Slack webhook secret. | `string` | `""` | no |
@@ -385,6 +409,7 @@ If you are deploying with Code engine, see [Optional Code Engine CI and CD varia
 | `cd_change_management_group` | Specify group for change management repository. | `string` | `""` |
 | `cd_change_management_repo`  | This repository holds the change management requests created for the deployments. | `string` | `""` |
 | `cd_change_management_repo_auth_type` | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
+| `cd_change_management_repo_git_provider` | Git provider for the change management repo. If not set will default to `hostedgit`. | `string` | `""` |
 | `cd_change_management_repo_git_token_secret_crn`| The CRN for the Change Management repository Git Token. | `string` | `""` | no |
 | `cd_change_management_repo_git_token_secret_name` | Name of the Git token secret in the secret provider. | `string` | `""` |
 | `cd_change_repo_clone_from_url` | Override the default management repo, which is cloned into the app repo. If the app repo exists, use `clone_if_not_exists` to leave the repo contents unchanged. | `string` | `""` |
@@ -507,6 +532,8 @@ If you are deploying with Code engine, see [Optional Code Engine CI and CD varia
 | `cd_pipeline_git_token_secret_group` | Secret group prefix for the pipeline Git token secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
 | `cd_code_signing_cert` | The base64 encoded GPG public key. | `string` | `""` |
 | `cd_pipeline_git_token_secret_name` | Name of the pipeline Git token secret in the secret provider. | `string` | `"pipeline-git-token"` |
+| `change_management_existing_url` | The URL for an existing Change Management repository. | `string` | `""` |
+| `change_management_repo_git_id` | Set this value to `github` for github.com, or to the ID of a custom GitHub Enterprise server. | `string` | `""` |
 {: caption="Continuous deployment" caption-side="bottom"}
 {: #cd-parameters}
 {: tab-title="Continuous deployment"}
