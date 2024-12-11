@@ -29,13 +29,14 @@ To find the release notes for the DevSecOps compliance pipeline definitions that
 Version 2.5.0 of DevSecOps Application Lifecycle Management released
 :   Version 2.5.0 of the DevSecOps Application Lifecycle Management is available in the {{site.data.keyword.cloud_notm}} [catalog](/catalog#reference_architecture){: external}.
 
-Note: If upgrading from 2.4.3, it is recommended to set the new variable `compliance_pipeline_repo_name` to `compliance-pipelines`, this will prevent the forced replacement of the `compliance-pipelines` tool integration as with what would have happened when upgrading from `2.0.3` to `2.4.3`. Do not set this if upgrading from `2.0.3` to `2.5.0`. 
+If upgrading from 2.4.3, it is recommended to set the new variable `compliance_pipeline_repo_name` to `compliance-pipelines`, this will prevent the forced replacement of the `compliance-pipelines` tool integration as with what would have happened when upgrading from `2.0.3` to `2.4.3`. Do not set this if upgrading from `2.0.3` to `2.5.0`.
+{: note}
 
 Note: Upgrading from `2.0.3`. An unused Terraform resource of type `random_string` had been previously created using the default settings. You will see this being destroyed in the upgrade.
 
-This release fixes an issue where the `slack-notifications` pipeline property is incorrectly calculated when enabling the Slack tool integration. This only applies if the value is not explicitly set in the the pipelines property JSON. 
+This release fixes an issue where the `slack-notifications` pipeline property is incorrectly calculated when enabling the Slack tool integration. This only applies if the value is not explicitly set in the the pipelines property JSON.
 
-Note: The individual CI, CD and CC modules leveraged by the ALM introduce a new variable specifying the name of the `compliance-pipelines` repository. The variable is not used in the default configuration but it causes a forced replacement of the repository integration. There is no deletion to the repository itself only the tool integration. 
+Note: The individual CI, CD and CC modules leveraged by the ALM introduce a new variable specifying the name of the `compliance-pipelines` repository. The variable is not used in the default configuration but it causes a forced replacement of the repository integration. There is no deletion to the repository itself only the tool integration.
 
 Support for a private worker tool integration.
 `privateworker_name`,
@@ -44,7 +45,7 @@ Support for a private worker tool integration.
 `create_privateworker_secret`,
 `enable_privateworker`
 
-An existing private worker services apikey is required. To add the private worker to the toolchains first set `enable_privateworker` to `true`. This variable adds the worker tool integration to the toolchains. This tool requires a service apikey for the private worker. To do this set `create_privateworker_secret` to `true`. This tells the Terraform to create/push the provided service apikey secret value in `privateworker_secret_value` to the configured Secrets Manager instance under the secret name provided in `privateworker_credentials_secret_name`. 
+An existing private worker services apikey is required. To add the private worker to the toolchains first set `enable_privateworker` to `true`. This variable adds the worker tool integration to the toolchains. This tool requires a service apikey for the private worker. To do this set `create_privateworker_secret` to `true`. This tells the Terraform to create/push the provided service apikey secret value in `privateworker_secret_value` to the configured Secrets Manager instance under the secret name provided in `privateworker_credentials_secret_name`.
 
 
 For more information, see [Variables](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars)
@@ -56,11 +57,11 @@ For more information, see [Variables](/docs/devsecops-alm?topic=devsecops-alm-de
 Version 2.4.3 of DevSecOps Application Lifecycle Management released
 :   Version 2.4.3 of the DevSecOps Application Lifecycle Management is available in the {{site.data.keyword.cloud_notm}} [catalog](/catalog#reference_architecture){: external}.
 
-Note: The individual CI, CD and CC modules leveraged by the ALM introduce a new variable specifiying the name of the `compliance-pipelines` repository. The variable is not used in the default configuration but it causes a forced replacement of the repository integration. There is no deletion to the repository itself only the tool integration. 
+Note: The individual CI, CD and CC modules leveraged by the ALM introduce a new variable specifiying the name of the `compliance-pipelines` repository. The variable is not used in the default configuration but it causes a forced replacement of the repository integration. There is no deletion to the repository itself only the tool integration.
 
 Note: An unused Terraform resource of type `random_string` had been previously created using the default settings. You will see this being destroyed in the upgrade.
 
-Configuration of the compliance repositories using a blind connection to support air gapped environments. 
+Configuration of the compliance repositories using a blind connection to support air gapped environments.
 The following group level variables apply the settings against the default compliance repositories:
 `repo_blind_connection`,
 `repo_git_id`,
