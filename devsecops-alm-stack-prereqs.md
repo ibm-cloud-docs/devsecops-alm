@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025
-lastupdated: "2025-01-30"
+lastupdated: "2025-01-31"
 
 keywords: devsecops-alm, deployment guide, deployable architecture
 
@@ -15,7 +15,7 @@ subcollection: devsecops-alm
 # Preparing to deploy the DevSecOps Solution for Apps Stack
 {: #devsecops-alm-stack-req}
 
-This deployable architecture is designed to showcase a fully automated deployment of a sample Node application through an IBM Cloud Project, providing a flexible and customizable foundation for your own application deployments on IBM Cloud. This architecture deploys a sample application by default or can be customized to bring your own application.
+This deployable architecture is designed to showcase a fully automated deployment of a sample Node application through an {{site.data.keyword.cloud}} Project, providing a flexible and customizable foundation for your own application deployments on {{site.data.keyword.cloud}}. This architecture deploys a sample application by default or can be customized to bring your own application.
 
 By leveraging this architecture, you can secure your deployments and tailor it to meet your unique business needs and enterprise goals.
 
@@ -33,23 +33,23 @@ When you deploy the architecture, you can:
 
 Before you can deploy the DevSecOps Solution for Apps Stack, you must have the following prerequisites.
 
-* A Pay-As-You-Go or Subscription IBM Cloud account. 
+* A Pay-As-You-Go or Subscription {{site.data.keyword.cloud}} account. 
 
    Don't have one? [Create one](/docs/account?topic=account-account-getting-started). Have a Trial or Lite account? [Upgrade your account](/docs/account?topic=account-upgrading-account).
    {: tip}
 
 * The required level of access to deploy and manage resources in the account.
-* An [IBM Cloud API Key]((/docs/account?topic=account-userapikey&interface=terraform#create_user_key-api-terra)) in the target account with the suffienct permissions. Be sure to save the API key value for a later configuration.
+* An [IBM Cloud API Key](/docs/account?topic=account-userapikey&interface=terraform#create_user_key-api-terra) in the target account with the sufficient permissions. Be sure to save the API key value for a later configuration.
 
    * **Evaluation environments**: If your environment is used for evaluating, grant the Administrator role on the **IAM Identity Service**, **All Identity and Access enabled services**, **Activity Tracker Event Routing** and **All Account Management** services.
    * **Production environments**: If your environment is used for production resources, restrict access to the minimum permissions level as indicated in the **Permissions** tab of the details page of the deployable architecture catalog entry.
 
    For more information, see [Using an API key with Secrets Manager to authorize a project to deploy an architecture](/docs/secure-enterprise?topic=secure-enterprise-authorize-project).
 
-* Optional: Install the IBM Cloud CLI Project plug-in by running the `ibmcloud plugin install project` command. For more information, see the [Project CLI reference](/docs/cli?topic=cli-projects-cli).
+* Optional: Install the {{site.data.keyword.cloud}} CLI Project plug-in by running the `ibmcloud plugin install project` command. For more information, see the [Project CLI reference](/docs/cli?topic=cli-projects-cli).
 * Optional: Familiarize yourself with the [Customization options]({[link]}-customize-css).
 
-You might see notifications in IBM Cloud Projects that new versions of a configuration are available. You can ignore these messages because they do not prevent you from deploying the stack. No specific action is required from you. These notifications are expected, as we are rapidly iterating on the development of the underlying components. As new stack versions become available, the versions of the underlying components are also updated.
+You might see notifications in {{site.data.keyword.cloud}} Projects that new versions of a configuration are available. You can ignore these messages because they do not prevent you from deploying the stack. No specific action is required from you. These notifications are expected, as we are rapidly iterating on the development of the underlying components. As new stack versions become available, the versions of the underlying components are also updated.
 {: tip}
 
 
@@ -71,8 +71,8 @@ You might see notifications in IBM Cloud Projects that new versions of a configu
 | Name | Description | Type | Default |
 |------|-------------|------|---------|
 | `prefix` | The value set in this variable when set acts as a prefix for the various resources that get created. A hyphen - will automatically be inserted as a separator between the prefix and resource names.| `string` | `devsecops` |
-| `resouce-group-name` | The name of the resource group in which all the resources are created.| `string` | `devsecops` |
-| `bucket-name` | The name of the Cloud Object Storage bucket created as evidence storage for the DevSecOps toolchains.| `string` | `devsecops` |
+| `resource_group_name` | The name of the resource group in which all the resources are created.| `string` | `devsecops` |
+| `bucket_name` | The name of the Cloud Object Storage bucket created as evidence storage for the DevSecOps toolchains.| `string` | `devsecops` |
 | `create_icr_namespace` | Set to true to have Terraform create the registry namespace. Setting to false will have the CI pipeline create the namespace if it does not already exist. Note: If a Terraform destroy is used, the ICR namespace along with all images will be removed.| `boolean` | `true` |
 | `registry_namespace` | The name of the registry namespace where images are stored.| `string` | `devsecops` |
 | `create_cd_instance` | Set to true to create a Continuous Delivery Service. This is required for running the DevSecOps toolchain pipelines and to successfuly interact with a DevOps Insights integration.| `boolean` | `true` |
@@ -128,9 +128,11 @@ You might see notifications in IBM Cloud Projects that new versions of a configu
 ## Create an {{site.data.keyword.cloud}} API key with permissions to create the deployable achitecture
 {: #devsecops-alm-acc}
 
-Create an {{site.data.keyword.cloud}}
+Create an {{site.data.keyword.cloud}} API key
 
 Depending on your {{site.data.keyword.cloud_notm}} account type, access to certain resources might be limited. Depending on your account plan limits, certain capabilities that are required by some DevSecOps toolchains might not be available. For more information, see [Setting up your IBM Cloud account](/docs/account?topic=account-account-getting-started) and [Upgrading your account](/docs/account?topic=account-upgrading-account).
 
-## 
+## Create an {{site.data.keyword.cloud}} Trusted profile with permissions to create the deployable achitecture
+{: #devsecops-alm-acc}
 
+Create an {{site.data.keyword.cloud}} Trusted Profile
