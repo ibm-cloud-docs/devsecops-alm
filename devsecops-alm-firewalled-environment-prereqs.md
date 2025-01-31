@@ -20,7 +20,7 @@ The following set of steps outline the configuration and permissions that are ne
 
 ## Create an {{site.data.keyword.cloud}} service API key with required permissions fo DA creation
 {: #devsecops-alm-key}
-Refer to the permissions outline in [DevSecOps Solutions for Apps Stack](docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-stack-req#devsecops-alm-acc).
+Refer to the permissions outlined in [DevSecOps Solutions for Apps Stack](/devsecops-alm?topic=devsecops-alm-devsecops-alm-stack-req#devsecops-alm-acc).
 
 ## Create an {{site.data.keyword.cloud}} service API key for Private Worker
 {: #devsecops-alm-key}
