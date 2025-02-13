@@ -31,8 +31,7 @@ toc:
       topics:
       - devsecops-alm-terraform-script-prereqs.md
       - devsecops-alm-toolchain-operations-prereqs.md
-      - devsecops-alm-stack-prereqs.md    
-      - devsecops-alm-firewalled-environment-prereqs.md
+      - devsecops-alm-stack-prereqs.md
   - navgroup:
       id: deploy
       topics:
