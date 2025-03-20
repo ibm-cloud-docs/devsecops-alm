@@ -22,6 +22,50 @@ Use these release notes to learn about the latest updates to the DevSecOps Appli
 
 To find the release notes for the DevSecOps compliance pipeline definitions that are used by this architecture, see [Release notes for DevSecOps](/docs/devsecops?topic=devsecops-release-notes).
 
+## 24 March 2025
+{: #devsecops-alm-march2025}
+{: release-note}
+
+Version 2.7.2 of DevSecOps Application Lifecycle Management released
+:   Version 2.7.2 of the DevSecOps Application Lifecycle Management is available in the {{site.data.keyword.cloud_notm}} [catalog](/catalog#reference_architecture){: external}.
+
+This version extends upon the previously released air gapped support for the repository tool integrations by adding support for the sample appplication repository tool to be independently setup in an air gapped configuration.
+
+As before the following variables are used to configure an air gapped setup.
+`repo_blind_connection`,
+`repo_git_id`,
+`repo_git_provider`,
+`repo_root_url`,
+`repo_title`
+
+Note: `repo_blind_connection` is now a bool as opposed to a string type previously.
+
+Three types of configurations are supported:
+1) Fully air gapped. All repositories are configured with a blind connection. 
+To configure all the default repositories with air gap support, the following variables must be set. Set `compliance_pipeline_repo_use_group_settings` to `true`, `repo_apply_settings_to_compliance_repos` to `true` and `create_git_triggers` to `false`. See the variable descriptions for more details. 
+
+2) Fully air gapped with the exception of the compliance-pipelines repository. Set `compliance_pipeline_repo_use_group_settings` to `false`, `repo_apply_settings_to_compliance_repos` to `true` and `create_git_triggers` to `false`.
+
+3) Partially air gapped. Only the sample apps, config repos and the deployment repos are air gapped. Set `compliance_pipeline_repo_use_group_settings` to `false`, `repo_apply_settings_to_compliance_repos` to `false` and `create_git_triggers` to `false`.
+
+Service API Key and API Key creation
+:   The `ibmcloud-api-key` and the `cos-api-key` can now be configured in different ways.
+For the `ibmcloud-api-key` setting `create_ibmcloud_api_key` to `true` by default creates a service api key with the relevant permissions to run the pipelines. As a side effect the repository tool integrations must be configured using a Git personal access token. See `repo_git_token_secret_name` for more details. Alternatively setting `force_create_standard_api_key` to `true` will instead create a standard apikey and access is scoped to the access group that the user has been assigned.
+
+ Likewise setting `create_cos_api_key` to `true` and setting a name for the cos-api-key using `cos_api_key_secret_name` will create a service api key with the relevant permissions for the running pipeline to interact with the configured cos bucket. The `cos-api-key` additionally requires the `cos_instance_crn` and the `cos_bucket_name` to be set, to correctly apply the access policies to the COS service api key. 
+
+ Lastly both the `ibmcloud-api-key` and the `cos-api-key` api keys can be specified using `pipeline_ibmcloud_api_key_secret_value` and `cos_api_key_secret_value` respectfully. See the variable descriptions for more details.
+
+Access group support
+:   An access group can be created by setting `create_access_group` to `true`. The name of the access group can be set using `toolchain_access_group_name`. Users can be assigned to this access group, granting the relevant permissions for toolchain operations. 
+
+Note: `create_code_engine_access_policy` or `create_kubernetes_access_policy` can be set to `true` to cater to the polices for a Kubernetes or a Code Engine deployment type.
+
+Secret references
+:   By default secret references used by the pipelines and tool integrations use the legacy format and are identifiable by a purple color. Setting `use_legacy_ref` to `false` will use the new secret reference format identifiable by a teal color. Future releases will use the new format by default.
+
+For more information, refer to [Variables](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars).
+
 ## 9 December 2024
 {: #devsecops-alm-dec2024}
 {: release-note}

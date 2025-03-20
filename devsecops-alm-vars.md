@@ -50,7 +50,6 @@ The variables that are prefixed with `ci`, `cd`, and `cc` apply to the CI, CD, a
 |------|-------------|------|---------|
 | `add_pipeline_definitions` | Set to `true` to add pipeline definitions. | `string` | `"true"` |
 | `cos_endpoint` | Set the Cloud Object Storage endpoint for accessing your COS bucket. This setting sets the same endpoint for COS in the CI, CD, and CC toolchains. See `ci_cos_endpoint`, `cd_cos_endpoint`, and `cc_cos_endpoint` to set the endpoints separately.| `string` | `""` |
-| `cos_bucket_name` | Set the name of your COS bucket. This applies the same COS bucket name for the CI, CD, and CC toolchains. See `ci_cos_bucket_name`, `cd_cos_bucket_name`, and `cc_cos_bucket_name` to set separately.| `string` | `""` |
 | `enable_slack` | Set to `true` to create the integration. This requires a valid `slack_channel_name`, `slack_team_name`, and a valid `webhook` (see `slack_webhook_secret_name`). This setting applies for CI, CD, and CC toolchains. To enable Slack separately, see `ci_enable_slack`, `cd_enable_slack`, and `cc_enable_slack`.| `bool` | `false` |
 |`slack_channel_name`|The Slack channel that notifications are posted to. This applies to the CI, CD, and CC toolchains. To set separately see `ci_slack_channel_name`, `cd_slack_channel_name`, and `cc_slack_channel_name`|`string`|`my-channel`|
 |`slack_team_name`|The Slack team name, which is the word or phrase before `.slack.com` in the team URL. This applies to the CI, CD, and CC toolchains. To set separately, see `ci_slack_team_name`, `cd_slack_team_name`, and `cc_slack_team_name`.|`string`|`my-team`|
@@ -72,25 +71,34 @@ The variables that are prefixed with `ci`, `cd`, and `cc` apply to the CI, CD, a
 | `compliance_pipeline_repo_title` | (Optional) The title of the server. e.g. My Git Enterprise Server. | `string` | `""` |
 | `compliance_pipeline_repo_use_group_settings` | Set to `true` to apply group level repository settings to the compliance pipeline repository. See `repo_git_provider` as an example. | `bool` | `false` |
 | `compliance_pipeline_source_repo_url` | The URL of a compliance pipelines repository to clone. | `string` | `""` |
+| `cos_api_key_secret_value` | A user provided api key with COS access permissions that can be pushed to Secrets Manager. See `cos_api_key_secret_name` and `create_cos_api_key`.| `string` | `""` | no |
+| `cos_bucket_name` | Set the name of your COS bucket. This applies the same COS bucket name for the CI, CD, and CC toolchains.| `string` | `""` | no |
+| `cos_instance_crn` | The CRN of the Cloud Object Storage instance containing the required bucket. This value is required to generate the correct access policies if creating IAM service credentials.| `string` | `""` | no |
+| `create_access_group` | Set to `true` to create an access group for the operations of the DevSecOps toolchains.| `bool` | `false` | no |
+| `create_code_engine_access_policy` | Add a Code Engine access policy to the generated IAM access key. See `create_ibmcloud_api_key`.| `bool` | `true` | no |
 | `create_git_token` | Set to `true` to create and add the specified personal access token secret to the Secrets Provider. Use `repo_git_token_secret_value` for setting the value.| `bool` | `false` |
 | `create_git_triggers` | Set to `true` to create the default Git triggers associated with the compliance repos and sample app. | `string` | `"true"` |
+| `create_kubernetes_access_policy` | Add a Kubernetes access policy to the generated IAM access key. See `create_ibmcloud_api_key`.| `bool` | `true` | no |
 | `create_privateworker_secret` | Set to `true` to add a specified private worker service api key to the Secrets Provider. | `bool` | `false` |
 | `create_signing_key` | Set to `true` to create and add a `signing-key` and the `signing-certificate` to the Secrets Provider.| `bool` | `false` |
 | `create_triggers` | Set to `true` to create the default triggers associated with the compliance repos and sample app. | `string` | `"true"` |
 | `enable_privateworker` | Set to `true` to enable private workers for the CI, CD, CC and PR pipelines. A valid service api key must be set in Secrets Manager. The name of this secret can be specified using `privateworker_credentials_secret_name`. | `string` | `"false"` |
 | `rotate_signing_key` | Set to `true` to rotate the signing key and signing certificate. It is important to make a back up for the current code signing certificate as pending CD deployments might require image validation against the previous signing key.| `bool` | `false` |
-| `event_notifications_crn` | Set the {{site.data.keyword.en_short}} CRN to create an {{site.data.keyword.en_short}} integration. This paramater applies to the CI, CD and CC toolchains. It can be set individually with `ci_event_notifications_crn`, `cd_event_notifications_crn`, and `cc_event_notifications_crn`. | `string` | `""` |
+| `event_notifications_crn` | Set the {{site.data.keyword.en_short}} CRN to create an {{site.data.keyword.en_short}} integration. This paramater applies to the CI, CD and CC toolchains.| `string` | `""` |
+| `force_create_standard_api_key` | Set to `true` to force create a standard api key. By default the generated api key will be a service api key. It is a requirement to use a Git Token when using the service api key for running the pipelines. See `repo_git_token_secret_name` for more details. The alternative is to set `force_create_standard_api_key` to `true` to create a standard api key.| `bool` | `false` | no |
 | `gosec_private_repository_host` | Your private repository base URL. | `string` | `""` |
 | `gosec_repo_ssh_key_secret_group` | Secret group prefix for the gosec private repository ssh key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`. | `string` | `""` |
 | `gosec_repo_ssh_key_secret_name` | Name of the SSH key token for the private repository in the secret provider. | `string` | `"git-ssh-key"` |
+| `ibmcloud_api` | TThe environment URL. When left unset this will default to `https://cloud.ibm.com`| `string` | `""` | no |
 | `opt_in_gosec` | Enables gosec scans | `string` | `""` |
 | `pipeline_git_tag` | The Git tag within the pipeline definitions repository for the Compliance Pipelines. | `string` | `""` |
 |`sm_instance_crn` | The CRN of the Secrets Manager instance applies to CI, CD, and CC toolchains unless set individually. | `string` | `""` | no |
 |`cos_api_key_secret_crn` | The CRN for the Cloud Object Storage apikey. | `string` | `""` | no |
-|`event_notifications_crn` | Set the Event Notifications CRN to create an Events Notification integration. This parameter applies to the CI, CD, and CC toolchains.The parameter can also be individually configured with `ci_event_notifications_crn`, `cd_event_notifications_crn`, `cc_event_notifications_crn`. | `string` | `""` | no |
+|`event_notifications_crn` | Set the Event Notifications CRN to create an Events Notification integration. This parameter applies to the CI, CD, and CC toolchains. | `string` | `""` | no |
 |`gosec_private_repository_ssh_key_secret_crn`| The CRN for the GoSec repository secret. | `string` | `""` | no |
 |`pipeline_doi_api_key_secret_crn`| The CRN for the pipeline DOI apikey. | `string` | `""` | no |
 |`pipeline_ibmcloud_api_key_secret_crn`| The CRN for the IBMCloud apikey. | `string` | `""` | no |
+| `pipeline_ibmcloud_api_key_secret_value` | A user provided api key for running the toolchain pipelines that can be pushed to Secrets Manager. See `pipeline_ibmcloud_api_key_secret_name` and `create_ibmcloud_api_key`.| `string` | `""` | no |
 | `pipeline_config_repo_git_id` | Set this value to `github` for github.com, or to the GUID of a custom GitHub Enterprise server. | `string` | `""` |
 | `pipeline_config_repo_git_provider` | Git provider for pipeline repo config | `string` | `""` |
 | `privateworker_credentials_secret_crn` | The CRN for the Private Worker secret secret. | `string` | `""` |
@@ -98,7 +106,8 @@ The variables that are prefixed with `ci`, `cd`, and `cc` apply to the CI, CD, a
 | `privateworker_credentials_secret_name` | Name of the privateworker secret in the secret provider. | `string` | `""` |
 | `privateworker_name` | The name of the private worker tool integration. | `string` | `"private-worker-tool-01"` |
 | `privateworker_secret_value` | The private worker service api key that will be added to the `privateworker_credentials_secret_name` secret in the secrets provider. | `string` | `""` |
-|`repo_blind_connection` | Setting this value to `true` means the server is not addressable on the public internet. IBM Cloud will not be able to validate the connection details you provide. Certain functionality that requires API access to the git server will be disabled. Delivery pipeline will only work using a private worker that has network access to the git server. | `string` | `""` |
+| `repo_apply_settings_to_compliance_repos` |Set to `true` to apply the same settings to all the default compliance repositories. Set to `false` to apply these settings to only the sample application, pipeline config and the deployment repositories.| `bool` | `true` | no |
+|`repo_blind_connection` | Setting this value to `true` means the server is not addressable on the public internet. IBM Cloud will not be able to validate the connection details you provide. Certain functionality that requires API access to the git server will be disabled. Delivery pipeline will only work using a private worker that has network access to the git server. | `bool` | `false` |
 |`repo_git_id` | The Git ID for the compliance repositories.| `string` | `""` | no |
 |`repo_git_provider` | The Git provider type.| `string` | `""` | no |
 |`repo_git_token_secret_crn` | The CRN for the repositories Git Token. | `string` | `""` | no |
@@ -114,7 +123,9 @@ The variables that are prefixed with `ci`, `cd`, and `cc` apply to the CI, CD, a
 | `scc_profile_version` | The version of a Security and Compliance Center profile, in SemVer format, like `0.0.0`. This parameter is only relevant when the `scc_use_profile_attachment` parameter is enabled.| `string` | `""` |
 | `scc_scc_api_key_secret_name` | The Security and Compliance Center api-key secret in the secret provider. | `string` | `"scc-api-key"` |
 | `scc_scc_api_key_secret_group` | Secret group prefix for the Security and Compliance tool secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
-| `scc_use_profile_attachment` | Set to `enabled` to enable use profile with attachment so that the scripts in the pipeline can interact with the Security and Compliance Center service. When enabled, other parameters become relevant; `scc_scc_scc_api_key_secret_name`, `scc_instance_crn`, `scc_profile_name`, `scc_profile_version`, `scc_attachment_id`. Can individually be `enabled` and `disabled` in the CD and CC toolchains by using `cd_scc_use_profile_attachment` and `cc_scc_use_profile_attachment`. | `string` | `"disabled"` |
+| `scc_use_profile_attachment` | Set to `enabled` to enable use profile with attachment so that the scripts in the pipeline can interact with the Security and Compliance Center service. When enabled, other parameters become relevant; `scc_scc_scc_api_key_secret_name`, `scc_instance_crn`, `scc_profile_name`, `scc_profile_version`, `scc_attachment_id`.| `string` | `"disabled"` |
+| `toolchain_access_group_name` | The name of the DevSecOps access group. See `create_access_group`.| `string` | `"devsecops-toolchain"` | no |
+| `use_legacy_ref` | Set to `true` to use the legacy secret reference format for Secrets Manager secrets.| `bool` | `true` | no |
 {: caption="Group level variables" caption-side="top"}
 
 ### Toolchain creation variables
@@ -282,7 +293,6 @@ If you are deploying with Code engine, see [Optional Code Engine CI and CD varia
 | `ci_compliance_pipeline_repo_git_token_secret_name` | Name of the Git token secret in the secret provider. | `string` | `""` |
 | `ci_cos_api_key_secret_crn` | The CRN for the Cloud Object Storage apikey. | `string` | `""` | no |
 | `ci_cos_api_key_secret_name`  | Name of the Cloud Object Storage API key secret in the secret provider. | `string` | `""` |
-| `ci_cos_bucket_name` | Cloud Object Storage bucket name. | `string` | `""` |
 | `ci_cos_endpoint`  | Cloud Object Storage endpoint name. | `string` | `""` |
 | `ci_cra_bom_generate` | Set this flag to `1` to generate cra bom in CI pipeline.| `string` | `"1"` |
 | `ci_cra_deploy_analysis` | Set this flag to `1` for cra deployment analysis to be done.| `string` | `"1"` |
@@ -302,7 +312,6 @@ If you are deploying with Code engine, see [Optional Code Engine CI and CD varia
 | `ci_enable_slack` | Set to `true` to create the integration. | `bool` | `false` |
 | `ci_enable_pipeline_notifications` | When enabled, pipeline run events will be sent to the Event Notifications and Slack integrations in the enclosing toolchain. | `bool` | `false` |
 | `ci_event_notifications` | To enable event notification, set event_notifications to 1 | `string` | `"0"` |
-| `ci_event_notifications_crn`  | Set the {{site.data.keyword.en_short}} CRN to create an {{site.data.keyword.en_short}} integration. | `string` | `""` |
 | `ci_evidence_group`  | Specify Git user or group for evidence repository. | `string` | `""` |
 | `ci_evidence_repo_auth_type`  | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
 | `ci_evidence_repo_git_token_secret_crn` | The CRN for the Evidence repository Git Token. | `string` | `""` | no |
@@ -427,7 +436,6 @@ If you are deploying with Code engine, see [Optional Code Engine CI and CD varia
 | `cd_compliance_pipeline_repo_git_token_secret_name`  | Name of the Git token secret in the secret provider. | `string` | `""` |
 | `cd_cos_api_key_secret_crn` | The CRN for the Cloud Object Storage apikey. | `string` | `""` | no |
 | `cd_cos_api_key_secret_name` | Name of the Cloud Object Storage API key secret in the secret provider. | `string` | `""` |
-| `cd_cos_bucket_name` | Cloud Object Storage bucket name. | `string` | `""` |
 | `cd_cos_endpoint`  | Cloud Object Storage endpoint name. | `string` | `""` |
 | `cd_customer_impact` | Custom impact of the change request. | `string` | `"no_impact"` |
 | `cd_deployment_group` | Specify group for deployment. | `string` | `""` |
@@ -448,7 +456,6 @@ If you are deploying with Code engine, see [Optional Code Engine CI and CD varia
 | `cd_enable_slack` | Set to true to create the integration. | `bool` | `false` |
 | `cd_enable_pipeline_notifications` | When enabled, pipeline run events will be sent to the Event Notifications and Slack integrations in the enclosing toolchain. | `bool` | `false` |
 | `cd_event_notifications` | To enable event notification, set event_notifications to 1 | `string` | `"0"` |
-| `cd_event_notifications_crn`  | Set the {{site.data.keyword.en_short}} CRN to create an {{site.data.keyword.en_short}} integration. | `string` | `""` |
 | `cd_evidence_group` | Specify Git user or group for evidence repository. | `string` | `""` |
 | `cd_evidence_repo_auth_type` | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
 | `cd_evidence_repo_git_token_secret_crn`| The CRN for the Evidence repository Git Token. | `string` | `""` | no |
@@ -515,7 +522,6 @@ If you are deploying with Code engine, see [Optional Code Engine CI and CD varia
 | `cd_trigger_timed_pruner_name` | The name of the timed Pruner trigger. | `string` | `"Evidence Pruner Timed Trigger"` |
 | `cd_trigger_timed_pruner_enable` | Set to `true` to enable the timed Pruner trigger. | `bool` | `false` |
 | `cd_scc_enable_scc` | Adds the SCC tool integration to the toolchain. | `bool` | `true` |
-| `cd_scc_use_profile_attachment` | Set to `enabled` to enable use profile with attachment so that the scripts in the pipeline can interact with the Security and Compliance Center service. When enabled, other parameters become relevant; `scc_scc_api_key_secret_name`, `scc_instance_crn`, `scc_profile_name`, `scc_profile_version`, `scc_attachment_id`. | `string` | `""` |
 | `cd_slack_webhook_secret_crn` | The CRN for the Slack webhook secret. | `string` | `""` | no |
 | `cd_slack_webhook_secret_group` | Secret group prefix for the Slack webhook secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
 | `cd_sm_instance_crn`| The CRN of the Secrets Manager instance. | `string` | `""` | no |
@@ -560,7 +566,6 @@ If you are deploying with Code engine, see [Optional Code Engine CI and CD varia
 | `cc_compliance_pipeline_repo_git_token_secret_name` | Name of the Git token secret in the secret provider. | `string` | `""` |
 | `cc_cos_api_key_secret_crn`| The CRN for the Cloud Object Storage apikey. | `string` | `""` | no |
 | `cc_cos_api_key_secret_name` | Name of the Cloud Object Storage API key secret in the secret provider. | `string` | `""` |
-| `cc_cos_bucket_name` | Cloud Object Storage bucket name. | `string` | `""` |
 | `cc_cos_endpoint` | Cloud Object Storage endpoint name. | `string` | `""` |
 | `cc_cra_bom_generate` | Set this flag to `1` to generate cra bom in CC pipeline.| `string` | `"1"` |
 | `cc_cra_deploy_analysis` | Set this flag to `1` for cra deployment analysis to be done.| `string` | `"1"` |
@@ -572,7 +577,6 @@ If you are deploying with Code engine, see [Optional Code Engine CI and CD varia
 | `cc_environment_tag` | Tag name that represents the target environment in the inventory. Example: `prod_latest`. | `string` | `"prod_latest"` |
 | `cc_enable_pipeline_notifications` | When enabled, pipeline run events will be sent to the Event Notifications and Slack integrations in the enclosing toolchain. | `bool` | `false` |
 | `cc_event_notifications` | To enable event notification, set event_notifications to 1 | `string` | `"0"` |
-| `cc_event_notifications_crn`  | Set the {{site.data.keyword.en_short}} CRN to create an {{site.data.keyword.en_short}} integration. | `string` | `""` |
 | `cc_evidence_group`  | Specify Git user or group for evidence repository. | `string` | `""` |
 | `cc_evidence_repo_auth_type` | Select the method of authentication that is used to access the Git provider. `oauth` or `pat`. | `string` | `""` |
 | `cc_evidence_repo_git_token_secret_crn`| The CRN for the Evidence repository Git Token. | `string` | `""` | no |
@@ -647,7 +651,6 @@ If you are deploying with Code engine, see [Optional Code Engine CI and CD varia
 | `cc_trigger_timed_pruner_name` | The name of the timed Pruner trigger. | `string` | `"Evidence Pruner Timed Trigger"` |
 | `cc_trigger_timed_pruner_enable` | Set to `true` to enable the timed Pruner trigger. | `bool` | `false` |
 | `cc_scc_enable_scc` | Adds the SCC tool integration to the toolchain. | `bool` | `true` |
-| `cc_scc_use_profile_attachment` | Set to `enabled` to enable use profile with attachment so that the scripts in the pipeline can interact with the Security and Compliance Center service. When enabled, other parameters become relevant; `scc_scc_api_key_secret_name`, `scc_instance_crn`, `scc_profile_name`, `scc_profile_version`, `scc_attachment_id`. | `string` | `""` |
 | `cc_pipeline_ibmcloud_api_key_secret_group` | Secret group prefix for the pipeline ibmcloud API key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
 | `cc_cos_api_key_secret_group` | Secret group prefix for the Cloud Object Storage API key secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
 | `cc_slack_webhook_secret_group` | Secret group prefix for the Slack webhook secret. Defaults to `sm_secret_group` if not set. Only used with `Secrets Manager`.| `string` | `""` |
