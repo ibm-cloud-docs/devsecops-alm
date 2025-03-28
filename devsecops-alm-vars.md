@@ -48,9 +48,6 @@ The variables that are prefixed with `ci`, `cd`, and `cc` apply to the CI, CD, a
 ## Optional input variables
 {: #devsecops-alm-opt}
 
-### Group level variables
-{: #devsecops-alm-grp}
-
  | Name | Description | Type | Default |
 |------|-------------|------|---------|
 | `add_code_engine_prefix` | Set to `true` to use `prefix` to add a prefix to the code engine project names. | `bool` | `true` |
@@ -228,7 +225,7 @@ The variables that are prefixed with `ci`, `cd`, and `cc` apply to the CI, CD, a
 | `toolchain_resource_group` | The resource group that will be used, by default, for all resource creation and service instance lookups. This can be overridden on a per resource/service basis. | `string` | `"Default"` |
 | `use_app_repo_for_cd_deploy` | Set to `true` to use the CI sample application repository as the deployment repository in the CD pipeline. This will be set in the pipeline config integration. | `bool` | `true` |
 | `legacy_ref` | Set to `true` to use the legacy secret reference format for Secrets Manager secrets. | `bool` | `true` |
-{: caption="Group level variables" caption-side="top"}
+{: caption="Optional input variables" caption-side="top"}
 
 ### Toolchain creation variables
 {: #devsecops-alm-tccreate}
@@ -240,7 +237,7 @@ The following variables determine which toolchains are created. By default all t
 | `create_ci_toolchain` | Determines whether the DevSecOps CI toolchain is created. If this toolchain is not created, then values must be set for the following variables: `evidence_repo_existing_url`, `issues_repo_existing_url`, and `inventory_repo_existing_url`. | `bool` | `true` |
 | `create_cd_toolchain` | Boolean flag that determines whether the DevSecOps CD toolchain is created. | `bool` | `true` |
 | `create_cc_toolchain` | Boolean flag that determines whether the DevSecOps CC toolchain is created. | `bool` | `true` |
-{: caption="toolchain creation" caption-side="top"}
+{: caption="Toolchain creation" caption-side="top"}
 
 ### Compliance repositories
 {: #devsecops-alm-compl}

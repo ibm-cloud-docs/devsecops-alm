@@ -60,9 +60,9 @@ The DevSecOps Solution for Apps stack is highy configurable and allows for the r
 ## Required permissions
 {: #devsecops-alm-stack-permissions}
 
-The following tables outline the permissions required for an `administrator` to successfully run the DevSecOps Solution for Apps stack. The most permissive set of permissions allows for the creation of a resource group as well as service IDs for pipeline operations. These permissions can be reduced by scoping the access to an existing resource group in which to deploy the resources. The recommended configuration of the DevSecOps Solution stack is for the creation of Service IDs for the running of the pipelines and an access group for adding developers/users. By default the DevSecOps Solution for Apps stack will create these service IDs but, it is a requirement to provide a GIT personal access token as a Service ID will not be able to access the repositories otherwise. Configuring the repository tool integrations with a GIT personal access token is also the recommended configuration. An added benefit of using the Service ID is that Secrets Manager can rotate the service api keys secrets associated with the Service IDs automatically. This rotation period is set to 90 days by default. Alternatively, instead of using a service api key linked to a service ID, a standard api key can be created for running the pipelines. The access for this key should be scoped using an access group. Note, it is only the api key used for running the pipelines that can be created either as a service api key or a standard api key. The api key created for accessing the Cloud Object Storage bucket is a service api key only. Permissions for creating Service IDs are higher due to the need to create service authorizations. Auto rotation of the standard api setup is not supported.
+The following tables outline the permissions required for an `administrator` to successfully run the DevSecOps Solution for Apps stack. The most permissive set of permissions allows for the creation of a resource group as well as service IDs for pipeline operations. These permissions can be reduced by scoping the access to an existing resource group in which to deploy the resources. The recommended configuration of the DevSecOps Solution stack is for the creation of Service IDs for the running of the pipelines and an access group for adding developers/users. By default the DevSecOps Solution for Apps stack will create these service IDs but, it is a requirement to provide a GIT personal access token as a Service ID will not be able to access the repositories otherwise. Configuring the repository tool integrations with a GIT personal access token is also the recommended configuration. An added benefit of using the Service ID is that Secrets Manager can rotate the service api keys secrets associated with the Service IDs automatically. This rotation period is set to 90 days by default. Alternatively, instead of using a service api key linked to a service ID, a standard api key can be created for running the pipelines. The access for this key should be scoped using an access group. Note, it is only the api key used for running the pipelines that can be created either as a service api key or a standard api key. The api key created for accessing the Cloud Object Storage bucket is a service api key only. Auto rotation of the standard api setup is not supported. Permissions for creating Service IDs are higher due to the need to create service authorizations. The tables have columns for `Role (Service IDs)` and `Role (Standard api key)` which highlight the different access requirements for for setting up Service IDs as opposed to creating a standard api key.
 
-### Admistrator role for full deployment
+### Administrator role for full deployment
 {: #devsecops-alm-stack-admin-full}
 
 | Services | Resources | Role (Service IDs) | Role (Standard api key) |
@@ -71,7 +71,7 @@ The following tables outline the permissions required for an `administrator` to 
 | `Continuous Delivery` | `All` | `Administrator`| `Editor` |
 | `Container Registry ` | `All` | `Administrator` | `Editor` |
 | `Secrets Manager` | `All` | `Manager`, `Administrator` | `Manager`, `Administrator` |
-| `Cloud Object Storage` | `All`| `Manager`,`Administrator` | `Manager`,`Editor` |
+| `Cloud Object Storage` | `All`| `Manager`,`Administrator` | `Manager`,`Administrator` |
 | `Code Engine` or `Kubernetes Service` | `All` | `Administrator` | `Editor` |
 | `Event Notifications` | `All` | `Administrator` | `Editor` |
 | `User Managment` | `All` | `Administrator` | `Editor` |
@@ -81,9 +81,9 @@ The following tables outline the permissions required for an `administrator` to 
 | `Key Protect` | `All` | `Manager`, `Editor` | `Manager`, `Editor` |
 | `All Identity and Access enabled services` | `All` | `Reader` | `Reader` | 
 | `Resource Group` | `All` | `Administrator` | `Editor`|
+{: caption="Access permissions for creating all the resources " caption-side="top"}
 
-
-### Admnistrator role for deployment using an existing resource group
+### Administrator role for deployment using an existing resource group
 {: #devsecops-alm-stack-admin-rg}
 
 The name of the resource group for the purposes of this example is called `my-resource-group`
@@ -94,7 +94,7 @@ The name of the resource group for the purposes of this example is called `my-re
 | `Continuous Delivery` | scoped to`my-resource-group` resource group | `Administrator`| `Editor` |
 | `Container Registry ` | `All` | `Administrator` | `Manager` |
 | `Secrets Manager` | scoped to`my-resource-group` resource group | `Manager`, `Administrator` | `Manager`, `Administrator` |
-| `Cloud Object Storage` | scoped to`my-resource-group` resource group| `Manager`,`Administrator` | `Manager`,`Editor` |
+| `Cloud Object Storage` | scoped to`my-resource-group` resource group| `Manager`,`Administrator` | `Manager`,`Administrator` |
 | `Code Engine` or `Kubernetes Service` | scoped to`my-resource-group` resource group | `Administrator` | `Editor` |
 | `Event Notifications` | scoped to`my-resource-group` resource group | `Administrator` | `Editor` |
 | `User Managment` | `All` | `Administrator` | `Editor` |
@@ -103,7 +103,7 @@ The name of the resource group for the purposes of this example is called `my-re
 | `Security and Compliance Center` | scoped to`my-resource-group` resource group | `Manager`, `Administrator` | `Manager`, `Editor` |
 | `Key Protect` | scoped to`my-resource-group` resource group | `Manager`, `Editor` | `Manager`, `Editor` |
 | `Resource Group` | scoped to`my-resource-group` resource group | `Administrator` | `Editor`|
-
+{: caption="Access permissions for the resources with an existing resource group" caption-side="top"}
  
 ## Deploying the DevSecOps Solution for Apps stack
 {: #devsecops-alm-stack-desc}
@@ -163,9 +163,9 @@ As the administrator, you can optionally deploy the resources to an existing res
 1. Click on **Validate and deploy**  The deployment will begin after the validation has completed.
 
 
+
 ## Required input variables
 {: #devsecops-alm-min}
-
 
 | Name | Description | Type | Default |
 |------|-------------|------|---------|
@@ -173,6 +173,7 @@ As the administrator, you can optionally deploy the resources to an existing res
 | `en-region` | The region in which the Events Notification instance is provisioned.| `string` | `us-south` |
 | `scc-region` | The region in which the Security and Compliance Center instance is provisioned.| `string` | `us-south` |
 | `app_repo_existing_url` | Bring your own existing application repository by providing the URL. This will create an integration for your application repository instead of cloning the default sample. Repositories existing in a different org will require the use of Git token. See app_repo_git_token_secret_name under optional variables.| `string` | `` |
+{: caption="Required input variables" caption-side="top"}
 
 ## Required for service ID creation and operations
 {: #devsecops-alm-stack-service-id}
@@ -187,6 +188,7 @@ The variable `force_create_standard_api_key` determines whether a standard api k
 | `repo_git_token_secret_name` | The name for the Git Token secret in Secrets Manager.| `string` | `` |
 | `repo_git_token_secret_value` | The value of the Git Token secret that is created if create_git_token is set to true.| `string` | `` |
 | `force_create_standard_api_key` | Setting to `true` will instead create a standard apikey and access is scoped to the access group that the user has been assigned.| `boolean` | `false` |
+{: caption="Required input variables provisioning Service IDs" caption-side="top"}
 
 
 
@@ -198,6 +200,7 @@ The variable `force_create_standard_api_key` determines whether a standard api k
 | `project_ci_name` | The name of the IBM Cloud Code Engine CI project.| `string` | `CI_Project` |
 | `project_cd_name` | The name of the IBM Cloud Code Engine CD project.| `string` | `CD_Project` |
 | `app_repo_branch` | This is the repository branch used by the default sample application. Alternatively if app_repo_existing_url is provided, then the branch must reflect the default branch for that repository. Typically these branches are main or master.| `string` | `master` |
+{: caption="Code Engine setup inputs" caption-side="top"}
 
 ## Optional Kubernetes specific input variables 
 {: #devsecops-alm-min-kube}
@@ -211,6 +214,7 @@ The variable `force_create_standard_api_key` determines whether a standard api k
 | `cd_cluster_name` | The name of production cluster| `string` | `""` |
 | `cd_cluster_namespace` | The name of production cluster namespace.| `string` | `prod` |
 | `app_repo_branch` | This is the repository branch used by the default sample application. Alternatively if app_repo_existing_url is provided, then the branch must reflect the default branch for that repository. Typically these branches are main or master.| `string` | `main` |
+{: caption="Kubernetes setup inputs" caption-side="top"}
 
 ## Optional common input variables
 {: #devsecops-alm-min-opt}
@@ -263,8 +267,55 @@ The variable `force_create_standard_api_key` determines whether a standard api k
 | `privateworker_secret_value` | The private worker service api key that will be added to the `privateworker_credentials_secret_name` secret in the secrets provider.| `password` | `""` |
 | `toolchain_access_group_name` | The name of the DevSecOps access group that is created.| `string` | `"devsecops-toolchain"` |
 | `use_legacy_ref` | Set to `true` to use the legacy secret reference format for Secrets Manager secrets.| `boolean` | `true` |
+{: caption="Optional inputs" caption-side="top"}
 
+## Permissions for toolchain operations
+There are two scenarios supported for this and the steps for both cases are outlined below.
+- The toolchains are operated by a service api key for accessing the Cloud Object Storage bucket, a service api for the running of the pipelines and an access group providing permissions for the developers/users. A Git token is also required for access to the repositories.
 
+- The toolchains are operated by a service api key for accessing the Cloud Object Storage bucket and an access group(s) for the api key for pipeline operations and developer/user access. A Git token can optionally be used to configure the repository access.
+
+### Cloud Object Storage service api key (cos-api-key)
+This key gets created in both the Service ID and standard api key setups
+
+| Service | Resources | Role | Note |
+|------|-------------|------|--------|
+| `Cloud Object Storage` | 1). Resource instance should be set to the Cloud Object Storage instance ID (not the CRN). 2) The resource type should be set to “bucket”. 3) The resource should be set to the name of the bucket. | `Object Reader`, `Writer` | The permissions for bucket access require these specific permissions and roles |
+{: caption="Cloud Object Stroage bucket permissions" caption-side="top"}
+
+### Service ID and service api key (ibmcloud-api-key)
+This key gets created in the Service ID set up with `force_create_standard_api_key` set to `false`
+
+| Service | Resources | Role | Note |
+|------|-------------|------|--------|
+| `Container Registry` | All | `Manager` | If the namespace already exists the permissions can be reduced to `Reader` and `Writer` and scoped to a resource group |
+| `Toolchain` | Scoped to “dev-team-rg” resource group | `Editor` | |
+| `Resource group` | Scoped to “dev-team-rg” resource group | `Editor` | |
+| `Code Engine` | Scoped to “dev-team-rg” resource group | `Manager`, `Editor` | |
+| Or `Kubernetes Service` | Scoped to “dev-team-rg” resource group | `Manager`, `Editor`| |
+{: caption="Service api key permissions for ibmcloud-api-key" caption-side="top"}
+
+### Access group
+The created access group provides broader access than required as it provides access both to developers and an api key in the standard api key setup with `force_create_standard_api_key` set to `true`. And it is to allow for testing of the various components.
+| Service | Resources | Role | Note |
+|------|-------------|------|--------|
+| `Container Registry` | All | `Manager` | If the namespace already exists the permissions can be reduced to `Reader` and `Writer` and scoped to a resource group |
+| `Toolchain` | Scoped to “dev-team-rg” resource group | `Editor` | |
+| `Resource group` | Scoped to “dev-team-rg” resource group | `Editor` | |
+| `Secrets Manager` | Airgapped-StackALM resource group | `Manager` ||
+| `Code Engine` | Scoped to “dev-team-rg” resource group | `Manager`, `Editor` | |
+| Or `Kubernetes Service` | Scoped to “dev-team-rg” resource group | `Manager`, `Editor`| |
+{: caption="Standard api key permissions for ibmcloud-api-key" caption-side="top"}
+
+### Restricted access group
+Using a service api key for running the pipelines allows the developer access to be further reduced. The stack does not create this version of the access group.
+
+| Service | Resources | Role | Note |
+|------|-------------|------|--------|
+| `Toolchain` | Scoped to “dev-team-rg” resource group | `View`, `PipelineRunner` | Changing `PipelineRunner` to `Operator` would allow develops to modify the toolchain settings |
+| `Resource group` | Scoped to “dev-team-rg” resource group | `Viewer` | |
+| `Secrets Manager` | Airgapped-StackALM resource group | `Reader` ||
+{: caption="Restricted access group" caption-side="top"}
 
 ## Create an {{site.data.keyword.cloud}} API key with permissions to create the deployable achitecture
 {: #devsecops-alm-acc}
