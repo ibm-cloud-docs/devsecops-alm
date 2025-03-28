@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-04-28"
+lastupdated: "2025-03-27"
 
 keywords: devsecops-alm, deployment guide, deployable architecture
 
@@ -15,7 +15,6 @@ subcollection: devsecops-alm
 # Overview of DevSecOps Application Lifecycle Management deployable architecture
 {: #devsecops-alm-overview}
 
-The DevSecOps Application Lifecycle Management Deployable Architecture creates a set of DevOps toolchains and pipelines. DevSecOps uses continuous delivery (CD) ({{site.data.keyword.gitrepos}}, Tekton Pipelines, {{site.data.keyword.DRA_full}}, and Code Risk Analyzer), Secrets Manager, {{site.data.keyword.keymanagementservicelong}}, {{site.data.keyword.cos_full}}, {{site.data.keyword.registrylong}}, and Vulnerability Advisor. 
-{: shortdesc}
+The DevSecOps Application Lifecycle Management Deployable Architecture provides tools to securely deploy application code using DevSecOps pipelines. Out of the box, these pipelines use popular scanning tools such as SonarQube, Gosec, OWASP Zap (dynamic scan), any unit test framework, and GPG for image signing. 
 
 To learn more about integrating security practices through DevSecOps with {{site.data.keyword.contdelivery_short}}, check out the [DevSecOps product guide](/docs/devsecops). 

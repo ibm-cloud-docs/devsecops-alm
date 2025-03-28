@@ -2,7 +2,7 @@
 
 copyright:
   years: 2024
-lastupdated: "2024-03-25"
+lastupdated: "2025-03-27"
 
 keywords: devsecops-alm, deployment guide, deployable architecture
 
@@ -45,16 +45,16 @@ If you are using the Code Engine variation of the DevSecOps Application Lifestyl
 
 For more information, see [Getting started with Container Registry](/docs/Registry?topic=Registry-getting-started).
 
-## Create a GPG signing key
+## Create a GPG signing key and a GPG public key
 {: #devsecops-alm-signkey}
 
 Create an image signing key with the proper encoding to sign your application Docker images.
 
-This key is required for the CI pipeline. The default secret name entry is `signing_key`. For more information, see [Generating a GPG key](/docs/devsecops?topic=devsecops-devsecops-image-signing).
+This key is required for the CI pipeline. The default secret name entry is `signing-key`. For more information, see [Generating a GPG key](/docs/devsecops?topic=devsecops-devsecops-image-signing).
 
-## Create a GPG public key
+The public key can be created using an existing GPG private key. It is required for the artifact signature validation step as part of the CD pipeline run. This can be generated during a CI pipeline run by adding the `print-code-signing-certificate` property and setting the value to `1`. The public key cert will be displayed in the logs of the CI pipeline run under the `build-artifact` step. The output should then be stored in a secrets provider. This is set by default from version `1.1.0`. For more information, see [Generating a GPG public key](/docs/devsecops?topic=devsecops-devsecops-publickey).
 
-This can be created using an existing GPG private key. It is required for the artifact signature validation step as part of the CD pipeline run. Alternatively this can be generated during a CI pipeline run by adding the `print-code-signing-certificate` property and setting the value to `1`. The output should then be stored in a secrets provider. This is set by default from version `1.1.0`. For more information, see [Generating a GPG public key](/docs/devsecops?topic=devsecops-devsecops-publickey).
+Alterntively, the DevSecOps Application Lifecycle Management deployable architecture can auto generate these keys. For more information, refer to [Update](/docs/devsecops-alm?topic=devsecops-alm-release-notesdevsecops-alm-nov2024) and [Variables](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars).
 
 ## Create an {{site.data.keyword.cloud_notm}} API key
 {: #devsecops-alm-apikey}
