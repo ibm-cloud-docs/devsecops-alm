@@ -235,8 +235,6 @@ The variable `force_create_standard_api_key` determines whether a standard api k
 | `existing_secrets_manager_crn` | The CRN of an existing Secrets Manager instance| `string` | `""` |
 | `force_create_standard_api_key` | Setting to `true` will instead create a standard apikey and access is scoped to the access group that the user has been assigned.| `boolean` | `false` |
 | `ibmcloud_api` | The environment URL. When left unset this will default to `https://cloud.ibm.com`| `string` | `""` |
-
-
 | `create_git_token` | Set to true to create a Git Token secret in the speficied Secrets Manager, using the name set in repo_git_token_secret_name and the value set in repo_git_token_secret_value.| `boolean` | `false` |
 | `repo_apply_settings_to_compliance_repos` | Set to `true` to apply the same settings to all the default compliance repositories. Set to `false` to apply these settings to only the sample application, pipeline config and the deployment repositories.| `boolean`| `false` |
 | `repo_git_token_secret_name` | The name for the Git Token secret in Secrets Manager.| `string` | `` |
