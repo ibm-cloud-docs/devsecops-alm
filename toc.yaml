@@ -31,7 +31,8 @@ toc:
       topics:
       - devsecops-alm-terraform-script-prereqs.md
       - devsecops-alm-toolchain-operations-prereqs.md
-      - devsecops-alm-stack-prereqs.md
+      - devsecops-alm-stack-prereqs.md  
+      - devsecops-alm-firewalled-environment-prereqs.md
   - navgroup:
       id: deploy
       topics:
@@ -41,6 +42,8 @@ toc:
         navtitle: Deploy by using the CLI
       - topic: devsecops-alm-dep-schematics.md
         navtitle: Deploy with Schematics
+      - topic: devsecops-alm-deploy-apps-stack.md
+        navtitle: Deploy for Apps stack
   - navgroup:
       id: howto
       topics:
