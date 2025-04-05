@@ -46,7 +46,7 @@ For more information, see [Using an API key with {{site.data.keyword.secrets-man
 
 - Optional: Install the {{site.data.keyword.cloud_notm}} CLI project plug-in by running the `ibmcloud plugin install project` command. For more information, see the [Project CLI reference](/docs/cli?topic=cli-projects-cli).
 
-- Optional: Familiarize yourself with the [Customization options]({[link]}-customize-css).
+- Optional: Familiarize yourself with the [Customization options](/docs/devsecops?topic=devsecops-cd-devsecops-basics-pipelines-customization).
 
 You might see notifications in {{site.data.keyword.cloud_notm}} projects that new versions of a configuration are available. You can ignore these messages because they do not prevent you from deploying the stack. No specific action is required from you. These notifications are expected, as we are rapidly iterating on the development of the underlying components. As new stack versions become available, the versions of the underlying components are also updated.
 {: tip}
@@ -120,7 +120,6 @@ The name of the resource group for the purposes of the example is named `my-reso
 | `Resource Group` | scoped to`my-resource-group` resource group | `Administrator` | `Editor`|
 {: caption="Access permissions for the resources with an existing resource group" caption-side="top"}
  
-
  ## What's Next?
  {: #devsecops-alm-stack-whatnext}
 

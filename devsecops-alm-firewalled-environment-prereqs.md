@@ -2,7 +2,7 @@
 
 copyright:
   years: 2025, 2025
-lastupdated: "2025-04-04"
+lastupdated: "2025-04-05"
 
 keywords: devsecops alm, deployment guide, deployable architecture
 
@@ -47,8 +47,8 @@ You need to secure the environment by using IAM, secrets manager, API keys, or e
 
 The firewall must enable network connectivity between the customer environment and {{site.data.keyword.cloud_notm}} endpoints. For more information about {{site.data.keyword.cloud_notm}} access endpoints, see [{{site.data.keyword.cloud_notm}} endpoints](https://cloud.ibm.com/docs/devsecops?topic=devsecops-cd-devsecops-pipeline-hosts).
 
-## Listing the Scenarios
-{{: #devsecops-alm-scenarios}}
+## Use Case Scenarios and application contexts
+{: #devsecops-alm-scenarios}
 
 - [Scenario 1: Fully Air Gapped prerequisites](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-firewall-req#devsecops-alm-firewall-scenario1-prereq)
 - [Scenario 1: Fully Air Gapped configuration](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-firewall-req#devsecops-alm-firewall-scenario1-config)

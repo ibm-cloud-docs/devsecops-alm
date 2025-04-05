@@ -78,7 +78,13 @@ As the administrator, you can optionally deploy the resources to an existing res
 5. Click **Options** or **Kebab** menu of the stack configuration to expand.
 6. Click **Validate and deploy** to begin the validation and start the deployment.
 
-## Required input variables
+## Input variables for service configuration and deployment
+{: #devsecops-alm-deploy-stack-input-variables}
+
+The input variables for service configuration and deployment include both required and optional values that guide how services are set up and managed. This covers essential variables for service ID creation and operations, along with optional inputs customized for {{site.data.keyword.codeengineshort}}, {{site.data.keyword.containershort}}, and commonly shared configurations.
+{: shortdesc}
+
+### Required input variables
 {: #devsecops-alm-deploy-stack-min}
 
 To ensure a smooth deployment, you need to define the required input variables that guide the configuration.
@@ -91,7 +97,7 @@ To ensure a smooth deployment, you need to define the required input variables t
 | `app_repo_existing_url` | Bring your own existing application repository by providing the URL. It creates an integration for your application repository instead of cloning the default sample. Repositories existing in a different organization requires the use of the Git token. See `app_repo_git_token_secret_name` optional variables. | `string` | `` |
 {: caption="Required input variables" caption-side="top"}
 
-## Required for service ID creation and operations
+### Required for service ID creation and operations
 {: #devsecops-alm-deploy-stack-service-id}
 
 The creation of service IDs and their associated service API keys requires a Git token to set for successful pipeline operations. The tables provided details of the variable.
@@ -107,7 +113,7 @@ The variable `force_create_standard_api_key` determines whether a standard API k
 | `force_create_standard_api_key` | Setting to `true` creates a standard API key and access is scoped to the access group that the user is assigned. | `boolean` | `false` |
 {: caption="Required input variables provisioning Service IDs" caption-side="top"}
 
-## Optional {{site.data.keyword.codeengineshort}} specific input variables 
+### Optional {{site.data.keyword.codeengineshort}} specific input variables 
 {: #devsecops-alm-deploy-stack-min-ce}
 
 | Name | Description | Type | Default |
@@ -117,7 +123,7 @@ The variable `force_create_standard_api_key` determines whether a standard API k
 | `app_repo_branch` | This is the repository branch that is used by the default sample application. Alternatively if app_repo_existing_url is provided, then the branch must reflect the default branch for that repository. Typically these branches are main or master.| `string` | `master` |
 {: caption="{{site.data.keyword.codeenginefull_notm}} setup inputs" caption-side="top"}
 
-## Optional Kubernetes specific input variables 
+### Optional Kubernetes specific input variables 
 {: #devsecops-alm-deploy-stack-min-kube}
 
 | Name | Description | Type | Default |
@@ -131,7 +137,7 @@ The variable `force_create_standard_api_key` determines whether a standard API k
 | `app_repo_branch` | The repository branch used by the default sample application. Alternatively, if `app_repo_existing_url` is provided, then the branch must reflect the default branch for that repository. Typically these branches are `main` or `master`.| `string` | `main` |
 {: caption="Kubernetes setup inputs" caption-side="top"}
 
-## Optional common input variables
+### Optional common input variables
 {: #devsecops-alm-deploy-stack-min-opt}
 
 | Name | Description | Type | Default |

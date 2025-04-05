@@ -22,6 +22,16 @@ Use these release notes to learn about the latest updates to the DevSecOps Appli
 
 To find the release notes for the DevSecOps compliance pipeline definitions that are used by this architecture, see [Release notes for DevSecOps](/docs/devsecops?topic=devsecops-release-notes).
 
+## 04 April 2025
+{: #devsecops-alm-april2025}
+{: release-note}
+
+Deploying DevSecOps toolchains in a firewalled environment
+:   DevSecOps Application Lifecycle Management supports deploying [DevSecOps toolchains in a firewalled environment](https://test.cloud.ibm.com/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-firewall-req).
+
+Deploying DevSecOps Solution for Apps Stack
+:   DevSecOps Application Lifecycle Management [preparing](https://test.cloud.ibm.com/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-stack-req) and [deploying](https://test.cloud.ibm.com/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-deploy-stack-req) the DevSecOps Solutions for Apps Stack.
+
 ## 24 March 2025
 {: #devsecops-alm-march2025}
 {: release-note}
@@ -41,6 +51,7 @@ As before the following variables are used to configure an air gapped setup.
 Note: `repo_blind_connection` is now a bool as opposed to a string type previously.
 
 Three types of configurations are supported:
+
 1) Fully air gapped. All repositories are configured with a blind connection. 
 To configure all the default repositories with air gap support, the following variables must be set. Set `compliance_pipeline_repo_use_group_settings` to `true`, `repo_apply_settings_to_compliance_repos` to `true` and `create_git_triggers` to `false`. See the variable descriptions for more details. 
 
