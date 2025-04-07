@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-09-29"
+lastupdated: "2025-03-27"
 
 keywords:
 
@@ -68,15 +68,15 @@ To deploy DevSecOps Application Lifecycle Management toolchains by using Schemat
 
     | Required value | Action | Example |
     |---|---|---|
-    | `toolchain_name` | Enter the prefix name for the toolchain. The toolchain name is appended with `CI Toolchain`, `CD Toolchain`, or `CC Toolchain` followed by a timestamp. | `DevSecOps` |
+    | `toolchain_name` | This variable specifies the root name for the CI, CD and CC toolchain names. A fixed suffix will automatically be appended. Setting `DevSecOps` will generate toolchains with the names `DevSecOps-CI-Toolchain`,  `DevSecOps-CD-Toolchain` and `DevSecOps-CC-Toolchain`. The full name of each toolchain can be set independently using `ci_toolchain_name`, `cd_toolchain_name`, and `cc_toolchain_name`. | `DevSecOps` |
     | `toolchain_region` | Enter the region identifier that is used, by default, for all resource creation and service instance lookup. | `us-south` |
     | `toolchain_resource_group` | Enter the resource group that is used, by default, for all resource creation and service instance lookups. If you have more than one resource group in your account, choose a group. If not, you can use the default. | `Default` |
-    | `registry_namespace` | Enter the namespace of the registry within the IBM Cloud Container Registry region where the application image is stored. Namespaces need to be unique in the region that you selected. |`my-registry-namespace` |
-    | `cluster_name` | Enter the name of the Kubernetes cluster that you already created. The assumption is that it is in the resource group you selected. You can modify this in Advanced options. | `mycluster_free` |
-    | `sm_location` | Enter the region location of the Secrets Manager instance that you previously set up. | `us-south` |
-    | `sm_name` | Enter the name of the Secrets Manager instance that you previously set up. | `sm-instance`|
-    | `sm_resource_group`| Enter the resource group that contains the Secrets Manager instance that you previously set up. | `Default` |
-    | `sm_secret_group` | Enter the group in Secrets Manager instance that you previously set up for organizing or grouping secrets.| `Default` |
+    | `registry_namespace` | A unique namespace within the IBM Cloud Container Registry region where the application image is stored.|`my-registry-namespace` |
+    | `cluster_name` | Name of the Kubernetes cluster where the application is deployed. This sets the same cluster name for both CI and CD toolchains. See `ci_cluster_name` and `cd_cluster_name` to set different cluster names. By default , the cluster namespace for CI will be set to `dev` and CD to `prod`. These can be changed using `ci_cluster_namespace` and `cd_cluster_namespace`. | `mycluster_free` |
+    | `sm_location` | The region hosting the Secrets Manager instance. This applies to the CI, CD and CC Secret Manager integrations. | `us-south` |
+    | `sm_name` | The name of an existing Secret Managers instance. This applies to the CI, CD and CC Secret Manager integrations. | `sm-instance`|
+    | `sm_resource_group`| The name of the existing resource group containing the Secrets Manager instance for your secrets. This applies to the CI, CD and CC Secret Manager integrations. | `Default` |
+    | `sm_secret_group` | The Secrets Manager secret group containing the secrets for the DevSecOps pipelines. | `Default` |
     {: caption="List of required values for deployment" caption-side="bottom"}
 
     For more information, see [Required input variables](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars#devsecops-alm-min).

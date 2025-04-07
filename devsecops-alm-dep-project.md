@@ -2,7 +2,7 @@
 
 copyright:
   years: 2023
-lastupdated: "2023-11-30"
+lastupdated: "2025-03-27"
 
 keywords:
 
@@ -49,7 +49,7 @@ You are now ready to configure the security, required variables, and optional va
 1. In the **Configure** section, select your authentication method. You can use an existing secret in {{site.data.keyword.secrets-manager_short}} or add your API key directly. For more information, see [Using an API key or secret to authorize a project to deploy an architecture](/docs/secure-enterprise?topic=secure-enterprise-authorize-project).
 1. In the **Required** tab, enter values for required fields. In many cases, you can use the default option. For more information about required fields, see [Required input variables](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars#devsecops-alm-min).
 
-    | Required value | Action | Example |
+    | Name | Description | Value |
     |---|---|---|
     | `toolchain_name` | Enter the prefix name for the toolchain. The toolchain name is appended with `CI Toolchain`, `CD Toolchain`, or `CC Toolchain` followed by a timestamp. | `DevSecOps` |
     | `toolchain_region` | Enter the region identifier that is used, by default, for all resource creation and service instance lookup. | `us-south` |
@@ -60,32 +60,36 @@ You are now ready to configure the security, required variables, and optional va
     | `sm_name` | Enter the name of the Secrets Manager instance that you previously set up. | `sm-instance`|
     | `sm_resource_group`| Enter the resource group that contains the Secrets Manager instance that you previously set up. | `Default` |
     | `sm_secret_group` | Enter the group in Secrets Manager instance that you previously set up for organizing or grouping secrets.| `Default` |
-    {: class="simple-tab-table"}
-    {: caption="List of required values for deployment" caption-side="bottom"}
-    {: #simpletabtable1}
-    {: tab-title="Kubernetes values"}
-    {: tab-group="deployment-values"}
+    | `cc_pipeline_properties` | This JSON represents the pipeline properties belonging to the CC pipeline in the CC toolchain. Each element in the JSON represents a seperate pipeline property. Three attributes are required to create a property. These are the name field (how the name appears in the pipeline properties), the type (text, secure and enum) and then the value. Do not put secrets directly into JSON for the secure type, instead the value for a secret type should be a CRN to a secret in the configured secrets provider or a secret reference to a secret in the configured secrets provider.| (too big to list) |
+    | `cd_pipeline_properties` | This JSON represents the pipeline properties belonging to the CD pipeline in the CD toolchain. Each element in the JSON represents a seperate pipeline property. Three attributes are required to create a property. These are the name field (how the name appears in the pipeline properties), the type (text, secure and enum) and then the value. Do not put secrets directly into JSON for the secure type, instead the value for a secret type should be a CRN to a secret in the configured secrets provider or a secret reference to a secret in the configured secrets provider.| (too big to list) |
+    | `ci_pipeline_properties` | This JSON represents the pipeline properties belonging to the both the CI and PR pipelines in the CI toolchain. Each element in the JSON represents a seperate pipeline property. Three attributes are required to create a property. These are the name field (how the name appears in the pipeline properties), the type (text, secure and enum) and then the value. Do not put secrets directly into JSON for the secure type, instead the value for a secret type should be a CRN to a secret in the configured secrets provider or a secret reference to a secret in the configured secrets provider.| (too big to list) |
+    | `app_repo_branch` | This is the repository branch used by the default sample application. Alternatively if `app_repo_existing_url` is provided, then the branch must reflect the default branch for that repository. Typically these branches are main or master.| `master` |
+    | `app_repo_existing_url` | Bring your own existing application repository by providing the URL. This will create an integration for your application repository instead of cloning the default sample. Repositories existing in a different org will require the use of Git token. See app_repo_git_token_secret_name under optional variables.| `__NOTSET__` |
+    
 
-    | Required value | Action | Example |
+    | Name | Description | Value |
     |---|---|---|
     | `toolchain_name` | Enter the prefix name for the toolchain. The toolchain name is appended with `CI Toolchain`, `CD Toolchain`, or `CC Toolchain` followed by a timestamp. | `DevSecOps` |
     | `toolchain_region` | Enter the region identifier that is used, by default, for all resource creation and service instance lookup. | `us-south` |
     | `toolchain_resource_group` | Enter the resource group that is used, by default, for all resource creation and service instance lookups. If you have more than one resource group in your account, choose a group. If not, you can use the default. | `Default` |
     | `registry_namespace` | Enter the namespace of the registry within the {{site.data.keyword.cloud_notm}} Container Registry region where the application image is stored. Namespaces need to be unique in the region that you selected. |`myregistry_free` |
-    | `ci_code_engine_project` | The name of the Code Engine project to use for the CI pipeline build. The project is created if it does not already exist. | `Sample_CI_Project` |
-    | `cd_code_engine_project` | The name of the Code Engine project to use for the CD pipeline promoted code. The project is created if it does not already exist.| `Sample_CD_Project` |
+    | `ci_code_engine_project` | The name of the Code Engine project to use for the CI pipeline promoted code. The project is created if it does not already exist. |`Sample_CI_Project` |
+    | `cd_code_engine_project` | The name of the Code Engine project to use for the CD pipeline promoted code. The project is created if it does not already exist. |`Sample_CD_Project` |
+    | `registry_namespace` | Enter the namespace of the registry within the {{site.data.keyword.cloud_notm}} Container Registry region where the application image is stored. Namespaces need to be unique in the region that you selected. |`myregistry_free` |
     | `sm_location` | Enter the region location of the Secrets Manager instance that you previously set up. | `us-south` |
     | `sm_name` | Enter the name of the Secrets Manager instance that you previously set up. | `sm-instance`|
     | `sm_resource_group`| Enter the resource group that contains the Secrets Manager instance that you previously set up. | `Default` |
     | `sm_secret_group` | Enter the group in Secrets Manager instance that you previously set up for organizing or grouping secrets.| `Default` |
-    {: class="simple-tab-table"}
-    {: caption="List of required values for deployment" caption-side="bottom"}
-    {: #simpletabtable1}
-    {: tab-title="Code Engine values"}
-    {: tab-group="deployment-values"}
+    | `cc_pipeline_properties` | This JSON represents the pipeline properties belonging to the CC pipeline in the CC toolchain. Each element in the JSON represents a seperate pipeline property. Three attributes are required to create a property. These are the name field (how the name appears in the pipeline properties), the type (text, secure and enum) and then the value. Do not put secrets directly into JSON for the secure type, instead the value for a secret type should be a CRN to a secret in the configured secrets provider or a secret reference to a secret in the configured secrets provider.| (too big to list) |
+    | `cd_pipeline_properties` | This JSON represents the pipeline properties belonging to the CD pipeline in the CD toolchain. Each element in the JSON represents a seperate pipeline property. Three attributes are required to create a property. These are the name field (how the name appears in the pipeline properties), the type (text, secure and enum) and then the value. Do not put secrets directly into JSON for the secure type, instead the value for a secret type should be a CRN to a secret in the configured secrets provider or a secret reference to a secret in the configured secrets provider.| (too big to list) |
+    | `ci_pipeline_properties` | This JSON represents the pipeline properties belonging to the both the CI and PR pipelines in the CI toolchain. Each element in the JSON represents a seperate pipeline property. Three attributes are required to create a property. These are the name field (how the name appears in the pipeline properties), the type (text, secure and enum) and then the value. Do not put secrets directly into JSON for the secure type, instead the value for a secret type should be a CRN to a secret in the configured secrets provider or a secret reference to a secret in the configured secrets provider.| (too big to list) |
+    | `app_repo_branch` | This is the repository branch used by the default sample application. Alternatively if `app_repo_existing_url` is provided, then the branch must reflect the default branch for that repository. Typically these branches are main or master.| `main` |
+    | `app_repo_existing_url` | Bring your own existing application repository by providing the URL. This will create an integration for your application repository instead of cloning the default sample. Repositories existing in a different org will require the use of Git token. See app_repo_git_token_secret_name under optional variables.| `__NOTSET__` |
+   
 
 1.  Optional: Specify other values from the **Optional** tab. For more information about optional values, see [Optional input variables](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-vars#devsecops-alm-opt).
 1.  Click **Save**.
+
 
 ## Validating and deploying the deployable architecture
 {: #devsecops-alm-validate}
@@ -94,10 +98,6 @@ You are now ready to configure the security, required variables, and optional va
 Now that you saved the configuration, you can validate and deploy the deployable architecture.
 
 1. Click **Validate** and wait for validation to complete. Validation takes a few minutes.
-
-    {{site.data.keyword.cloud_notm}} projects run a Code Risk Analyzer scan that includes a set of [{{site.data.keyword.compliance_short}} goals](/docs/code-risk-analyzer-cli-plugin?topic=code-risk-analyzer-cli-plugin-cra-cli-plugin#terraform-scc-goals). Controls that are part of the deployable architecture and supported by {{site.data.keyword.cloud_notm}} projects are checked. Any extra controls that are not included in the list of supported {{site.data.keyword.compliance_short}} goals are not checked when you validate the configuration.
-
-    If the validation fails because of the Code Risk Analyzer scan, you can [troubleshoot the failure](/docs/secure-enterprise?topic=secure-enterprise-ts-na-failures#na-checks-fail).
 
 1. Click **Deploy** after the validation succeeds. Deployment can take more than an hour. You are notified when the deployment is successful.
 
