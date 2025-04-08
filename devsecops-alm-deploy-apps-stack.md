@@ -12,7 +12,7 @@ subcollection: devsecops-alm
 
 {{site.data.keyword.attribute-definition-list}}
 
-# Deploying the DevSecOps Solution for Apps Stack
+# Deploying the DevSecOps Solution with Apps Stack
 {: #devsecops-alm-deploy-stack-req}
 
 Deploying a DevSecOps solution for an Apps stack involves embedding automated security controls, continuous monitoring, and compliance checks into the Continuous Integration (CI) or Continuous Deployment (CD) pipeline. The stack is presented in a manner such that only a few variables are required to deploy everything.
