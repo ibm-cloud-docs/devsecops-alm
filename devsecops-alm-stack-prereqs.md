@@ -2,9 +2,7 @@
 
 copyright:
   years: 2025
-
 lastupdated: "2025-03-24"
-
 
 keywords: devsecops-alm, deployment guide, deployable architecture
 
@@ -28,7 +26,6 @@ By using this architecture, you can customize deployments to meet your unique bu
 
 ## Before you deploy
 {: #before-deploy-prereq}
-
 
 The following prerequisites must be completed before you deploy the DevSecOps Solution for Apps Stack.
 
@@ -127,5 +124,4 @@ The name of the resource group for the purposes of the example is named `my-reso
  {: #devsecops-alm-stack-whatnext}
 
  Now that you successfully completed the prerequisties to deploy the DevSecOps Solution for Apps Stack, you can now [Deploy the DevSecOps Solution for Apps Stack](
- https://test.cloud.ibm.com/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-deploy-stack-req).
-
+ /docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-deploy-stack-req).

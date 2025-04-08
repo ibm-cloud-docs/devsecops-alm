@@ -27,10 +27,10 @@ To find the release notes for the DevSecOps compliance pipeline definitions that
 {: release-note}
 
 Deploying DevSecOps toolchains in a firewalled environment
-:   DevSecOps Application Lifecycle Management supports deploying [DevSecOps toolchains in a firewalled environment](https://test.cloud.ibm.com/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-firewall-req).
+:   DevSecOps Application Lifecycle Management supports deploying [DevSecOps toolchains in a firewalled environment](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-firewall-req).
 
 Deploying DevSecOps Solution for Apps Stack
-:   DevSecOps Application Lifecycle Management [preparing](https://test.cloud.ibm.com/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-stack-req) and [deploying](https://test.cloud.ibm.com/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-deploy-stack-req) the DevSecOps Solutions for Apps Stack.
+:   DevSecOps Application Lifecycle Management [preparing](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-stack-req) and [deploying](/docs/devsecops-alm?topic=devsecops-alm-devsecops-alm-deploy-stack-req) the DevSecOps Solutions for Apps Stack.
 
 ## 24 March 2025
 {: #devsecops-alm-march2025}
